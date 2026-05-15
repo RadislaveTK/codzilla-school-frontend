@@ -1,0 +1,98 @@
+import { TextField, Box, Button } from "@mui/material";
+import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function validatePassword(password) {
+    return password.length >= 8;
+}
+
+export default function LoginForm({ onSuccess }) {
+  const { login } = useAuth();
+  const [values, setValues] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [serverError, setServerError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const validateForm = () => {
+    const nextErrors = { email: "", password: "" };
+
+    if (!values.email) {
+      nextErrors.email = "Email обязателен";
+    } else if (!validateEmail(values.email)) {
+      nextErrors.email = "Некорректный email";
+    }
+
+    if (!values.password) {
+      nextErrors.password = "Пароль обязателен";
+    } else if (!validatePassword(values.password)) {
+      nextErrors.password = "Пароль должен быть не менее 8 символов";
+    }
+
+    setErrors(nextErrors);
+    return !nextErrors.email && !nextErrors.password;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setServerError("");
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await login({ email: values.email, password: values.password });
+      if (typeof onSuccess === "function") {
+        onSuccess();
+      }
+    } catch (error) {
+      const message =
+        error?.errors?.email?.[0] || error?.message || "Ошибка входа. Проверьте данные и попробуйте снова.";
+      setServerError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Box component="form" onSubmit={handleSubmit} autoComplete="off" sx={{ display: "grid", gap: 2 }}>
+      <TextField
+        label="Email"
+        type="email"
+        name="email"
+        value={values.email}
+        onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+        placeholder="example@mail.com"
+        error={!!errors.email}
+        helperText={errors.email}
+        fullWidth
+      />
+      <TextField
+        label="Пароль"
+        type="password"
+        name="password"
+        value={values.password}
+        onChange={(event) => setValues((prev) => ({ ...prev, password: event.target.value }))}
+        placeholder="••••••••"
+        error={!!errors.password}
+        helperText={errors.password}
+        fullWidth
+      />
+
+      {serverError && (
+        <Box sx={{ color: "error.main", fontSize: 14, mt: -1 }}>{serverError}</Box>
+      )}
+
+      <Button type="submit" variant="contained" color="primary" disabled={loading} fullWidth>
+        {loading ? "Входим..." : "Войти"}
+      </Button>
+    </Box>
+  );
+}
