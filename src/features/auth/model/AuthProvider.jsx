@@ -1,9 +1,12 @@
 "use client";
 
 import { createContext, useCallback, useEffect, useState } from "react";
+import { setCookie, getCookie, deleteCookie } from "cookies-next";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://codzilla-school-backend.local";
+
+const COOKIE_NAME = "access_token";
 
 export const UserContext = createContext(null);
 
@@ -12,18 +15,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const clearSession = useCallback(() => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("codzilla_token");
-      localStorage.removeItem("codzilla_user");
-    }
+    deleteCookie(COOKIE_NAME, { path: "/" });
     setUser(null);
   }, []);
 
   const saveSession = useCallback((userData, token) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("codzilla_token", token);
-      localStorage.setItem("codzilla_user", JSON.stringify(userData));
-    }
+    setCookie(COOKIE_NAME, token, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "lax",
+    });
     setUser(userData);
   }, []);
 
@@ -79,10 +80,7 @@ export const AuthProvider = ({ children }) => {
   );
 
   const logout = useCallback(async () => {
-    const token =
-      typeof window !== "undefined"
-        ? localStorage.getItem("codzilla_token")
-        : null;
+    const token = getCookie(COOKIE_NAME);
     if (token) {
       try {
         await fetchJson(`${API_URL}/api/v1/auth/logout`, {
@@ -105,20 +103,11 @@ export const AuthProvider = ({ children }) => {
       return;
     }
 
-    const token = localStorage.getItem("codzilla_token");
-    const savedUser = localStorage.getItem("codzilla_user");
+    const token = getCookie(COOKIE_NAME);
 
     if (!token) {
       setLoading(false);
       return;
-    }
-
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch {
-        localStorage.removeItem("codzilla_user");
-      }
     }
 
     try {

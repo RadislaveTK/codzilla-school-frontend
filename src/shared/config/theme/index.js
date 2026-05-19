@@ -11,6 +11,9 @@ export const theme = createTheme({
     },
     blue: {
       main: "#00AAFF",
+    },
+    error: {
+      main: "#ea3323",
     }
   },
   typography: {

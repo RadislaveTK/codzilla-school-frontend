@@ -1,8 +1,12 @@
+import SelectList from "./SelectList";
+
+import {style} from "./SidebarStyle";
+
 export default function Sidebar() {
     return (
-        <div className="sidebar">
-            <h2>Личный кабинет</h2>
-            <p>Здесь будет навигация и другая полезная информация.</p>
+        <div className="sidebar" style={style.sidebar}>
+            <h2 style={style.title}>Личный кабинет</h2>
+            <SelectList />
         </div>
     );
 }
