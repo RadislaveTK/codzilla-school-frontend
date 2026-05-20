@@ -4,24 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import SelectIcon from "@/shared/assets/icons/selectIcon.svg";
+import useCourses from "@/hooks/useCourses";
 
 export default function CourseMenu() {
-  const [courses, setCourses] = useState([]);
+  const {courses} = useCourses();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
-
-  useEffect(() => {
-    async function getCourses() {
-      const res = await fetch(
-        "https://codzilla-school-backend.local/api/v1/public/courses",
-      );
-      const data = await res.json();
-      setCourses(data);
-    }
-
-    getCourses();
-  }, []);
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -76,7 +65,7 @@ export default function CourseMenu() {
           },
         }}
       >
-        {courses?.data?.slice(0, 4).map((course) => (
+        {courses?.slice(0, 4).map((course) => (
           <MenuItem
             key={course.id}
             onClick={handleClose}

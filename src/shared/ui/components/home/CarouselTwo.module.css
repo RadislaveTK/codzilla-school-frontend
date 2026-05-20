@@ -1,0 +1,91 @@
+/* CarouselTwo.module.css (полная версия) */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  /* overflow: hidden; */
+  height: 350px;
+}
+
+.swiper {
+  width: 100%;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 24px;
+}
+
+.slideCard {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.slideCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.slideCard:hover .slideImage {
+  transform: scale(1.02);
+}
+
+.slideImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Стилизация скроллбара Swiper */
+:global(.swiper-scrollbar) {
+  background: #F4F4F4 !important;
+  border-radius: 10px !important;
+  height: 8px !important;
+}
+
+:global(.swiper-scrollbar-drag) {
+  background: #00AAFF !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+}
+
+:global(.swiper-scrollbar-drag:hover) {
+  background: #0092db !important;
+}
+
+/* Адаптивные отступы */
+@media (min-width: 640px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
