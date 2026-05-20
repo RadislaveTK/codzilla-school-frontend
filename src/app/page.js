@@ -1,5 +1,3 @@
-import styles from "./page.module.css";
-
 import CourseBlockHome from "@/features/course/ui/CourseBlockHome/CourseBlockHome";
 import CarouselOne from "@/shared/ui/components/home/CarouselOne";
 import CarouselTwo from "@/shared/ui/components/home/CarouselTwo";

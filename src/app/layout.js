@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "../providers";
 import Header from "@/shared/ui/layout/header/Header";
 import AuthModal from "@/features/auth/ui/AuthModal";
+import Footer from "@/shared/ui/layout/footer/Footer";
 
 const exo2 = Exo_2({
   variable: "--font-exo-2",
@@ -30,7 +31,8 @@ export default function RootLayout({ children }) {
           <Header />
           {children}
           <AuthModal />
-          </Providers>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
