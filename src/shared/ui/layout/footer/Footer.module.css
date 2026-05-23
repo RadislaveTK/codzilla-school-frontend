@@ -1,9 +1,13 @@
 .Footer {
-    display: flex;
-    flex-direction: row;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
+    min-height: 400px;
     height: auto;
     padding: 45px 130px;
     background-color: #00AAFF;
@@ -19,7 +23,6 @@
     max-width: 310px;
     height: auto;
     gap: 18px;
-
 }
 
 .mapDescription {

@@ -17,7 +17,7 @@ body {
 
 body {
   min-height: 100vh;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   color: var(--foreground);
