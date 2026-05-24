@@ -1,27 +1,17 @@
-import { Exo_2 } from "next/font/google";
+import {Exo_2} from "next/font/google";
 import "./globals.css";
 
-import { Providers } from "../providers";
+import {Providers} from "../providers";
 import Header from "@/shared/ui/layout/header/Header";
 import AuthModal from "@/features/auth/ui/AuthModal";
 import Footer from "@/shared/ui/layout/footer/Footer";
+import {defaultMetadata} from "@/shared/config/seo/seo";
 
 const exo2 = Exo_2({
   variable: "--font-exo-2",
 });
 
-export const metadata = {
-  title: "CodZilla School — Онлайн школа программирования для детей",
-  description:
-    "CodZilla School — современная онлайн школа программирования для детей. Курсы по веб-разработке, логике и IT-навыкам с практикой и поддержкой.",
-  keywords: [
-    "программирование для детей",
-    "онлайн школа программирования",
-    "курсы программирования",
-    "CodZilla School",
-    "обучение IT детям",
-  ],
-};
+export const metadata = defaultMetadata;
 
 export default function RootLayout({ children }) {
   return (

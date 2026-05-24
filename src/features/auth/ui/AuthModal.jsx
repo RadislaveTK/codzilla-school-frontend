@@ -14,7 +14,7 @@ export default function AuthModal() {
 
   return (
     <CustomModal
-      title="Авторизация"
+      title="CODZILLA"
       openState={[open, setOpen]}
       onClose={() => setOpen(false)}
     >

@@ -1,14 +1,14 @@
-import { TextField, Box, Button } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(String(email).toLowerCase());
 }
 
 function validatePassword(password) {
-    return password.length >= 8;
+  return password.length >= 8;
 }
 
 export default function LoginForm({ onSuccess }) {
@@ -54,7 +54,9 @@ export default function LoginForm({ onSuccess }) {
       }
     } catch (error) {
       const message =
-        error?.errors?.email?.[0] || error?.message || "Ошибка входа. Проверьте данные и попробуйте снова.";
+        error?.errors?.email?.[0] ||
+        error?.message ||
+        "Ошибка входа. Проверьте данные и попробуйте снова.";
       setServerError(message);
     } finally {
       setLoading(false);
@@ -62,35 +64,86 @@ export default function LoginForm({ onSuccess }) {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} autoComplete="off" sx={{ display: "grid", gap: 2 }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      autoComplete="off"
+      sx={{ display: "grid", gap: 2 }}
+    >
       <TextField
         label="Email"
         type="email"
         name="email"
         value={values.email}
-        onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+        onChange={(event) =>
+          setValues((prev) => ({
+            ...prev,
+            email: event.target.value,
+          }))
+        }
         placeholder="example@mail.com"
         error={!!errors.email}
         helperText={errors.email}
         fullWidth
+        sx={{
+          transition: "all 0.3s ease",
+          "& .MuiFormLabel-root": {
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            fontWeight: 500,
+          },
+        }}
       />
       <TextField
         label="Пароль"
         type="password"
         name="password"
         value={values.password}
-        onChange={(event) => setValues((prev) => ({ ...prev, password: event.target.value }))}
+        onChange={(event) =>
+          setValues((prev) => ({
+            ...prev,
+            password: event.target.value,
+          }))
+        }
         placeholder="••••••••"
         error={!!errors.password}
         helperText={errors.password}
         fullWidth
+        sx={{
+          transition: "all 0.3s ease",
+          "& .MuiFormLabel-root": {
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            fontWeight: 500,
+          },
+        }}
       />
 
       {serverError && (
-        <Box sx={{ color: "error.main", fontSize: 14, mt: -1 }}>{serverError}</Box>
+        <Box sx={{ color: "error.main", fontSize: 14, mt: -1 }}>
+          {serverError}
+        </Box>
       )}
 
-      <Button type="submit" variant="contained" color="primary" disabled={loading} fullWidth>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        disabled={loading}
+        fullWidth
+        sx={{
+          borderRadius: "12px",
+          padding: "8px 20px",
+          transition: "all .3s ease",
+          color: "#fff",
+          "&:hover": {
+            opacity: "0.8",
+            backgroundColor: "#FF48F2",
+          },
+        }}
+      >
         {loading ? "Входим..." : "Войти"}
       </Button>
     </Box>

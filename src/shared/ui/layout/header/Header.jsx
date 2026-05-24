@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import logo from "@/shared/assets/icons/logo.svg";
 import kz from "@/shared/assets/icons/kz.svg";
@@ -7,7 +7,7 @@ import phone from "@/shared/assets/icons/phone.svg";
 
 import styles from "./Header.module.css";
 
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, NoSsr, Tooltip } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import CourseMenu from "./CourseMenu";
@@ -23,16 +23,18 @@ export default function Header() {
         </Link>
 
         <Box className="flex row ai-center gap-20">
-          <Tooltip title="Казахский" arrow>
-            <IconButton>
-              <Image src={kz} alt="KZ" width={25} height={25} />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Русский" arrow>
-            <IconButton>
-              <Image src={ru} alt="RU" width={25} height={25} />
-            </IconButton>
-          </Tooltip>
+          <NoSsr>
+            <Tooltip title="Казахский" arrow>
+              <IconButton>
+                <Image src={kz} alt="KZ" width={25} height={25} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Русский" arrow>
+              <IconButton>
+                <Image src={ru} alt="RU" width={25} height={25} />
+              </IconButton>
+            </Tooltip>
+          </NoSsr>
         </Box>
       </Box>
 
@@ -46,9 +48,13 @@ export default function Header() {
       <Box className="flex row ai-center gap-66">
         <Box className="flex row ai-center gap-6">
           <Image src={phone} alt="Phone" width={20} height={20} />
-          <a href="tel:+77052094540" className={styles.phone}>
-            +7 705 209 4540
-          </a>
+          <NoSsr>
+            <Tooltip title="Позвонить" arrow>
+              <a href="tel:+77052094540" className={styles.phone}>
+                +7 705 209 4540
+              </a>
+            </Tooltip>
+          </NoSsr>
         </Box>
         <ProfileButton />
       </Box>

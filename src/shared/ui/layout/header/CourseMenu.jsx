@@ -1,115 +1,150 @@
-import { Menu, MenuItem, Button, Box } from "@mui/material";
-import { useState, useEffect } from "react";
+"use client";
+
+import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import SelectIcon from "@/shared/assets/icons/selectIcon.svg";
 import useCourses from "@/hooks/useCourses";
 
+const styles = {
+  wrapper: {
+    position: "relative",
+    display: "inline-block",
+  },
+  button: {
+    display: "flex",
+    alignItems: "end",
+    gap: "6px",
+    cursor: "pointer",
+    fontSize: "16px",
+  },
+  iconBox: {
+    display: "flex",
+    transition: "transform 0.3s ease",
+  },
+  menu: {
+    position: "absolute",
+    top: "calc(100% + 8px)",
+    left: 0,
+    zIndex: 50,
+    background: "#ffffff",
+    borderRadius: "12px",
+    boxShadow: "0 16px 48px rgba(7, 12, 32, 0.12)",
+    minWidth: "220px",
+    padding: "10px 0",
+    border: "1px solid rgba(15, 23, 42, 0.08)",
+  },
+  menuItem: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    width: "100%",
+    padding: "12px 16px",
+    background: "transparent",
+    border: "none",
+    textAlign: "left",
+    fontSize: "15px",
+    color: "#0f172a",
+    cursor: "pointer",
+    transition: "background 0.2s ease",
+  },
+  menuItemContent: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    width: "100%",
+  },
+};
+
 export default function CourseMenu() {
-  const {courses} = useCourses();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const { courses } = useCourses();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const timerRef = useRef(null);
 
-  const open = Boolean(anchorEl);
+  const clearTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
 
-  const handleOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const openMenu = useCallback(() => {
+    clearTimer();
+    setOpen(true);
+  }, [clearTimer]);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const closeMenu = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const scheduleClose = useCallback(() => {
+    clearTimer();
+    timerRef.current = setTimeout(closeMenu, 150);
+  }, [clearTimer, closeMenu]);
+
+  const handleButtonClick = useCallback(() => {
+    clearTimer();
+    closeMenu();
+    router.push("/courses");
+  }, [clearTimer, closeMenu, router]);
+
+  const handleCourseClick = useCallback(
+    (slug) => {
+      clearTimer();
+      closeMenu();
+      router.push(`/courses/${slug}`);
+    },
+    [clearTimer, closeMenu, router],
+  );
 
   return (
-    <>
-      {/* КНОПКА */}
-      <span
-        onClick={handleOpen}
-        style={{
-          color: "#000",
-          textTransform: "none",
-          fontSize: "16px",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-          gap: "6px",
-          cursor: "pointer",
-        }}
-      >
+    <div
+      style={styles.wrapper}
+      onMouseEnter={openMenu}
+      onMouseLeave={scheduleClose}
+    >
+      <span onClick={handleButtonClick} style={styles.button}>
         Наши курсы
-        {/* ИКОНКА С АНИМАЦИЕЙ */}
-        <Box
-          sx={{
-            display: "flex",
-            transition: "transform 0.3s ease",
+        <div
+          style={{
+            ...styles.iconBox,
             transform: open ? "rotate(180deg)" : "rotate(0deg)",
           }}
         >
           <Image src={SelectIcon} alt="select" width={14} height={14} />
-        </Box>
+        </div>
       </span>
 
-      {/* МЕНЮ */}
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        sx={{
-          "& .MuiPaper-root": {
-            borderRadius: "12px",
-            marginTop: "8px",
-            minWidth: "200px",
-          },
-          "& .MuiMenu-list": {
-            padding: "22px 0",
-          },
-        }}
-      >
-        {courses?.slice(0, 4).map((course) => (
-          <MenuItem
-            key={course.id}
-            onClick={handleClose}
-            sx={{
-              transition: "all 0.2s ease",
-              padding: "10px 18px",
-              "&:hover": {
-                backgroundColor: "#00AAFF",
-                color: "#fff",
-
-                "& a": {
-                  color: "#fff",
-                },
-
-                "& img": {
-                  filter: "brightness(0) invert(1)",
-                },
-              },
-            }}
-          >
-            <Link
-              href={`/courses/${course.id}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                width: "100%",
-                textDecoration: "none",
-                color: "inherit",
-                fontSize: "16px",
-                fontWeight: "400",
+      {open && (
+        <div style={styles.menu}>
+          {courses?.slice(0, 4).map((course) => (
+            <button
+              key={course.id}
+              type="button"
+              onClick={() => handleCourseClick(course.slug)}
+              style={styles.menuItem}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(15, 23, 42, 0.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
               }}
             >
-              <Image
-                src={course.icon_url}
-                alt={course.name}
-                width={20}
-                height={20}
-              />
-              {course.name}
-            </Link>
-          </MenuItem>
-        ))}
-      </Menu>
-    </>
+              <div style={styles.menuItemContent}>
+                <Image
+                  src={course.icon_url}
+                  alt={course.name}
+                  width={20}
+                  height={20}
+                />
+                {course.name}
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

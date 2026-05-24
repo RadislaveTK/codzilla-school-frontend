@@ -4,14 +4,17 @@ import Image from "next/image";
 import LogoutForm from "./Form/LogoutForm";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 export default function ExitButton() {
   const [open, setOpen] = useState(false);
   const { logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
       await logout();
+      router.push("/");
     } catch (error) {
       console.error("Ошибка при выходе из аккаунта", error);
     } finally {

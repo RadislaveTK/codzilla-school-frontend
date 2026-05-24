@@ -1,16 +1,15 @@
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  Button,
-  Drawer,
   Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Drawer,
+  IconButton,
 } from "@mui/material";
 
 import Close from "@/shared/assets/icons/close.svg";
-import { useState, cloneElement } from "react";
+import { cloneElement, useState } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import Image from "next/image";
 
@@ -57,7 +56,11 @@ export default function CustomModal({
             },
           }}
         >
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Box fontWeight="600">{title}</Box>
             <IconButton onClick={handleClose}>
               <Image src={Close} alt="Close" width={20} height={20} />
@@ -69,15 +72,28 @@ export default function CustomModal({
           {actions && <Box mt={2}>{actions}</Box>}
         </Drawer>
       ) : (
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", pr: 4 }}>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          sx={{
+            "& .MuiDialog-paper": { minWidth: "320px" },
+          }}
+        >
+          <DialogTitle
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              pr: 4,
+            }}
+          >
             {title}
             <IconButton
               onClick={handleClose}
               sx={{
                 position: "absolute",
-                right: 8,
-                top: 8,
+                right: 16,
+                top: 16,
               }}
             >
               <Image src={Close} alt="Close" width={20} height={20} />

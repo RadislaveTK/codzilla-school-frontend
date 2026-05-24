@@ -1,6 +1,6 @@
 .CourseCard {
     width: 260px;
-    height: 100%;
+    height: auto;
     background-color: #fff;
     border: 1px solid #F4F4F4;
     border-radius: 20px;

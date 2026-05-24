@@ -1,8 +1,35 @@
 import { useState } from "react";
-import { ToggleButton, ToggleButtonGroup, Box } from "@mui/material";
+import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+
+const styles = {
+  toggleGroup: {
+    mb: 3,
+    backgroundColor: "#ffffff",
+    borderRadius: "0",
+    p: "4px",
+	pb: "16px",
+    gap: "4px",
+	borderBottom: "1px solid #e0e0e0",
+  },
+  toggleButton: {
+    border: "none",
+    borderRadius: "10px !important",
+    textTransform: "none",
+    fontWeight: 600,
+    transition: "all 0.3s ease",
+    "&.Mui-selected": {
+      backgroundColor: "#00AAFF",
+      color: "#fff",
+    },
+    "&.Mui-selected:hover": {
+      backgroundColor: "#00AAFF",
+      opacity: 0.8,
+    },
+  },
+};
 
 export default function AuthForm({ onSuccess }) {
   const [formType, setFormType] = useState("login");
@@ -20,48 +47,23 @@ export default function AuthForm({ onSuccess }) {
         exclusive
         onChange={handleChange}
         fullWidth
-        sx={{
-          mb: 3,
-          backgroundColor: "#f5f5f5",
-          borderRadius: "12px",
-          p: "4px",
-        }}
+        sx={styles.toggleGroup}
       >
-        <ToggleButton
-          value="login"
-          sx={{
-            border: "none",
-            borderRadius: "10px !important",
-            textTransform: "none",
-            fontWeight: 600,
-            "&.Mui-selected": {
-              backgroundColor: "#1976d2",
-              color: "#fff",
-            },
-          }}
-        >
+        <ToggleButton value="login" sx={styles.toggleButton}>
           Вход
         </ToggleButton>
 
-        <ToggleButton
-          value="register"
-          sx={{
-            border: "none",
-            borderRadius: "10px !important",
-            textTransform: "none",
-            fontWeight: 600,
-            "&.Mui-selected": {
-              backgroundColor: "#1976d2",
-              color: "#fff",
-            },
-          }}
-        >
+        <ToggleButton value="register" sx={styles.toggleButton}>
           Регистрация
         </ToggleButton>
       </ToggleButtonGroup>
 
       <Box>
-        {formType === "login" ? <LoginForm onSuccess={onSuccess} /> : <RegisterForm onSuccess={onSuccess} />}
+        {formType === "login" ? (
+          <LoginForm onSuccess={onSuccess} />
+        ) : (
+          <RegisterForm onSuccess={onSuccess} />
+        )}
       </Box>
     </Box>
   );

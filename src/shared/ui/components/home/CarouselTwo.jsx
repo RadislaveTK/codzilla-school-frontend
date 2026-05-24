@@ -1,7 +1,7 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Scrollbar, Autoplay } from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Autoplay, Scrollbar} from "swiper/modules";
 import Image from "next/image";
 
 import "swiper/css";
@@ -42,6 +42,7 @@ export default function CarouselTwo() {
                 height={350}
                 className={styles.slideImage}
                 priority={id <= 3}
+                loading={"eager"}
               />
             </div>
           </SwiperSlide>

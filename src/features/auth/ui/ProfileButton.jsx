@@ -1,7 +1,9 @@
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useBus } from "react-bus";
+"use client";
+
+import {useAuth} from "@/hooks/useAuth";
+import {Button} from "@mui/material";
+import {useRouter} from "next/navigation";
+import {useBus} from "react-bus";
 
 export default function ProfileButton() {
   const { user } = useAuth();
@@ -23,7 +25,8 @@ export default function ProfileButton() {
       color: "#fff",
       padding: "16px 20px",
     }} onClick={handleClick}>
-      {user ? `Личный кабинет` : "Войти"}
+      {/*{user ? `Личный кабинет` : "Войти"}*/}
+      Личный кабинет
     </Button>
   );
 }

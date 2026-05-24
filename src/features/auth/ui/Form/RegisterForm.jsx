@@ -94,61 +94,142 @@ export default function RegisterForm({ onSuccess }) {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} autoComplete="off" sx={{ display: "grid", gap: 2 }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      autoComplete="off"
+      sx={{ display: "grid", gap: 2 }}
+    >
       <TextField
         label="Имя"
         name="name"
         value={values.name}
-        onChange={(event) => setValues((prev) => ({ ...prev, name: event.target.value }))}
+        onChange={(event) =>
+          setValues((prev) => ({ ...prev, name: event.target.value }))
+        }
         error={!!errors.name}
         helperText={errors.name}
         fullWidth
+         sx={{
+          transition: "all 0.3s ease",
+          "& .MuiFormLabel-root": {
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            fontWeight: 500,
+          },
+        }}
       />
       <TextField
         label="Email"
         type="email"
         name="email"
         value={values.email}
-        onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
+        onChange={(event) =>
+          setValues((prev) => ({ ...prev, email: event.target.value }))
+        }
         error={!!errors.email}
         helperText={errors.email}
         fullWidth
+         sx={{
+          transition: "all 0.3s ease",
+          "& .MuiFormLabel-root": {
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            fontWeight: 500,
+          },
+        }}
       />
       <TextField
         label="Телефон"
         name="phone"
         value={values.phone}
-        onChange={(event) => setValues((prev) => ({ ...prev, phone: event.target.value }))}
+        onChange={(event) =>
+          setValues((prev) => ({ ...prev, phone: event.target.value }))
+        }
         error={!!errors.phone}
         helperText={errors.phone || "Необязательно"}
         fullWidth
+         sx={{
+          transition: "all 0.3s ease",
+          "& .MuiFormLabel-root": {
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            fontWeight: 500,
+          },
+        }}
       />
       <TextField
         label="Пароль"
         type="password"
         name="password"
         value={values.password}
-        onChange={(event) => setValues((prev) => ({ ...prev, password: event.target.value }))}
+        onChange={(event) =>
+          setValues((prev) => ({ ...prev, password: event.target.value }))
+        }
         error={!!errors.password}
         helperText={errors.password}
         fullWidth
+         sx={{
+          transition: "all 0.3s ease",
+          "& .MuiFormLabel-root": {
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            fontWeight: 500,
+          },
+        }}
       />
       <TextField
         label="Подтвердите пароль"
         type="password"
         name="password_confirmation"
         value={values.password_confirmation}
-        onChange={(event) => setValues((prev) => ({ ...prev, password_confirmation: event.target.value }))}
+        onChange={(event) =>
+          setValues((prev) => ({
+            ...prev,
+            password_confirmation: event.target.value,
+          }))
+        }
         error={!!errors.password_confirmation}
         helperText={errors.password_confirmation}
         fullWidth
+         sx={{
+          transition: "all 0.3s ease",
+          "& .MuiFormLabel-root": {
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            fontWeight: 500,
+          },
+        }}
       />
 
       {serverError && (
-        <Box sx={{ color: "error.main", fontSize: 14, mt: -1 }}>{serverError}</Box>
+        <Box sx={{ color: "error.main", fontSize: 14, mt: -1 }}>
+          {serverError}
+        </Box>
       )}
 
-      <Button type="submit" variant="contained" color="primary" disabled={loading} fullWidth>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        disabled={loading}
+        fullWidth
+        sx={{
+          borderRadius: "12px",
+          padding: "8px 20px",
+          transition: "all .3s ease",
+          color: "#fff",
+          "&:hover": {
+            opacity: "0.8",
+            backgroundColor: "#FF48F2",
+          },
+        }}
+      >
         {loading ? "Регистрируем..." : "Зарегистрироваться"}
       </Button>
     </Box>
