@@ -1,0 +1,18 @@
+.linkWrapper {
+    width: 100%;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #F4F4F4;
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: end;
+    gap: 8px;
+    color: var(--secondary);
+    font-weight: bold;
+    /* height: ; */
+}
+
+.backLinkImg {
+    transform: rotateY(180deg);
+}
