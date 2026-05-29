@@ -2,6 +2,7 @@ import JsonLd from "@/shared/config/seo/JsonLd";
 import { Box, Divider, Typography } from "@mui/material";
 import styles from "./PageContent.module.css";
 import Image from "next/image";
+import FeedbackForm from "@/shared/ui/forms/FeedbackForm";
 
 export default function PageContent() {
   const organizationJsonLd = {
@@ -175,10 +176,12 @@ export default function PageContent() {
             Остались вопросы?
           </Typography>
           <Typography variant="body2" align="center">
-            Заполните форму, и наш менеджер свяжется с вами в течении 15 минут
-            для подробной консультации.
+            Заполните форму, и наш менеджер свяжется с вами в течении <br />
+            15 минут для подробной консультации.
           </Typography>
         </Box>
+
+        <FeedbackForm />
       </div>
     </>
   );
