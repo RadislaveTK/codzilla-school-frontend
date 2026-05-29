@@ -6,7 +6,17 @@ import styles from "./PageContent.module.css";
 import Link from "next/link";
 
 import { motion } from "framer-motion";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { useBus } from "react-bus";
+import SectionCTA from "@/shared/ui/components/home/SectionCTA/SectionCTA";
 
 export default function PageContent({ course }) {
   const courseJsonLd = {
@@ -28,6 +38,16 @@ export default function PageContent({ course }) {
     },
     ageRange: course?.age_range || "",
     duration: `P${course?.duration_weeks || 0}W`,
+  };
+
+  const bus = useBus();
+
+  const handleEnrollClick = () => {
+    bus.emit("feedbackModal:open", {
+      title: "Запись на курс",
+      type: "course",
+      course: course?.name,
+    });
   };
 
   return (
@@ -69,8 +89,8 @@ export default function PageContent({ course }) {
                 <Image
                   src={course.icon_url}
                   alt={course.icon_label}
-                  width={80}
-                  height={80}
+                  width={40}
+                  height={40}
                 />
               </Box>
               <Box className={styles.titleWrapper}>
@@ -83,7 +103,7 @@ export default function PageContent({ course }) {
               <p>{course.description}</p>
             </Box>
 
-            <Box className={styles.detailsBox}>
+            <Box className={styles.detailsWrapper}>
               <Box className={styles.detailsHeader}>
                 <h3>О курсе</h3>
                 <p>Ключевая информация о программе обучения</p>
@@ -144,18 +164,236 @@ export default function PageContent({ course }) {
               </Box>
             </Box>
 
-            <Box className={styles.skillsWrapper}>
+            <Box className={styles.detailsWrapper}>
               <Box className={styles.detailsHeader}>
                 <h3>Что вы изучите</h3>
                 <p>Основные навыки и знания</p>
               </Box>
 
-              Box
+              <List
+                dense={false}
+                sx={{
+                  padding: 0,
+                  "& .MuiListItem-root": {
+                    paddingLeft: 0,
+                  },
+                  "& .MuiListItemText-primary": {
+                    color: "#586EDF",
+                    fontSize: "16px",
+                    fontWeight: "400",
+                  },
+                }}
+              >
+                {course.basic_skills.map((skill, index) => (
+                  // <li key={index} className={styles.skillItem}>
+                  //   {skill}
+                  // </li>
+                  <ListItem key={index}>
+                    <ListItemIcon>
+                      <Image
+                        src="/icons/courses/check.svg"
+                        alt="Иконка навыка"
+                        width={24}
+                        height={24}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={skill} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+
+            <Box className={styles.detailsWrapper}>
+              <Box className={styles.detailsHeader}>
+                <h3>Преимущества</h3>
+                <p>Почему стоит выбрать этот курс</p>
+              </Box>
+
+              <Box className={styles.detailsContent}>
+                <div className={styles.detailItem}>
+                  <Image
+                    src={"/icons/courses/course/circle.svg"}
+                    alt="Иконка круга"
+                    width={56}
+                    height={56}
+                  />
+                  <Box className={styles.detailText}>
+                    <h4>Практический подход</h4>
+                    <p>Каждое занятие включает практические задания</p>
+                  </Box>
+                </div>
+
+                <div className={styles.detailItem}>
+                  <Image
+                    src={"/icons/courses/course/certificate.svg"}
+                    alt="Иконка сертификата"
+                    width={56}
+                    height={56}
+                  />
+                  <Box className={styles.detailText}>
+                    <h4>Сертификат</h4>
+                    <p>По окончании курса вы получите сертификат</p>
+                  </Box>
+                </div>
+
+                <div className={styles.detailItem}>
+                  <Image
+                    src={"/icons/courses/course/book.svg"}
+                    alt="Иконка книги"
+                    width={56}
+                    height={56}
+                  />
+                  <Box className={styles.detailText}>
+                    <h4>Материалы</h4>
+                    <p>Доступ к учебным материалам и ресурсам</p>
+                  </Box>
+                </div>
+
+                <div className={styles.detailItem}>
+                  <Image
+                    src={"/icons/courses/course/idea.svg"}
+                    alt="Иконка идеи"
+                    width={56}
+                    height={56}
+                  />
+                  <Box className={styles.detailText}>
+                    <h4>Проекты</h4>
+                    <p>Создание реальных проектов в портфолио</p>
+                  </Box>
+                </div>
+              </Box>
             </Box>
           </Box>
-          <Box className={styles.sidebarBox}></Box>
+          <Box className={styles.sidebarBox}>
+            <Box className={styles.sideWrapper}>
+              <Box className={styles.sideHeader}>
+                <h3>Записаться на курс</h3>
+                <p>Начните обучение уже сегодня</p>
+              </Box>
+              <Box className={styles.sideContent}>
+                <Box className={styles.sidePrice}>
+                  <p>Стоимость курса</p>
+                  <h1>{course.formatted_price}</h1>
+                  <p>за полный курс</p>
+                </Box>
+                <Button
+                  variant="contained"
+                  color="blue"
+                  onClick={handleEnrollClick}
+                  sx={stylesMUI.button("blue")}
+                >
+                  Записаться на курс
+                </Button>
+                <p className={styles.sideDescription}>
+                  После регистрации с вами свяжется наш менеджер
+                </p>
+              </Box>
+            </Box>
+
+            <Box className={styles.sideWrapper}>
+              <Box className={styles.sideHeader}>
+                <h3>Доступные группы</h3>
+                <p>
+                  {course?.active_groups_count > 0
+                    ? "Есть доступные группы"
+                    : "Нет активных групп"}
+                </p>
+              </Box>
+              {/* <Box className={styles.sideContent}></Box> */}
+            </Box>
+
+            <Box className={styles.sideWrapper}>
+              <Box className={styles.sideHeader}>
+                <h3>Остались вопросы?</h3>
+                <p>Оставьте свои контактные данные и мы перезвоним вам</p>
+              </Box>
+              <Box className={styles.sideContent}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleEnrollClick}
+                  sx={stylesMUI.button("primary")}
+                >
+                  Заказать звонок
+                  <Image
+                    src={"/icons/social/phone.svg"}
+                    alt="Иконка телефона"
+                    width={20}
+                    height={20}
+                  />
+                </Button>
+              </Box>
+            </Box>
+
+            <Box className={styles.sideWrapper}>
+              <Box className={styles.sideHeader}>
+                <h3>Информация</h3>
+              </Box>
+              <Box className={styles.sideContent}>
+                <Box className={styles.flexInfo}>
+                  <Box className={styles.infoItem}>
+                    <p>Статус</p>
+                    <span>Активен</span>
+                  </Box>
+                  <Divider
+                    orientation="horizontal"
+                    variant="fullWidth"
+                    flexItem
+                  />
+                  <Box className={styles.infoItem}>
+                    <p>Всего уроков</p>
+                    <h4>{course?.lessons?.length}</h4>
+                  </Box>
+                  <Divider
+                    orientation="horizontal"
+                    variant="fullWidth"
+                    flexItem
+                  />
+                  <Box className={styles.infoItem}>
+                    <p>Формат</p>
+                    <h4>Офлайн</h4>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </div>
+
+      <SectionCTA
+        color={"var(--blue)"}
+        title={"Готовы начать обучение?"}
+        description={
+          "Запишитесь на курс прямо сейчас и получите доступ к материалам и поддержке преподавателей"
+        }
+        button={
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleEnrollClick}
+            sx={stylesMUI.button("white")}
+          >
+            Записаться на курс
+          </Button>
+        }
+      />
     </>
   );
 }
+
+const stylesMUI = {
+  button: (color) => ({
+    backgroundColor:
+      color === "primary" ? "#FF48F2" : color === "white" ? "#fff" : "#00AAFF",
+    padding: "16px 32px",
+    width: color === "white" ? "auto" : "100%",
+    color: color === "white" ? "var(--secondary)" : "#fff",
+    borderRadius: "20px",
+    fontSize: "16px",
+    fontWeight: color === "white" ? "bold" : "500",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "8px",
+  }),
+};

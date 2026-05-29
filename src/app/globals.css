@@ -3,6 +3,7 @@
   --foreground: #171717;
   --primary: #ff48f2;
   --secondary: #00157d;
+  --blue: #00AAFF;
 }
 
 html {
@@ -135,7 +136,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 85px;
+  margin-top: 45px;
   max-width: 1200px;
   gap: 20px;
 }

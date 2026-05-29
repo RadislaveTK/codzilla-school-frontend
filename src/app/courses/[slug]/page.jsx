@@ -62,8 +62,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CoursePage({ params }) {
-  const resolvedParams = await params; // Сначала резолвим params
-  console.log(resolvedParams.slug); // Теперь slug доступен
+  const resolvedParams = await params;
 
   const course = await getCourse(resolvedParams.slug);
   return <PageContent course={course} />;

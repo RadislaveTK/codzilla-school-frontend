@@ -1,18 +1,256 @@
 .linkWrapper {
-    width: 100%;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #F4F4F4;
+  width: 100%;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f4f4f4;
 }
 
 .backLink {
-    display: inline-flex;
-    align-items: end;
-    gap: 8px;
-    color: var(--secondary);
-    font-weight: bold;
-    /* height: ; */
+  display: inline-flex;
+  align-items: end;
+  gap: 8px;
+  color: var(--secondary);
+  font-weight: bold;
+  /* height: ; */
 }
 
 .backLinkImg {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.contentBox {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+
+.imageWrapper {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 170, 255, 0.1);
+  border-radius: 20px;
+}
+
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.titleWrapper > .type {
+  padding: 4px 12px;
+  background-color: rgba(131, 214, 255, 0.2);
+  border-radius: 100px;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.titleWrapper > .title {
+  font-size: 44px;
+  font-weight: bold;
+  color: var(--secondary);
+}
+
+.descriptionWrapper {
+    padding-bottom: 32px;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.descriptionWrapper > p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #586EDF;
+}
+
+.detailsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 20px;
+    border: 1px solid #f4f4f4;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.05);
+}
+
+.detailsHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detailsHeader > h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.detailsHeader > p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #586EDF;
+}
+
+.detailsContent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.detailsContent > .detailItem {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+}
+
+.detailItem > .detailText {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detailText > h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.detailText > p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #586EDF;
+}
+
+.sidebarBox {
+    width: 100%;
+    max-width: 370px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sideWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 20px;
+    border: 1px solid #f4f4f4;
+    box-shadow: 0px 7px 7px rgba(0, 0, 0, 0.05);
+}
+
+.sideHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sideHeader > h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.sideHeader > p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #586EDF;
+}
+
+.sideContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sidePrice {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+    width: 100%;
+    background-color: rgba(0, 170, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.sidePrice > p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #586EDF;
+}
+
+.sidePrice > h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--blue);
+}
+
+.sideDescription {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #B5C2FF;
+}
+
+.flexInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.infoItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.infoItem > p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #586EDF;
+}
+
+.infoItem > h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.infoItem > span {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--blue);
+    padding: 4px 12px;
+    background-color: rgba(0, 170, 255, 0.1);
+    border-radius: 100px;
 }

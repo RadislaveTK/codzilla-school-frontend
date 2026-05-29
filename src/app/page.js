@@ -1,7 +1,7 @@
 import CourseBlockHome from "@/features/course/ui/CourseBlockHome/CourseBlockHome";
 import CarouselOne from "@/shared/ui/components/home/CarouselOne";
-import CarouselTwo from "@/shared/ui/components/home/CarouselTwo";
-import StatisticBlock from "@/shared/ui/components/home/StatisticBlock";
+import CarouselTwo from "@/shared/ui/components/home/CarouselTwo/CarouselTwo";
+import StatisticBlock from "@/shared/ui/components/home/StatisticBlock/StatisticBlock";
 import JsonLd from "@/shared/config/seo/JsonLd";
 
 export const metadata = {

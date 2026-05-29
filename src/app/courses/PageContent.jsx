@@ -2,8 +2,9 @@
 
 import useCourses from "../../hooks/useCourses";
 import JsonLd from "../../shared/config/seo/JsonLd";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import CourseCardsBlock from "../../features/course/ui/CourseCardsBlock/CourseCardsBlock";
+import SectionCTA from "@/shared/ui/components/home/SectionCTA/SectionCTA";
 
 export default function PageContent() {
   const { courses, loading, filter, setFilter } = useCourses();
@@ -44,6 +45,30 @@ export default function PageContent() {
           />
         )}
       </div>
+       <SectionCTA
+        color={"var(--primary)"}
+        title={"Не знаете, что выбрать?"}
+        description={
+          "Запишитесь на бесплатный пробный урок. Мы поможем определить интересы ребенка и подберем идеальный курс."
+        }
+        button={
+          <Button
+            variant="contained"
+            color="primary"
+            // onClick={handleEnrollClick}
+            sx={{ 
+              backgroundColor: "#fff",
+              color: "#005AB4",
+              fontWeight: "400",
+              fontSize: "16px",
+              padding: "12px 24px",
+              borderRadius: "20px",
+            }}
+          >
+            Записаться на пробный урок
+          </Button>
+        }
+      />
     </>
   );
 }
