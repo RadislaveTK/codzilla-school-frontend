@@ -62,7 +62,7 @@ export default function PageContent({ course }) {
       <JsonLd pageType="course" additionalData={courseJsonLd} />
       <div className="page">
         <div className={styles.linkWrapper}>
-          <Link href={`/courses/${course.slug}`}>
+          <Link href={`/courses`}>
             <motion.p
               className={styles.backLink}
               whileHover="hover"

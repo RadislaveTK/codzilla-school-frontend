@@ -14,7 +14,7 @@ export default function CourseCardHome({ course }) {
         </Typography>
       </Box>
 
-      <Link href={`/courses/${course.id}`} className="flex row gap-7 ai-center">
+      <Link href={`/courses/${course.slug}`} className="flex row gap-7 ai-center">
         <Typography variant="body1">Узнать больше</Typography>{" "}
         <Image src={"/icons/to.svg"} alt={"to"} width={14} height={14} />
       </Link>
