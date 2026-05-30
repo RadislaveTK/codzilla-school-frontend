@@ -50,6 +50,13 @@ export default function PageContent({ course }) {
     });
   };
 
+  const handleFeedbackClick = () => {
+    bus.emit("feedbackModal:open", {
+      title: "Обратная связь",
+      type: "feedback"
+    });
+  };
+
   return (
     <>
       <JsonLd pageType="course" additionalData={courseJsonLd} />
@@ -311,7 +318,7 @@ export default function PageContent({ course }) {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleEnrollClick}
+                  onClick={handleFeedbackClick}
                   sx={stylesMUI.button("primary")}
                 >
                   Заказать звонок

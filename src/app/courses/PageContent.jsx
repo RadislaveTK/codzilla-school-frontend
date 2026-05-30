@@ -5,6 +5,7 @@ import JsonLd from "../../shared/config/seo/JsonLd";
 import { Box, Button, Typography } from "@mui/material";
 import CourseCardsBlock from "../../features/course/ui/CourseCardsBlock/CourseCardsBlock";
 import SectionCTA from "@/shared/ui/components/home/SectionCTA/SectionCTA";
+import { useBus } from "react-bus";
 
 export default function PageContent() {
   const { courses, loading, filter, setFilter } = useCourses();
@@ -15,6 +16,16 @@ export default function PageContent() {
       name: course.name,
       url: `https://codzilla-school.com/courses/${course.slug}`,
     })),
+  };
+
+  const bus = useBus();
+
+  const handleEnrollClick = () => {
+    bus.emit("feedbackModal:open", {
+      title: "Запись на пробный урок",
+      type: "course",
+      course: "Пробный урок",
+    });
   };
 
   return (
@@ -55,7 +66,7 @@ export default function PageContent() {
           <Button
             variant="contained"
             color="primary"
-            // onClick={handleEnrollClick}
+            onClick={handleEnrollClick}
             sx={{ 
               backgroundColor: "#fff",
               color: "#005AB4",

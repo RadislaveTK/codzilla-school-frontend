@@ -1,27 +1,81 @@
 "use client";
 
+import useFeedback from "@/hooks/useFeedback";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { color } from "framer-motion";
-import { label } from "framer-motion/client";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function FeedbackForm({ onSuccess }) {
+  const { loading, sendFeedback } = useFeedback();
+  const [values, setValues] = useState({
+    full_name: "",
+    phone: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({
+    full_name: "",
+    phone: "",
+    message: "",
+  });
+  const [serverError, setServerError] = useState("");
+
+  const validateForm = () => {
+    const nextErrors = { full_name: "", phone: "", message: "" };
+
+    if (!values.full_name) {
+      nextErrors.full_name = "Имя и фамилия обязательны";
+    }
+
+    if (!values.phone) {
+      nextErrors.phone = "Телефон обязателен";
+    } else if (!/^\d{10,15}$/.test(values.phone.replace(/\D/g, ""))) {
+      nextErrors.phone = "Некорректный телефон";
+    }
+
+    setErrors(nextErrors);
+    return !nextErrors.full_name && !nextErrors.phone;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setServerError("");
+
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      await sendFeedback(values);
+      if (typeof onSuccess === "function") {
+        onSuccess();
+      }
+    } catch (error) {
+      const message =
+        error?.message ||
+        "Ошибка отправки. Проверьте данные и попробуйте снова.";
+      setServerError(message);
+    }
+  };
+
   return (
-    <form
-      // onSubmit={(e) => {
-      //   e.preventDefault();
-      //   onSuccess();
-      // }}
-      autoComplete="off"
-      style={styles.form}
-    >
+    <form onSubmit={handleSubmit} autoComplete="off" style={styles.form}>
       <Box sx={styles.formItem}>
         <Typography sx={styles.label}>Имя родителя:</Typography>
         <TextField
           fullWidth
           size="small"
           placeholder="Имя и фамилия"
+          label="Имя и фамилия"
           sx={styles.input}
+          type="text"
+          onChange={(event) =>
+            setValues((prev) => ({
+              ...prev,
+              full_name: event.target.value,
+            }))
+          }
+          error={!!errors.full_name}
+          helperText={errors.full_name}
         />
       </Box>
       <Box sx={styles.formItem}>
@@ -29,8 +83,18 @@ export default function FeedbackForm({ onSuccess }) {
         <TextField
           fullWidth
           size="small"
-          placeholder="Номер телефона"
           sx={styles.input}
+          type="tel"
+          onChange={(event) =>
+            setValues((prev) => ({
+              ...prev,
+              phone: event.target.value,
+            }))
+          }
+          placeholder="8 (777) 123-45-67"
+          label="Номер телефона"
+          error={!!errors.phone}
+          helperText={errors.phone}
         />
       </Box>
       <Box sx={styles.formItem}>
@@ -39,11 +103,32 @@ export default function FeedbackForm({ onSuccess }) {
           fullWidth
           size="small"
           placeholder="Доп. вопросы"
+          label="Доп. вопросы"
           sx={styles.input}
+          type="text"
+          onChange={(event) =>
+            setValues((prev) => ({
+              ...prev,
+              message: event.target.value,
+            }))
+          }
+          error={!!errors.message}
+          helperText={errors.message}
         />
       </Box>
-      <Button variant="contained" color="primary" sx={styles.button}>
-        Перезвоните мне
+      {serverError && (
+        <Box sx={{ color: "error.main", fontSize: 14, mt: -1 }}>
+          {serverError}
+        </Box>
+      )}
+      <Button
+        variant="contained"
+        color="primary"
+        sx={styles.button}
+        onClick={handleSubmit}
+        disabled={loading}
+      >
+        {loading ? "Отправляем..." : "Перезвоните мне"}
         <Image
           src={"/icons/social/phone.svg"}
           alt="Перезвоните мне"
@@ -51,7 +136,17 @@ export default function FeedbackForm({ onSuccess }) {
           height={20}
         />
       </Button>
-      <p style={styles.description}>Нажимая на кнопку, вы соглашаетесь с <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" style={styles.link}>политикой конфиденциальности</a></p>
+      <p style={styles.description}>
+        Нажимая на кнопку, вы соглашаетесь с{" "}
+        <a
+          href="/privacy-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={styles.link}
+        >
+          политикой конфиденциальности
+        </a>
+      </p>
     </form>
   );
 }

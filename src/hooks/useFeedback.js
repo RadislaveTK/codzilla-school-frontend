@@ -8,7 +8,7 @@ export default function useFeedback() {
 
     try {
       const response = await fetch(
-        "https://codzilla-school-backend.local/api/v1/eedback",
+        "https://codzilla-school-backend.local/api/v1/public/feedback",
         {
           method: "POST",
           headers: {
