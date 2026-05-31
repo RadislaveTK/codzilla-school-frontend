@@ -3,6 +3,7 @@ import CarouselOne from "@/shared/ui/components/home/CarouselOne";
 import CarouselTwo from "@/shared/ui/components/home/CarouselTwo/CarouselTwo";
 import StatisticBlock from "@/shared/ui/components/home/StatisticBlock/StatisticBlock";
 import JsonLd from "@/shared/config/seo/JsonLd";
+import { SITE_URL } from "@/shared/config/site";
 
 export const metadata = {
   title: "Codzilla School — Онлайн школа программирования для детей",
@@ -11,10 +12,10 @@ export const metadata = {
   openGraph: {
     title: "Codzilla School — Онлайн школа программирования для детей",
     description: "Научите ребенка программировать с нуля до первых проектов. Запишитесь на пробный урок!",
-    url: "https://codzilla-school.com",
+    url: SITE_URL,
     type: "website",
     images: [{
-      url: "/og-image.jpg",
+      url: "/opengraph-image",
       width: 1200,
       height: 630,
       alt: "Codzilla School — онлайн школа программирования для детей",
@@ -24,6 +25,10 @@ export const metadata = {
     card: "summary_large_image",
     title: "Codzilla School — Онлайн школа программирования для детей",
     description: "Научите ребенка программировать с нуля до первых проектов.",
+    images: ["/opengraph-image"],
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 

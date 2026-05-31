@@ -18,6 +18,7 @@ import {
 import { useBus } from "react-bus";
 import SectionCTA from "@/shared/ui/components/home/SectionCTA/SectionCTA";
 import { useI18n } from "@/shared/config/i18n";
+import { SITE_URL } from "@/shared/config/site";
 
 export default function PageContent({ course }) {
   const bus = useBus();
@@ -28,17 +29,17 @@ export default function PageContent({ course }) {
     "@type": "Course",
     name: course?.name || t("profile.course"),
     description: course?.description || "",
-    url: `https://codzilla-school.com/courses/${course?.slug || ""}`,
+    url: `${SITE_URL}/courses/${course?.slug || ""}`,
     provider: {
       "@type": "Organization",
       name: "Codzilla School",
-      url: "https://codzilla-school.com",
+      url: SITE_URL,
     },
     offers: {
       "@type": "Offer",
       price: course?.formatted_price || "0",
       priceCurrency: "KZT",
-      url: `https://codzilla-school.com/courses/${course?.slug || ""}`,
+      url: `${SITE_URL}/courses/${course?.slug || ""}`,
     },
     ageRange: course?.age_range || "",
     duration: `P${course?.duration_weeks || 0}W`,

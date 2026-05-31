@@ -7,6 +7,7 @@ import CourseCardsBlock from "../../features/course/ui/CourseCardsBlock/CourseCa
 import SectionCTA from "@/shared/ui/components/home/SectionCTA/SectionCTA";
 import { useBus } from "react-bus";
 import { useI18n } from "@/shared/config/i18n";
+import { SITE_URL } from "@/shared/config/site";
 
 export default function PageContent() {
   const { courses, loading, filter, setFilter } = useCourses();
@@ -15,7 +16,7 @@ export default function PageContent() {
       "@type": "ListItem",
       position: index + 1,
       name: course.name,
-      url: `https://codzilla-school.com/courses/${course.slug}`,
+      url: `${SITE_URL}/courses/${course.slug}`,
     })),
   };
 

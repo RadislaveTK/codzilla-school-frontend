@@ -6,6 +6,7 @@ import styles from "./PageContent.module.css";
 import Image from "next/image";
 import FeedbackForm from "@/shared/ui/forms/FeedbackForm";
 import { useI18n } from "@/shared/config/i18n";
+import { SITE_URL } from "@/shared/config/site";
 
 export default function PageContent() {
   const { t } = useI18n();
@@ -13,7 +14,7 @@ export default function PageContent() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Codzilla School",
-    url: "https://codzilla-school.com",
+    url: SITE_URL,
     logo: "/logo.svg",
     description: t("about.schemaDescription"),
     sameAs: ["https://instagram.com/codzilla", "https://facebook.com/codzilla"],

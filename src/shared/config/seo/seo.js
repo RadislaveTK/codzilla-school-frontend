@@ -1,6 +1,9 @@
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/shared/config/site";
+
 export const defaultMetadata = {
 	title: "Codzilla School — Онлайн школа программирования для детей",
-	description: "Codzilla School — современная онлайн школа программирования для детей. Курсы по веб-разработке, логике и IT-навыкам с практикой и поддержкой.",
+	description: SITE_DESCRIPTION,
+	applicationName: SITE_NAME,
 	keywords: [
 		"программирование для детей",
 		"онлайн школа программирования",
@@ -8,9 +11,11 @@ export const defaultMetadata = {
 		"Codzilla School",
 		"обучение IT детям"
 	],
-	authors: [{ name: "Codzilla School" }],
-	creator: "Codzilla School",
-	publisher: "Codzilla School",
+	authors: [{ name: SITE_NAME }],
+	creator: SITE_NAME,
+	publisher: SITE_NAME,
+	category: "education",
+	referrer: "origin-when-cross-origin",
 	robots: {
 		index: true,
 		follow: true,
@@ -22,13 +27,23 @@ export const defaultMetadata = {
 			"max-snippet": -1,
 		},
 	},
-	metadataBase: new URL("https://codzilla-school.com"),
+	metadataBase: new URL(SITE_URL),
+	alternates: {
+		canonical: "/",
+		languages: {
+			ru: "/",
+			kk: "/",
+		},
+	},
 	openGraph: {
-		siteName: "Codzilla School",
+		title: "Codzilla School — Онлайн школа программирования для детей",
+		description: SITE_DESCRIPTION,
+		url: SITE_URL,
+		siteName: SITE_NAME,
 		locale: "ru_RU",
 		type: "website",
 		images: [{
-			url: "/og-image.jpg",
+			url: "/opengraph-image",
 			width: 1200,
 			height: 630,
 			alt: "Codzilla School — онлайн школа программирования для детей",
@@ -36,15 +51,14 @@ export const defaultMetadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		site: "@codzilla_school",
-		creator: "@codzilla_school",
+		title: "Codzilla School — Онлайн школа программирования для детей",
+		description: SITE_DESCRIPTION,
+		images: ["/opengraph-image"],
 	},
 	icons: {
 		icon: "/favicon.ico",
-		shortcut: "/favicon-16x16.png",
-		apple: "/apple-touch-icon.png",
 	},
-	manifest: "/site.webmanifest",
+	manifest: "/manifest.webmanifest",
 };
 
 // Метаданные для каждой страницы
@@ -56,7 +70,7 @@ export const pageMetadata = {
 		openGraph: {
 			title: "Codzilla School — Онлайн школа программирования для детей",
 			description: "Научите ребенка программировать с нуля до первых проектов. Запишитесь на пробный урок!",
-			url: "https://codzilla-school.com",
+			url: SITE_URL,
 		},
 		twitter: {
 			title: "Codzilla School — Онлайн школа программирования для детей",
@@ -70,7 +84,7 @@ export const pageMetadata = {
 		openGraph: {
 			title: "О школе Codzilla — Наша миссия и команда",
 			description: "Узнайте о Codzilla School: опытные преподаватели, современные методики и достижения учеников.",
-			url: "https://codzilla-school.com/about",
+			url: `${SITE_URL}/about`,
 		},
 		twitter: {
 			title: "О школе Codzilla — Наша миссия и команда",
@@ -84,7 +98,7 @@ export const pageMetadata = {
 		openGraph: {
 			title: "Курсы программирования для детей — Codzilla School",
 			description: "Выберите курс программирования для ребенка: веб-разработка, Python, игры. Запишитесь на пробный урок!",
-			url: "https://codzilla-school.com/courses",
+			url: `${SITE_URL}/courses`,
 		},
 		twitter: {
 			title: "Курсы программирования для детей — Codzilla School",

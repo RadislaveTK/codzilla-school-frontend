@@ -1,13 +1,14 @@
 "use client";
 
 import {usePathname} from "next/navigation";
+import { SITE_URL } from "@/shared/config/site";
 
 const jsonLdTemplates = {
 	home: {
 		"@type": "EducationalOrganization",
 		name: "Codzilla School",
 		description: "Онлайн школа программирования для детей",
-		url: "https://codzilla-school.com",
+		url: SITE_URL,
 	},
 	about: {
 		"@type": "AboutPage",
@@ -24,7 +25,7 @@ const jsonLdTemplates = {
 
 export default function JsonLd({ pageType = "home", additionalData = {} }) {
 	const pathname = usePathname();
-	const baseUrl = "https://codzilla-school.com";
+	const baseUrl = SITE_URL;
 	
 	const getJsonLd = () => {
 		const template = jsonLdTemplates[pageType] || jsonLdTemplates.home;

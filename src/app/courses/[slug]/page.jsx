@@ -1,5 +1,6 @@
 import PageContent from "@/app/courses/[slug]/PageContent";
 import { API_URL } from "@/shared/config/api";
+import { SITE_URL } from "@/shared/config/site";
 
 async function getCourse(slug) {
   try {
@@ -25,16 +26,20 @@ export async function generateMetadata({ params }) {
     return {
       title: "Курс — Codzilla School",
       description: "Курс программирования для детей в Codzilla School.",
+      robots: {
+        index: false,
+        follow: true,
+      },
     };
   }
 
   const title = `${course.name} — Codzilla School`;
   const description =
     course.description || "Курс программирования для детей в Codzilla School.";
-  const url = `https://codzilla-school.com/courses/${course.slug}`;
+  const url = `${SITE_URL}/courses/${course.slug}`;
   const imageUrl = course.icon_url?.startsWith("/")
-    ? `https://codzilla-school.com${course.icon_url}`
-    : course.icon_url || "/og-image.jpg";
+    ? `${SITE_URL}${course.icon_url}`
+    : course.icon_url || "/opengraph-image";
 
   return {
     title,
@@ -58,6 +63,15 @@ export async function generateMetadata({ params }) {
           alt: course.icon_label || course.name,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
+    alternates: {
+      canonical: `/courses/${course.slug}`,
     },
   };
 }
