@@ -1,4 +1,4 @@
-export const SITE_URL = "https://codzilla-school.com";
+export const SITE_URL = "https://codzilla-school.up.railway.app";
 
 export const SITE_NAME = "Codzilla School";
 
