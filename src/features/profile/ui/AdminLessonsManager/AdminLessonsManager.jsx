@@ -1,6 +1,7 @@
 "use client";
 
 import { useAdminLessonsManager } from "../../model/useAdminLessonsManager";
+import { formatDateTimeRange } from "../../model/normalizers";
 import styles from "./AdminLessonsManager.module.css";
 
 export default function AdminLessonsManager({ enabled }) {
@@ -127,7 +128,7 @@ export default function AdminLessonsManager({ enabled }) {
                 <strong>{lesson.title || lesson.lesson_title}</strong>
                 <span>
                   {lesson.group?.name || "Группа не указана"} ·{" "}
-                  {lesson.starts_at || lesson.date_formatted || "дата не указана"}
+                  {formatDateTimeRange(lesson.starts_at, lesson.ends_at)}
                 </span>
               </div>
               <div className={styles.actions}>

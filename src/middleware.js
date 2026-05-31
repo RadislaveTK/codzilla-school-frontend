@@ -5,6 +5,7 @@ const protectedPaths = [
   "/profile/panel",
   "/profile/attendance",
   "/profile/students",
+  "/profile/users",
   "/profile/courses",
 ];
 

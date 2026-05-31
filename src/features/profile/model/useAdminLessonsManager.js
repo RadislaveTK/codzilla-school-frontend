@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { getCollectionData, profileApi } from "../api/profileApi";
+import { formatDateTimeInput } from "./normalizers";
 
 const emptyForm = {
   id: null,
@@ -89,8 +90,8 @@ export function useAdminLessonsManager(enabled) {
       id: lesson.id,
       group_id: String(getLessonGroupId(lesson) || firstGroupId),
       title: lesson.title || lesson.lesson_title || "",
-      starts_at: lesson.starts_at || lesson.start_at || "",
-      ends_at: lesson.ends_at || lesson.end_at || "",
+      starts_at: formatDateTimeInput(lesson.starts_at || lesson.start_at),
+      ends_at: formatDateTimeInput(lesson.ends_at || lesson.end_at),
       room: lesson.room || "",
       description: lesson.description || "",
       materials,

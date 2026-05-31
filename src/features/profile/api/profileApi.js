@@ -8,6 +8,7 @@ export const PROFILE_ENDPOINTS = {
   publicStatistics: "public/statistics",
   adminCourses: "admin/courses?per_page=100",
   adminGroups: "admin/groups?per_page=100",
+  adminStudents: "admin/students?per_page=100",
   adminUsers: "admin/users?per_page=100",
   adminLessons: "admin/lessons?per_page=100",
   parentChildren: "parent/children",
@@ -82,6 +83,21 @@ export const profileApi = {
     }),
   deleteAdminGroup: (groupId) =>
     profileRequest(`admin/groups/${groupId}`, {
+      method: "DELETE",
+    }),
+  getAdminStudents: () => profileRequest(PROFILE_ENDPOINTS.adminStudents),
+  createAdminStudent: (payload) =>
+    profileRequest("admin/students", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateAdminStudent: (studentId, payload) =>
+    profileRequest(`admin/students/${studentId}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    }),
+  deleteAdminStudent: (studentId) =>
+    profileRequest(`admin/students/${studentId}`, {
       method: "DELETE",
     }),
   getAdminUsers: () => profileRequest(PROFILE_ENDPOINTS.adminUsers),

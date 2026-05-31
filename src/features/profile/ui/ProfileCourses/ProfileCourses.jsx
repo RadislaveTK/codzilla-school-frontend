@@ -8,7 +8,6 @@ import {
   getCourseTitle,
 } from "../../model/normalizers";
 import { useProfileCourses } from "../../model/useProfileCourses";
-import AdminCoursesManager from "../AdminCoursesManager/AdminCoursesManager";
 import styles from "./ProfileCourses.module.css";
 
 export default function ProfileCourses() {
@@ -116,8 +115,6 @@ export default function ProfileCourses() {
           <div className={styles.empty}>Курсы пока не найдены.</div>
         )}
       </div>
-
-      <AdminCoursesManager enabled={user?.role === "admin"} />
     </section>
   );
 }

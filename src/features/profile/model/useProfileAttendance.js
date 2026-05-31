@@ -5,6 +5,32 @@ import { useAuth } from "@/hooks/useAuth";
 import { getCollectionData, profileApi } from "../api/profileApi";
 import { getAttendanceRecord } from "./normalizers";
 
+const getAttendanceStats = (attendance, records) => {
+  if (attendance?.stats) {
+    return attendance.stats;
+  }
+
+  if (attendance?.summary) {
+    return {
+      total: attendance.summary.total_count || 0,
+      present: attendance.summary.present_count || 0,
+      absent: attendance.summary.absent_count || 0,
+      late: attendance.summary.late_count || 0,
+    };
+  }
+
+  return records.reduce(
+    (acc, record) => ({
+      ...acc,
+      total: acc.total + 1,
+      [record.statusKey]: record.statusKey
+        ? (acc[record.statusKey] || 0) + 1
+        : acc[record.statusKey],
+    }),
+    { total: 0, present: 0, absent: 0, late: 0 },
+  );
+};
+
 export function useProfileAttendance() {
   const { user, loading: authLoading } = useAuth() || {};
   const [loading, setLoading] = useState(true);
@@ -138,12 +164,17 @@ export function useProfileAttendance() {
       return [];
     }
 
-    if (Array.isArray(attendance.attendances)) {
-      return attendance.attendances;
-    }
+    const items = Array.isArray(attendance.attendances)
+      ? attendance.attendances
+      : getCollectionData(attendance);
 
-    return getCollectionData(attendance).map(getAttendanceRecord);
+    return items.map(getAttendanceRecord);
   }, [attendance]);
+
+  const stats = useMemo(
+    () => getAttendanceStats(attendance, records),
+    [attendance, records],
+  );
 
   return {
     authLoading,
@@ -158,6 +189,6 @@ export function useProfileAttendance() {
     setSelectedGroupId,
     setSelectedStudentId,
     records,
-    stats: attendance?.stats || {},
+    stats,
   };
 }

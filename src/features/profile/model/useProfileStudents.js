@@ -9,6 +9,7 @@ export function useProfileStudents() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [students, setStudents] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     if (authLoading) {
@@ -22,37 +23,11 @@ export function useProfileStudents() {
       setError("");
 
       try {
-        if (user?.role === "admin") {
-          const groupsPayload = await profileApi.getAdminGroups();
-          const groups = getCollectionData(groupsPayload);
-          const groupStudentsPayload = await Promise.all(
-            groups.map((group) =>
-              profileApi.getAdminGroupStudents(group.id).then((payload) => ({
-                group,
-                students: getCollectionData(payload),
-              })),
-            ),
-          );
+        const payload =
+          user?.role === "admin"
+            ? await profileApi.getAdminStudents()
+            : await profileApi.getParentChildren();
 
-          const byId = new Map();
-          groupStudentsPayload.forEach(({ group, students: groupStudents }) => {
-            groupStudents.forEach((student) => {
-              const current = byId.get(student.id) || {
-                ...student,
-                groups_list: [],
-              };
-              current.groups_list.push(group);
-              byId.set(student.id, current);
-            });
-          });
-
-          if (!ignore) {
-            setStudents(Array.from(byId.values()));
-          }
-          return;
-        }
-
-        const payload = await profileApi.getParentChildren();
         if (!ignore) {
           setStudents(getCollectionData(payload));
         }
@@ -67,12 +42,13 @@ export function useProfileStudents() {
       }
     }
 
-    loadStudents();
+    const timeoutId = window.setTimeout(loadStudents, 0);
 
     return () => {
       ignore = true;
+      window.clearTimeout(timeoutId);
     };
-  }, [authLoading, user?.role]);
+  }, [authLoading, refreshKey, user?.role]);
 
   const stats = useMemo(
     () => ({
@@ -86,5 +62,9 @@ export function useProfileStudents() {
     [students],
   );
 
-  return { authLoading, user, loading, error, students, stats };
+  const reload = () => {
+    setRefreshKey((current) => current + 1);
+  };
+
+  return { authLoading, user, loading, error, students, stats, reload };
 }

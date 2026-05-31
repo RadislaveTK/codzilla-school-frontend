@@ -6,7 +6,6 @@ import {
   getStudentStatusLabel,
 } from "../../model/normalizers";
 import { useProfileStudents } from "../../model/useProfileStudents";
-import AdminUsersManager from "../AdminUsersManager/AdminUsersManager";
 import styles from "./ProfileStudents.module.css";
 
 export default function ProfileStudents() {
@@ -101,8 +100,6 @@ export default function ProfileStudents() {
           <div className={styles.empty}>Ученики пока не найдены.</div>
         )}
       </div>
-
-      <AdminUsersManager enabled={user?.role === "admin"} />
     </section>
   );
 }

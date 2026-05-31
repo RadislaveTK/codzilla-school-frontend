@@ -1,6 +1,7 @@
 "use client";
 
 import { useAttendanceMarker } from "../../model/useAttendanceMarker";
+import { formatDateTimeRange } from "../../model/normalizers";
 import styles from "./AttendanceMarker.module.css";
 
 const statuses = [
@@ -72,7 +73,7 @@ export default function AttendanceMarker({ enabled }) {
             {schedules.map((schedule) => (
               <option key={schedule.id} value={schedule.id}>
                 {schedule.title ||
-                  `${schedule.date_formatted || ""} ${schedule.time_range || ""}`}
+                  formatDateTimeRange(schedule.start_time, schedule.end_time)}
               </option>
             ))}
           </select>
@@ -81,8 +82,10 @@ export default function AttendanceMarker({ enabled }) {
 
       {selectedSchedule ? (
         <div className={styles.note}>
-          {selectedSchedule.date_formatted || "Дата"} ·{" "}
-          {selectedSchedule.time_range || "Время"} ·{" "}
+          {formatDateTimeRange(
+            selectedSchedule.start_time,
+            selectedSchedule.end_time,
+          )} ·{" "}
           {selectedSchedule.room || "Кабинет не указан"}
         </div>
       ) : null}

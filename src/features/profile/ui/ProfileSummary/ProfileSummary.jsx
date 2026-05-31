@@ -2,7 +2,6 @@
 
 import { useProfileSummary } from "../../model/useProfileSummary";
 import { getGroupStatusLabel } from "../../model/normalizers";
-import AdminGroupsManager from "../AdminGroupsManager/AdminGroupsManager";
 import styles from "./ProfileSummary.module.css";
 
 export default function ProfileSummary() {
@@ -75,7 +74,6 @@ export default function ProfileSummary() {
             </article>
           </div>
 
-          <AdminGroupsManager enabled={user?.role === "admin"} />
         </>
       ) : (
         <div className={styles.contentGrid}>

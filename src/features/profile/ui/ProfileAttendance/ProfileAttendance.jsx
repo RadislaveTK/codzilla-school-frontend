@@ -1,8 +1,6 @@
 "use client";
 
 import { useProfileAttendance } from "../../model/useProfileAttendance";
-import AdminLessonsManager from "../AdminLessonsManager/AdminLessonsManager";
-import AttendanceMarker from "../AttendanceMarker/AttendanceMarker";
 import styles from "./ProfileAttendance.module.css";
 
 export default function ProfileAttendance() {
@@ -108,9 +106,6 @@ export default function ProfileAttendance() {
           <div className={styles.empty}>Записей о посещаемости пока нет.</div>
         )}
       </div>
-
-      <AdminLessonsManager enabled={user?.role === "admin"} />
-      <AttendanceMarker enabled={user?.role === "admin"} />
     </section>
   );
 }
