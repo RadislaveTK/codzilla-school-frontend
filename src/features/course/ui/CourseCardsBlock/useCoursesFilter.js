@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
+import { API_URL } from "@/shared/config/api";
 
 export default function useCoursesFilter(initial = { age: "", direction: "" }) {
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function useCoursesFilter(initial = { age: "", direction: "" }) {
       try {
         const q = buildQuery();
         const res = await fetch(
-          `https://codzilla-school-backend.local/api/v1/public/courses?${q}`,
+          `${API_URL}/api/v1/public/courses?${q}`,
           { cache: "no-store" },
         );
         const data = await res.json();

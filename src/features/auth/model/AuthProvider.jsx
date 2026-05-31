@@ -2,9 +2,7 @@
 
 import { createContext, useCallback, useEffect, useState } from "react";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
-
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://codzilla-school-backend.local";
+import { API_URL } from "@/shared/config/api";
 
 const COOKIE_NAME = "access_token";
 
@@ -130,7 +128,11 @@ export const AuthProvider = ({ children }) => {
   }, [clearSession, fetchJson]);
 
   useEffect(() => {
-    loadUser();
+    const timeoutId = window.setTimeout(loadUser, 0);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, [loadUser]);
 
   return (

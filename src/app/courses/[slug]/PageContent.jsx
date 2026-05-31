@@ -292,7 +292,7 @@ export default function PageContent({ course }) {
                   Записаться на курс
                 </Button>
                 <p className={styles.sideDescription}>
-                  После регистрации с вами свяжется наш менеджер
+                  После записи с вами свяжется наш менеджер
                 </p>
               </Box>
             </Box>

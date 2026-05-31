@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 const protectedPaths = [
   "/profile",
   "/profile/panel",
+  "/profile/attendance",
   "/profile/students",
   "/profile/courses",
 ];

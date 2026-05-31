@@ -1,44 +1,60 @@
 "use client";
 
-import {
-  Button,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import CustomModal from "../../modal/CustomModal";
-import LogoutForm from "@/features/auth/ui/Form/LogoutForm";
+import { useMemo } from "react";
 import ExitButton from "@/features/auth/ui/ExitButton";
 
+const menuItems = [
+  {
+    href: "/profile/panel",
+    label: "Сводка",
+    icon: "/icons/profile/sidebar/dashboard.svg",
+    alt: "dashboard",
+    roles: ["admin", "parent"],
+  },
+  {
+    href: "/profile/attendance",
+    label: "Посещаемость",
+    icon: "/icons/profile/sidebar/calendar.svg",
+    alt: "calendar",
+    roles: ["admin", "parent"],
+  },
+  {
+    href: "/profile/courses",
+    label: "Курсы",
+    icon: "/icons/profile/sidebar/school.svg",
+    alt: "school",
+    roles: ["admin", "parent"],
+  },
+  {
+    href: "/profile/students",
+    label: "Ученики",
+    icon: "/icons/profile/sidebar/students.svg",
+    alt: "students",
+    roles: ["admin", "parent"],
+  },
+];
+
 export default function SelectList() {
-  const [selectedIndex, setSelectedIndex] = useState(-1);
   const router = useRouter();
-  const path = usePathname(); // Получаем текущий путь
+  const path = usePathname();
+  const { user, loading } = useAuth() || {};
 
-  useEffect(() => {
-    console.log(path);
-
-    if (path === "/profile/attendance") {
-      setSelectedIndex(0);
-    } else if (path === "/profile/courses") {
-      setSelectedIndex(1);
-    } else if (path === "/profile/panel") {
-      setSelectedIndex(2);
-    } else if (path === "/profile/students") {
-      setSelectedIndex(3);
-    } else {
-      setSelectedIndex(-1);
+  const availableItems = useMemo(() => {
+    if (loading) {
+      return [];
     }
-  }, [path]);
+
+    return menuItems.filter((item) => item.roles.includes(user?.role));
+  }, [loading, user?.role]);
 
   return (
     <List
       component="nav"
-      aria-label="main mailbox folders"
+      aria-label="profile navigation"
       sx={{
         gap: "10px",
         height: "100%",
@@ -63,63 +79,19 @@ export default function SelectList() {
         },
       }}
     >
-      <ListItemButton
-        selected={selectedIndex === 2}
-        onClick={() => router.push("/profile/panel")}
-      >
-        <ListItemIcon>
-          <Image
-            src="/icons/profile/sidebar/dashboard.svg"
-            alt="dashboard"
-            width={18}
-            height={18}
-          />
-        </ListItemIcon>
-        <ListItemText primary="Сводка" />
-      </ListItemButton>
-      <ListItemButton
-        selected={selectedIndex === 0}
-        onClick={() => router.push("/profile/attendance")}
-      >
-        <ListItemIcon>
-          <Image
-            src="/icons/profile/sidebar/calendar.svg"
-            alt="calendar"
-            width={18}
-            height={18}
-          />
-        </ListItemIcon>
-        <ListItemText primary="Посещаемость" />
-      </ListItemButton>
-      <ListItemButton
-        selected={selectedIndex === 1}
-        onClick={() => router.push("/profile/courses")}
-      >
-        <ListItemIcon>
-          <Image
-            src="/icons/profile/sidebar/school.svg"
-            alt="school"
-            width={18}
-            height={18}
-          />
-        </ListItemIcon>
-        <ListItemText primary="Курсы" />
-      </ListItemButton>
-      <ListItemButton
-        selected={selectedIndex === 3}
-        onClick={() => router.push("/profile/students")}
-      >
-        <ListItemIcon>
-          <Image
-            src="/icons/profile/sidebar/students.svg"
-            alt="students"
-            width={18}
-            height={18}
-          />
-        </ListItemIcon>
-        <ListItemText primary="Ученики" />
-      </ListItemButton>
-      
+      {availableItems.map((item) => (
+        <ListItemButton
+          key={item.href}
+          selected={path === item.href}
+          onClick={() => router.push(item.href)}
+        >
+          <ListItemIcon>
+            <Image src={item.icon} alt={item.alt} width={18} height={18} />
+          </ListItemIcon>
+          <ListItemText primary={item.label} />
+        </ListItemButton>
+      ))}
+
       <ExitButton />
     </List>
   );

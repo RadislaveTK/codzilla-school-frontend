@@ -5,6 +5,7 @@ import styles from "@/features/course/ui/CourseBlockHome/CourseBlockHome.module.
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import { API_URL } from "@/shared/config/api";
 
 import stylesCurrent from "./StatisticBlock.module.css";
 
@@ -13,11 +14,12 @@ export default function StatisticBlock() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     async function getStatistics() {
+      setLoading(true);
+
       try {
         const res = await fetch(
-          "https://codzilla-school-backend.local/api/v1/public/statistics",
+          `${API_URL}/api/v1/public/statistics`,
         );
         const data = await res.json();
         setData(data?.data);
@@ -28,7 +30,11 @@ export default function StatisticBlock() {
       }
     }
 
-    getStatistics();
+    const timeoutId = window.setTimeout(getStatistics, 0);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   return (

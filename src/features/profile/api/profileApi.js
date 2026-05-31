@@ -1,0 +1,140 @@
+"use client";
+
+import { getCookie } from "cookies-next";
+import { API_URL } from "@/shared/config/api";
+
+export const PROFILE_ENDPOINTS = {
+  publicCourses: "public/courses?per_page=100",
+  publicStatistics: "public/statistics",
+  adminCourses: "admin/courses?per_page=100",
+  adminGroups: "admin/groups?per_page=100",
+  adminUsers: "admin/users?per_page=100",
+  adminLessons: "admin/lessons?per_page=100",
+  parentChildren: "parent/children",
+};
+
+export const getCollectionData = (payload) => {
+  if (Array.isArray(payload)) {
+    return payload;
+  }
+
+  if (Array.isArray(payload?.data)) {
+    return payload.data;
+  }
+
+  if (Array.isArray(payload?.data?.data)) {
+    return payload.data.data;
+  }
+
+  return [];
+};
+
+export async function profileRequest(endpoint, options = {}) {
+  const token = getCookie("access_token");
+  const response = await fetch(`${API_URL}/api/v1/${endpoint}`, {
+    ...options,
+    headers: {
+      Accept: "application/json",
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      Authorization: `Bearer ${token}`,
+      ...options.headers,
+    },
+  });
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new Error(data?.message || "Не удалось получить данные");
+  }
+
+  return data;
+}
+
+export const profileApi = {
+  getPublicCourses: () => profileRequest(PROFILE_ENDPOINTS.publicCourses),
+  getPublicStatistics: () => profileRequest(PROFILE_ENDPOINTS.publicStatistics),
+  getAdminCourses: () => profileRequest(PROFILE_ENDPOINTS.adminCourses),
+  createAdminCourse: (payload) =>
+    profileRequest("admin/courses", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateAdminCourse: (courseId, payload) =>
+    profileRequest(`admin/courses/${courseId}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    }),
+  deleteAdminCourse: (courseId) =>
+    profileRequest(`admin/courses/${courseId}`, {
+      method: "DELETE",
+    }),
+  getAdminCourseIcons: () => profileRequest("admin/courses/icons"),
+  getAdminGroups: () => profileRequest(PROFILE_ENDPOINTS.adminGroups),
+  getAdminGroup: (groupId) => profileRequest(`admin/groups/${groupId}`),
+  createAdminGroup: (payload) =>
+    profileRequest("admin/groups", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateAdminGroup: (groupId, payload) =>
+    profileRequest(`admin/groups/${groupId}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    }),
+  deleteAdminGroup: (groupId) =>
+    profileRequest(`admin/groups/${groupId}`, {
+      method: "DELETE",
+    }),
+  getAdminUsers: () => profileRequest(PROFILE_ENDPOINTS.adminUsers),
+  createAdminUser: (payload) =>
+    profileRequest("admin/users", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateAdminUser: (userId, payload) =>
+    profileRequest(`admin/users/${userId}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    }),
+  deleteAdminUser: (userId) =>
+    profileRequest(`admin/users/${userId}`, {
+      method: "DELETE",
+    }),
+  getAdminLessons: () => profileRequest(PROFILE_ENDPOINTS.adminLessons),
+  createAdminLesson: (payload) =>
+    profileRequest("admin/lessons", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateAdminLesson: (lessonId, payload) =>
+    profileRequest(`admin/lessons/${lessonId}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    }),
+  deleteAdminLesson: (lessonId) =>
+    profileRequest(`admin/lessons/${lessonId}`, {
+      method: "DELETE",
+    }),
+  getAdminGroupStudents: (groupId) =>
+    profileRequest(`admin/groups/${groupId}/students`),
+  addStudentToAdminGroup: (groupId, studentId) =>
+    profileRequest(`admin/groups/${groupId}/add-student`, {
+      method: "POST",
+      body: JSON.stringify({ student_id: studentId }),
+    }),
+  removeStudentFromAdminGroup: (groupId, studentId) =>
+    profileRequest(`admin/groups/${groupId}/remove-student/${studentId}`, {
+      method: "DELETE",
+    }),
+  getAdminStudentAttendance: (studentId) =>
+    profileRequest(`admin/attendance/student/${studentId}`),
+  getScheduleForMarking: (scheduleId) =>
+    profileRequest(`admin/attendance/schedule/${scheduleId}`),
+  markScheduleAttendance: (scheduleId, marks) =>
+    profileRequest(`admin/attendance/schedule/${scheduleId}/mark`, {
+      method: "POST",
+      body: JSON.stringify({ marks }),
+    }),
+  getParentChildren: () => profileRequest(PROFILE_ENDPOINTS.parentChildren),
+  getParentChildAttendance: (studentId) =>
+    profileRequest(`parent/children/${studentId}/attendance`),
+};

@@ -1,9 +1,5 @@
+import { redirect } from "next/navigation";
 
 export default function Page() {
-
-    return (
-        <div>
-            <h1>Выберите страницу</h1>
-        </div>
-    );
+  redirect("/profile/panel");
 }

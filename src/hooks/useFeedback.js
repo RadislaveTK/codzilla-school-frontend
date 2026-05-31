@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "@/shared/config/api";
 
 export default function useFeedback() {
   const [loading, setLoading] = useState(false);
@@ -8,7 +9,7 @@ export default function useFeedback() {
 
     try {
       const response = await fetch(
-        "https://codzilla-school-backend.local/api/v1/public/feedback",
+        `${API_URL}/api/v1/public/feedback`,
         {
           method: "POST",
           headers: {
@@ -33,7 +34,7 @@ export default function useFeedback() {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://codzilla-school-backend.local/api/v1/public/applications",
+        `${API_URL}/api/v1/public/applications`,
         {
           method: "POST",
           headers: {

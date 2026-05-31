@@ -1,7 +1,9 @@
+import { API_URL } from "@/shared/config/api";
+
 export default async function getCourse(slug) {
   try {
     const res = await fetch(
-      `https://codzilla-school-backend.local/api/v1/public/courses/${slug}`,
+      `${API_URL}/api/v1/public/courses/${slug}`,
       { next: { revalidate: 60 } },
     );
     if (!res.ok) return null;

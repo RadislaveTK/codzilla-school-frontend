@@ -1,6 +1,7 @@
 "use client";
 
 import {useEffect, useState} from "react";
+import { API_URL } from "@/shared/config/api";
 
 export default function useCourses() {
 	const [loading, setLoading] = useState(false);
@@ -8,12 +9,12 @@ export default function useCourses() {
 	const [filter, setFilter] = useState(null);
 	
 	useEffect(() => {
-		setLoading(true);
-		
 		async function getCourses() {
+			setLoading(true);
+
 			try {
 				const res = await fetch(
-					`https://codzilla-school-backend.local/api/v1/public/courses?${filter}`, {
+					`${API_URL}/api/v1/public/courses?${filter || ""}`, {
 						cache: 'no-store'
 					}
 				);
@@ -26,7 +27,11 @@ export default function useCourses() {
 			}
 		}
 		
-		getCourses();
+		const timeoutId = window.setTimeout(getCourses, 0);
+
+		return () => {
+			window.clearTimeout(timeoutId);
+		};
 	}, [filter]);
 	
 	return {courses, loading, filter, setFilter};

@@ -1,0 +1,159 @@
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header,
+.statsGrid article,
+.card,
+.status,
+.empty {
+  border: 1px solid #c1c6d5;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.header,
+.status,
+.empty {
+  padding: 24px;
+}
+
+.header span {
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.header h1 {
+  margin-top: 6px;
+  color: var(--secondary);
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.header p {
+  margin-top: 10px;
+  color: #586edf;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.statsGrid article {
+  min-height: 108px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.statsGrid span {
+  color: #586edf;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.statsGrid strong {
+  color: var(--secondary);
+  font-size: 32px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  min-height: 260px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon,
+.iconFallback {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  background: rgba(0, 170, 255, 0.1);
+  object-fit: contain;
+  padding: 10px;
+}
+
+.iconFallback {
+  display: grid;
+  place-items: center;
+  color: var(--secondary);
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.card h2 {
+  color: var(--secondary);
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.cardTop span,
+.card p,
+.meta span,
+.empty,
+.status {
+  color: #586edf;
+}
+
+.card p {
+  flex: 1;
+  font-size: 15px;
+  line-height: 23px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.meta span {
+  border-radius: 6px;
+  background: rgba(255, 72, 242, 0.08);
+  padding: 7px 10px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.action {
+  width: fit-content;
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 10px 14px;
+}
+
+@media (max-width: 900px) {
+  .statsGrid,
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
