@@ -1,7 +1,7 @@
 import CustomModal from "@/shared/ui/modal/CustomModal";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import Image from "next/image";
-import LogoutForm from "./Form/LogoutForm";
+import LogoutForm from "./Form/LogoutForm/LogoutForm";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
