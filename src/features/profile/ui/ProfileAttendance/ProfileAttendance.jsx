@@ -2,6 +2,7 @@
 
 import { useProfileAttendance } from "../../model/useProfileAttendance";
 import styles from "./ProfileAttendance.module.css";
+import ProfileSelect from "../ProfileSelect/ProfileSelect";
 
 export default function ProfileAttendance() {
   const {
@@ -38,7 +39,7 @@ export default function ProfileAttendance() {
         {user?.role === "admin" ? (
           <label>
             Группа
-            <select
+            <ProfileSelect
               value={selectedGroupId}
               onChange={(event) => setSelectedGroupId(event.target.value)}
             >
@@ -47,13 +48,13 @@ export default function ProfileAttendance() {
                   {group.name} - {group.course?.name || "курс"}
                 </option>
               ))}
-            </select>
+            </ProfileSelect>
           </label>
         ) : null}
 
         <label>
           Ученик
-          <select
+          <ProfileSelect
             value={selectedStudentId}
             onChange={(event) => setSelectedStudentId(event.target.value)}
           >
@@ -62,7 +63,7 @@ export default function ProfileAttendance() {
                 {student.full_name}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
       </div>
 

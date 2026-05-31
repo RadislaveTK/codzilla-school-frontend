@@ -56,6 +56,7 @@
   flex-direction: column;
   gap: 12px;
   justify-content: space-between;
+  min-width: 0;
 }
 
 .titleWrapper > .type {
@@ -72,6 +73,7 @@
   font-size: 44px;
   font-weight: bold;
   color: var(--secondary);
+  overflow-wrap: anywhere;
 }
 
 .descriptionWrapper {
@@ -131,12 +133,14 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
 }
 
 .detailText > h4 {
     font-size: 16px;
     font-weight: bold;
     color: var(--secondary);
+    overflow-wrap: anywhere;
 }
 
 .detailText > p {
@@ -209,6 +213,7 @@
     font-size: 36px;
     font-weight: bold;
     color: var(--blue);
+    overflow-wrap: anywhere;
 }
 
 .sideDescription {
@@ -253,4 +258,81 @@
     padding: 4px 12px;
     background-color: rgba(0, 170, 255, 0.1);
     border-radius: 100px;
+}
+
+@media (max-width: 980px) {
+  .contentWrapper {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contentBox,
+  .sidebarBox {
+    max-width: none;
+  }
+
+  .sidebarBox {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    align-items: flex-start;
+  }
+
+  .imageWrapper {
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+  }
+
+  .titleWrapper > .title {
+    font-size: 32px;
+    line-height: 1.1;
+  }
+
+  .detailsWrapper,
+  .sideWrapper {
+    padding: 20px;
+  }
+
+  .detailsContent {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .sidebarBox {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  /* .header {
+    flex-direction: column;
+  } */
+
+  .titleWrapper > .title {
+    font-size: 28px;
+  }
+
+  .titleWrapper > .type {
+    font-size: 12px;
+  }
+
+  .detailItem > img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sidePrice > h1 {
+    font-size: 28px;
+  }
+
+  .infoItem {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
 }

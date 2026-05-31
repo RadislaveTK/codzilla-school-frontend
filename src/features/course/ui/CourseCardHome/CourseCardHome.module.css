@@ -1,5 +1,6 @@
 .CourseCard {
-    width: 260px;
+    width: 100%;
+    min-width: 0;
     height: auto;
     background-color: #fff;
     border: 1px solid #F4F4F4;
@@ -7,12 +8,41 @@
     padding: 20px 25px;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
     gap: 30px;
+    text-align: center;
     transition: all 0.3s ease;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
 }
 
 .CourseCard:hover {
     transform: scale(1.05);
+}
+
+@media (max-width: 640px) {
+    .CourseCard {
+        padding: 18px;
+        gap: 20px;
+    }
+
+    .CourseCard:hover {
+        transform: none;
+    }
 }

@@ -18,12 +18,12 @@ export default function CourseBlockHome() {
         <Typography variant="h1" component="h1">
           Почему именно мы?
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body2" align="center">
           Чем наши курсы отличаются от многих других? Какие есть преимущества?
         </Typography>
       </Box>
 
-      <Box className={"flex row gap-50 w-100 jc-space-between"}>
+      <Box className={styles.homeCoursesGrid}>
         {loading ? (
           <Typography variant="body1">Загрузка курсов...</Typography>
         ) : (

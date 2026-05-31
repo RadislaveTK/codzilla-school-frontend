@@ -23,6 +23,7 @@ export default function ProfileButton() {
   return (
     <Button variant="contained" color="blue" sx={{
       color: "#fff",
+      fontSize:"16px",
       padding: "16px 20px",
     }} onClick={handleClick}>
       {/*{user ? `Личный кабинет` : "Войти"}*/}

@@ -3,6 +3,7 @@
 import { useAdminGroupsManager } from "../../model/useAdminGroupsManager";
 import { getGroupStatusLabel } from "../../model/normalizers";
 import styles from "./AdminGroupsManager.module.css";
+import ProfileSelect from "../ProfileSelect/ProfileSelect";
 
 const statuses = [
   { value: "forming", label: "Формируется" },
@@ -56,7 +57,7 @@ export default function AdminGroupsManager({ enabled }) {
 
         <label>
           Курс
-          <select
+          <ProfileSelect
             required
             value={form.course_id}
             disabled={Boolean(form.id)}
@@ -67,7 +68,7 @@ export default function AdminGroupsManager({ enabled }) {
                 {course.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
@@ -84,7 +85,7 @@ export default function AdminGroupsManager({ enabled }) {
 
         <label>
           Статус
-          <select
+          <ProfileSelect
             value={form.status}
             onChange={(event) => setField("status", event.target.value)}
           >
@@ -93,7 +94,7 @@ export default function AdminGroupsManager({ enabled }) {
                 {status.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label className={styles.wide}>

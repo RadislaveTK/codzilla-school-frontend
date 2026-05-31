@@ -3,6 +3,7 @@
 import { useAdminUsersManager } from "../../model/useAdminUsersManager";
 import { getActivityLabel, getRoleLabel } from "../../model/normalizers";
 import styles from "./AdminUsersManager.module.css";
+import ProfileSelect from "../ProfileSelect/ProfileSelect";
 
 const roleOptions = [
   { value: "parent", label: "Родитель" },
@@ -70,7 +71,7 @@ export default function AdminUsersManager({ enabled }) {
 
         <label>
           Роль
-          <select
+          <ProfileSelect
             value={form.role}
             onChange={(event) => setField("role", event.target.value)}
           >
@@ -79,7 +80,7 @@ export default function AdminUsersManager({ enabled }) {
                 {role.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
@@ -96,7 +97,7 @@ export default function AdminUsersManager({ enabled }) {
 
         <label>
           Активен
-          <select
+          <ProfileSelect
             value={String(form.is_active)}
             onChange={(event) =>
               setField("is_active", event.target.value === "true")
@@ -104,7 +105,7 @@ export default function AdminUsersManager({ enabled }) {
           >
             <option value="true">Да</option>
             <option value="false">Нет</option>
-          </select>
+          </ProfileSelect>
         </label>
 
         <button type="submit" disabled={saving || loading}>

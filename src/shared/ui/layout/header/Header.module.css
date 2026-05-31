@@ -6,7 +6,8 @@
     z-index: 100;
     height: 90px;
     background-color: #fff;
-    padding: 15px 0px;
+    padding: 15px 16px;
+    gap: 20px;
 }
 
 .title {
@@ -20,4 +21,217 @@
     font-weight: bold;
     color: var(--secondary);
     text-decoration: underline;
+}
+
+.brandGroup,
+.nav,
+.actions,
+.phoneGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.brandGroup {
+    gap: 20px;
+}
+
+.nav {
+    gap: 20px;
+}
+
+.actions {
+    gap: 66px;
+}
+
+.phoneGroup {
+    gap: 6px;
+}
+
+.mobileMenuButton {
+    display: none !important;
+    color: var(--secondary) !important;
+}
+
+.burgerIcon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 24px;
+}
+
+.burgerIcon span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 99px;
+    background: currentColor;
+}
+
+.mobileDrawerPaper {
+    width: min(340px, 88vw);
+    padding: 18px;
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    background: #ffffff !important;
+    box-shadow: -20px 0 56px rgba(7, 12, 32, 0.18) !important;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(193, 198, 213, 0.45);
+}
+
+.drawerHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(193, 198, 213, 0.55);
+}
+
+.closeIcon {
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+
+.closeIcon::before,
+.closeIcon::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 2px;
+    width: 18px;
+    height: 2px;
+    border-radius: 99px;
+    background: var(--secondary);
+}
+
+.closeIcon::before {
+    transform: rotate(45deg);
+}
+
+.closeIcon::after {
+    transform: rotate(-45deg);
+}
+
+.drawerNav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 18px;
+}
+
+.drawerNav a {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    border-radius: 10px;
+    color: var(--secondary);
+    font-weight: 700;
+    padding: 12px 14px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.drawerNav a:hover {
+    background: rgba(0, 170, 255, 0.08);
+}
+
+.drawerCourseLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #586edf !important;
+    font-size: 15px;
+    font-weight: 600 !important;
+    min-height: 42px !important;
+    padding: 10px 12px !important;
+}
+
+.drawerCourses {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 4px 0;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(0, 170, 255, 0.06);
+    border: 1px solid rgba(0, 170, 255, 0.12);
+}
+
+.drawerCourses > span {
+    color: #586edf;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.drawerFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 18px;
+    margin-top: auto;
+    border-top: 1px solid rgba(193, 198, 213, 0.55);
+}
+
+.drawerFooter button {
+    width: 100%;
+}
+
+@media (max-width: 1050px) {
+    .header {
+        height: auto;
+        min-height: 82px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-block: 12px;
+    }
+
+    .nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .actions {
+        gap: 18px;
+    }
+}
+
+@media (max-width: 700px) {
+    .header {
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 76px;
+    }
+
+    .title {
+        font-size: 21px;
+    }
+
+    .brandGroup {
+        gap: 10px;
+    }
+
+    .brandGroup > div {
+        display: none;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .actions {
+        display: none;
+    }
+
+    .phoneGroup {
+        display: none;
+    }
+
+    .mobileMenuButton {
+        display: inline-flex !important;
+    }
 }

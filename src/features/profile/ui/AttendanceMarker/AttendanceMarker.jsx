@@ -3,6 +3,7 @@
 import { useAttendanceMarker } from "../../model/useAttendanceMarker";
 import { formatDateTimeRange } from "../../model/normalizers";
 import styles from "./AttendanceMarker.module.css";
+import ProfileSelect from "../ProfileSelect/ProfileSelect";
 
 const statuses = [
   { value: "present", label: "Присутствовал" },
@@ -52,7 +53,7 @@ export default function AttendanceMarker({ enabled }) {
       <div className={styles.controls}>
         <label>
           Группа
-          <select
+          <ProfileSelect
             value={selectedGroupId}
             onChange={(event) => setSelectedGroupId(event.target.value)}
           >
@@ -61,12 +62,12 @@ export default function AttendanceMarker({ enabled }) {
                 {group.name}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
           Занятие
-          <select
+          <ProfileSelect
             value={selectedScheduleId}
             onChange={(event) => setSelectedScheduleId(event.target.value)}
           >
@@ -76,7 +77,7 @@ export default function AttendanceMarker({ enabled }) {
                   formatDateTimeRange(schedule.start_time, schedule.end_time)}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
       </div>
 
@@ -99,7 +100,7 @@ export default function AttendanceMarker({ enabled }) {
           students.map((student) => (
             <div className={styles.row} key={student.id}>
               <strong>{student.full_name}</strong>
-              <select
+              <ProfileSelect
                 value={marks[student.id]?.status || "present"}
                 onChange={(event) =>
                   setStudentMark(student.id, "status", event.target.value)
@@ -110,7 +111,7 @@ export default function AttendanceMarker({ enabled }) {
                     {status.label}
                   </option>
                 ))}
-              </select>
+              </ProfileSelect>
               <input
                 value={marks[student.id]?.reason || ""}
                 onChange={(event) =>

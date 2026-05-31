@@ -9,7 +9,7 @@
     width: 100%;
     min-height: 400px;
     height: auto;
-    padding: 45px 130px;
+    padding: 45px clamp(16px, 7vw, 130px);
     background-color: #00AAFF;
     margin-top: 180px;
     color: #fff;
@@ -91,4 +91,53 @@
 
 .navLink:hover {
     color: #83D6FF;
+}
+
+@media (max-width: 900px) {
+    .Footer {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 36px;
+        margin-top: 90px;
+        text-align: center;
+    }
+
+    .mainBox {
+        order: 1;
+    }
+
+    .mapBox {
+        order: 2;
+        max-width: 520px;
+    }
+
+    .navBox {
+        order: 3;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .linksBox {
+        align-items: center;
+    }
+}
+
+@media (max-width: 520px) {
+    .Footer {
+        padding-block: 36px;
+        margin-top: 64px;
+    }
+
+    .mainName > h1 {
+        font-size: 42px;
+    }
+
+    .mainName > p,
+    .linksBox > p,
+    .mapDescription,
+    .navLink {
+        font-size: 14px;
+    }
 }

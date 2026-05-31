@@ -2,13 +2,14 @@
 
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
+import styles from "./CourseCardsBlock.module.css";
 
 export default function CourseFilters({ age, direction, setAge, setDirection }) {
   const handleChangeAge = (event) => setAge(event.target.value);
   const handleChangeDirection = (event) => setDirection(event.target.value);
 
   return (
-    <div className="flex row gap-40 w-100 ai-center" style={{ maxWidth: 500 }}>
+    <div className={styles.filters}>
       <FormControl
         fullWidth
         color="blue"

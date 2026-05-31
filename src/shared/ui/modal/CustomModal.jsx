@@ -48,35 +48,50 @@ export default function CustomModal({
           anchor="bottom"
           open={open}
           onClose={handleClose}
-          PaperProps={{
-            sx: {
-              borderTopLeftRadius: "16px",
-              borderTopRightRadius: "16px",
-              padding: "16px",
+          slotProps={{
+            paper: {
+              sx: {
+                borderTopLeftRadius: "18px",
+                borderTopRightRadius: "18px",
+                padding: "18px",
+                maxHeight: "88dvh",
+                overflowY: "auto",
+                boxShadow: "0 -18px 48px rgba(7, 12, 32, 0.18)",
+                backgroundColor: "#fff",
+              },
             },
           }}
         >
           <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 2,
+              pb: 1,
+            }}
           >
-            <Box fontWeight="600">{title}</Box>
+            <Box sx={{ color: "var(--secondary)", fontWeight: 700, fontSize: 18 }}>
+              {title}
+            </Box>
             <IconButton onClick={handleClose}>
               <Image src={Close} alt="Close" width={20} height={20} />
             </IconButton>
           </Box>
 
-          <Box mt={2}>{children}</Box>
+          <Box sx={{ mt: 2 }}>{children}</Box>
 
-          {actions && <Box mt={2}>{actions}</Box>}
+          {actions && <Box sx={{ mt: 2 }}>{actions}</Box>}
         </Drawer>
       ) : (
         <Dialog
           open={open}
           onClose={handleClose}
           sx={{
-            "& .MuiDialog-paper": { minWidth: "320px" },
+            "& .MuiDialog-paper": {
+              minWidth: "320px",
+              maxWidth: "calc(100vw - 32px)",
+            },
           }}
         >
           <DialogTitle

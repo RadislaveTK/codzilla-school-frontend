@@ -10,14 +10,14 @@ export default function CarouselOne() {
       loop={true}
       spaceBetween={10}
       slidesPerView={1}
-      width={1180}
-      height={435}
       style={{
-        width:"100%",
+        width: "100%",
         maxWidth: "1180px",
-        height: "435px",
-        minHeight: "435px",
+        aspectRatio: "1180 / 435",
+        height: "auto",
+        minHeight: "auto",
         borderRadius: "20px",
+        overflow: "hidden",
       }}
       // onSlideChange={() => console.log('slide change')}
       // onSwiper={(swiper) => console.log(swiper)}
@@ -28,6 +28,7 @@ export default function CarouselOne() {
           alt="Slide 1"
           width={1180}
           height={435}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </SwiperSlide>
       <SwiperSlide>
@@ -36,6 +37,7 @@ export default function CarouselOne() {
           alt="Slide 2"
           width={1180}
           height={435}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </SwiperSlide>
       <SwiperSlide>
@@ -44,6 +46,7 @@ export default function CarouselOne() {
           alt="Slide 3"
           width={1180}
           height={435}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </SwiperSlide>
     </Swiper>

@@ -3,6 +3,7 @@
 import { useAdminLessonsManager } from "../../model/useAdminLessonsManager";
 import { formatDateTimeRange } from "../../model/normalizers";
 import styles from "./AdminLessonsManager.module.css";
+import ProfileSelect from "../ProfileSelect/ProfileSelect";
 
 export default function AdminLessonsManager({ enabled }) {
   const {
@@ -39,7 +40,7 @@ export default function AdminLessonsManager({ enabled }) {
       <form className={styles.form} onSubmit={saveLesson}>
         <label>
           Группа
-          <select
+          <ProfileSelect
             required
             value={form.group_id}
             onChange={(event) => setField("group_id", event.target.value)}
@@ -49,7 +50,7 @@ export default function AdminLessonsManager({ enabled }) {
                 {group.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>

@@ -23,3 +23,16 @@
   text-align: center;
   max-width: 550px;
 }
+
+@media (max-width: 640px) {
+  .sectionCTA {
+    padding: 32px 16px;
+    margin-top: 36px;
+    border-radius: 0;
+  }
+
+  .title {
+    font-size: 28px;
+    text-align: center;
+  }
+}

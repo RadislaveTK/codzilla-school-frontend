@@ -74,6 +74,8 @@ export default function PageContent() {
               fontSize: "16px",
               padding: "12px 24px",
               borderRadius: "20px",
+              width: { xs: "100%", sm: "auto" },
+              whiteSpace: { xs: "normal", sm: "nowrap" },
             }}
           >
             Записаться на пробный урок

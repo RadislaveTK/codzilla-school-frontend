@@ -165,9 +165,9 @@ const styles = {
   formItem: {
     display: "flex",
     alignItems: "center",
-    flexDirection: "row",
+    flexDirection: { xs: "column", sm: "row" },
     justifyContent: "end",
-    gap: 2,
+    gap: { xs: 1, sm: 2 },
     width: "100%",
   },
   label: {
@@ -175,10 +175,11 @@ const styles = {
     fontSize: "16px",
     whiteSpace: "nowrap",
     color: "#586EDF",
+    width: { xs: "100%", sm: "auto" },
   },
   input: {
     width: "100%",
-    maxWidth: "300px",
+    maxWidth: { xs: "none", sm: "300px" },
     transition: "all 0.3s ease",
     "& .MuiFormLabel-root": {
       fontWeight: 500,
@@ -188,7 +189,7 @@ const styles = {
     },
   },
   button: {
-    width: "min-content",
+    width: { xs: "100%", sm: "min-content" },
     height: "auto",
     backgroundColor: "#FF48F2",
     padding: "16px 20px",
@@ -200,7 +201,8 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
     gap: "8px",
-    whiteSpace: "nowrap",
+    whiteSpace: { xs: "normal", sm: "nowrap" },
+    justifyContent: "center",
   },
   description: {
     color: "#B5C2FF",

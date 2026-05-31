@@ -19,9 +19,11 @@ export const theme = createTheme({
   typography: {
     fontFamily: "Exo 2, sans-serif",
     h1: {
-      fontSize: "68px",
+      fontSize: "clamp(32px, 7vw, 68px)",
       fontWeight: "bold",
       color: "#00157d",
+      lineHeight: 1.05,
+      textAlign: "center",
     },
     body1: {
       fontSize: "16px",

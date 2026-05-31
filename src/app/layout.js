@@ -7,6 +7,7 @@ import AuthModal from "@/features/auth/ui/AuthModal";
 import Footer from "@/shared/ui/layout/footer/Footer";
 import {defaultMetadata} from "@/shared/config/seo/seo";
 import FeedbackModal from "@/shared/ui/modal/FeedbackModal";
+import ScrollTopButton from "@/shared/ui/components/ScrollTopButton/ScrollTopButton";
 
 const exo2 = Exo_2({
   variable: "--font-exo-2",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
           {children}
           <AuthModal />
           <FeedbackModal />
+          <ScrollTopButton />
           <Footer />
         </Providers>
       </body>

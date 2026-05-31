@@ -2,6 +2,7 @@
 
 import { useAdminStudentsManager } from "../../model/useAdminStudentsManager";
 import styles from "../AdminUsersManager/AdminUsersManager.module.css";
+import ProfileSelect from "../ProfileSelect/ProfileSelect";
 
 const genderOptions = [
   { value: "", label: "Не указан" },
@@ -58,7 +59,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
 
         <label>
           Родитель
-          <select
+          <ProfileSelect
             required
             value={form.parent_id}
             onChange={(event) => setField("parent_id", event.target.value)}
@@ -68,12 +69,12 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
                 {parent.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
           Группа
-          <select
+          <ProfileSelect
             value={form.group_id}
             onChange={(event) => setField("group_id", event.target.value)}
           >
@@ -82,12 +83,12 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
                 {group.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
           Курс
-          <select
+          <ProfileSelect
             value={form.current_course_id}
             onChange={(event) =>
               setField("current_course_id", event.target.value)
@@ -98,7 +99,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
                 {course.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
@@ -114,7 +115,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
 
         <label>
           Пол
-          <select
+          <ProfileSelect
             value={form.gender}
             onChange={(event) => setField("gender", event.target.value)}
           >
@@ -123,12 +124,12 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
                 {gender.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
           Статус
-          <select
+          <ProfileSelect
             value={form.status}
             onChange={(event) => setField("status", event.target.value)}
           >
@@ -137,7 +138,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
                 {status.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <button

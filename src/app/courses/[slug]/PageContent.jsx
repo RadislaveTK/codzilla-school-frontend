@@ -393,7 +393,7 @@ const stylesMUI = {
     backgroundColor:
       color === "primary" ? "#FF48F2" : color === "white" ? "#fff" : "#00AAFF",
     padding: "16px 32px",
-    width: color === "white" ? "auto" : "100%",
+    width: color === "white" ? { xs: "100%", sm: "auto" } : "100%",
     color: color === "white" ? "var(--secondary)" : "#fff",
     borderRadius: "20px",
     fontSize: "16px",
@@ -402,5 +402,8 @@ const stylesMUI = {
     flexDirection: "row",
     alignItems: "center",
     gap: "8px",
+    justifyContent: "center",
+    whiteSpace: { xs: "normal", sm: "nowrap" },
+    textAlign: "center",
   }),
 };

@@ -44,7 +44,7 @@ export default function StatisticBlock() {
           <Typography variant="h1" component="h1">
             CODZILLA - не просто школа
           </Typography>
-          <Typography variant="body2">
+          <Typography variant="body2" align="center">
             Наша цель — не просто обучить, а вдохновить. Помочь каждому ученику
             почувствовать: я могу создавать технологии, а не просто пользоваться
             ими.

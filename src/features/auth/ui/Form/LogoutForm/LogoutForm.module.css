@@ -11,6 +11,7 @@
 
 .container > h2 {
     color: var(--secondary);
+    text-align: center;
 }
 
 .container > p {

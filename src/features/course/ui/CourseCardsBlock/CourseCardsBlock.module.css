@@ -1,8 +1,34 @@
 .GridCards {
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
-  grid-template-rows: repeat(auto, minmax(390px, 490px));
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-flow: row;
   gap: 30px 20px;
   display: grid;
   justify-items: stretch;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  width: 100%;
+  max-width: 500px;
+  align-items: center;
+}
+
+@media (max-width: 980px) {
+  .GridCards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .GridCards {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: 16px;
+  }
 }

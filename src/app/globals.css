@@ -3,7 +3,7 @@
   --foreground: #171717;
   --primary: #ff48f2;
   --secondary: #00157d;
-  --blue: #00AAFF;
+  --blue: #00aaff;
 }
 
 html {
@@ -13,7 +13,7 @@ html {
 html,
 body {
   max-width: 100vw;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 body {
@@ -138,5 +138,141 @@ a {
   align-items: center;
   margin-top: 45px;
   max-width: 1200px;
+  padding-inline: 16px;
   gap: 20px;
+}
+
+img,
+svg,
+iframe {
+  max-width: 100%;
+}
+
+select {
+  color-scheme: light;
+}
+
+select:not([multiple]) {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='%2300157D' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-position: right 12px center !important;
+  background-repeat: no-repeat !important;
+  background-size: 14px !important;
+  padding-right: 38px !important;
+}
+
+select:focus {
+  border-color: var(--primary) !important;
+  border-width: 2px;
+  /* box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.14); */
+  outline: none;
+}
+
+select option {
+  background-color: #ffffff;
+  color: var(--secondary);
+  font: inherit;
+  padding: 10px 12px;
+}
+
+select option:checked {
+  background-color: var(--blue);
+  color: var(--secondary);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .page {
+    margin-top: 28px;
+    gap: 28px;
+  }
+
+  .sidebar {
+    position: static !important;
+    top: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    overflow-x: auto;
+  }
+}
+
+.profileScope input,
+.profileScope select,
+.profileScope textarea {
+  width: 100%;
+  min-height: 56px;
+  border: 1px solid #d2d2d2;
+  border-radius: 12px;
+  background: #fff;
+  color: #171717;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 16px 14px;
+  transition: border-color 0.2s ease;
+}
+
+.profileScope select:not([multiple]) {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23586EDF' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-position: right 14px center !important;
+  background-repeat: no-repeat !important;
+  background-size: 20px !important;
+  padding-right: 44px !important;
+}
+
+.profileScope textarea {
+  line-height: 1.45;
+}
+
+.profileScope input:hover,
+.profileScope select:hover,
+.profileScope textarea:hover {
+  border-color: var(--primary);
+}
+
+.profileScope input:focus,
+.profileScope select:focus,
+.profileScope textarea:focus {
+  border-color: var(--primary);
+  border-width: 2px;
+  outline: none;
+  box-shadow: none;
+}
+
+.profileScope input:disabled,
+.profileScope select:disabled {
+  cursor: default;
+  opacity: 0.62;
+}
+
+.profileScope select {
+  appearance: none;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.profileScope select option {
+  background: #fff;
+  color: var(--secondary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.profileScope select option:checked {
+  background: #00aaff;
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .page {
+    margin-top: 22px;
+    padding-inline: 12px;
+  }
+
+  .gap-40,
+  .gap-50,
+  .gap-66 {
+    gap: 24px;
+  }
 }

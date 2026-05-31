@@ -2,6 +2,7 @@
 
 import { useAdminCoursesManager } from "../../model/useAdminCoursesManager";
 import styles from "./AdminCoursesManager.module.css";
+import ProfileSelect from "../ProfileSelect/ProfileSelect";
 
 export default function AdminCoursesManager({ enabled }) {
   const {
@@ -47,7 +48,7 @@ export default function AdminCoursesManager({ enabled }) {
 
         <label>
           Направление
-          <select
+          <ProfileSelect
             value={form.icon}
             onChange={(event) => setField("icon", event.target.value)}
           >
@@ -59,7 +60,7 @@ export default function AdminCoursesManager({ enabled }) {
                 {icon.label}
               </option>
             ))}
-          </select>
+          </ProfileSelect>
         </label>
 
         <label>
@@ -108,13 +109,13 @@ export default function AdminCoursesManager({ enabled }) {
 
         <label>
           Активен
-          <select
+          <ProfileSelect
             value={String(form.is_active)}
             onChange={(event) => setField("is_active", event.target.value === "true")}
           >
             <option value="true">Да</option>
             <option value="false">Нет</option>
-          </select>
+          </ProfileSelect>
         </label>
 
         <label className={styles.wide}>

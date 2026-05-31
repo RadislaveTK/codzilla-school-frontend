@@ -49,17 +49,6 @@
   font-weight: 700;
 }
 
-.form input,
-.form select {
-  width: 100%;
-  border: 1px solid #c1c6d5;
-  border-radius: 8px;
-  background: #fff;
-  color: #171717;
-  font: inherit;
-  padding: 10px 12px;
-}
-
 .header button,
 .form button,
 .actions button {
@@ -74,7 +63,7 @@
 }
 
 .actions button:last-child {
-  background: #ea3323;
+  background: #FF48F2;
 }
 
 .form button:disabled,

@@ -47,18 +47,6 @@
   font-weight: 700;
 }
 
-.controls select,
-.row select,
-.row input {
-  width: 100%;
-  border: 1px solid #c1c6d5;
-  border-radius: 8px;
-  background: #fff;
-  color: #171717;
-  font: inherit;
-  padding: 10px 12px;
-}
-
 .header button {
   border: 0;
   border-radius: 8px;
