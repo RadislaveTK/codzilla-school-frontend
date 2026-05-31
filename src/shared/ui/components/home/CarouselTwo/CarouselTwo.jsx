@@ -36,7 +36,7 @@ export default function CarouselTwo() {
           <SwiperSlide key={id}>
             <div className={styles.slideCard}>
               <Image
-                src="/slides/home/Image 1.png"
+                src="/slides/home/imageCarTwo.png"
                 alt={`Слайд ${id}`}
                 width={480}
                 height={350}
