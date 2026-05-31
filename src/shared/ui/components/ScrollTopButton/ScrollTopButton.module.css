@@ -6,7 +6,7 @@
   display: none !important;
   width: 52px;
   height: 52px;
-  background: var(--blue) !important;
+  background: rgb(0 170 255 / 80%) !important;
   box-shadow: 0 12px 32px rgba(0, 170, 255, 0.28);
   color: #fff !important;
 }

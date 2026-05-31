@@ -4,9 +4,11 @@ import useFeedback from "@/hooks/useFeedback";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function FeedbackForm({ onSuccess }) {
   const { loading, sendFeedback } = useFeedback();
+  const { t } = useI18n();
   const [values, setValues] = useState({
     full_name: "",
     phone: "",
@@ -23,13 +25,13 @@ export default function FeedbackForm({ onSuccess }) {
     const nextErrors = { full_name: "", phone: "", message: "" };
 
     if (!values.full_name) {
-      nextErrors.full_name = "Имя и фамилия обязательны";
+      nextErrors.full_name = t("forms.fullNameRequired");
     }
 
     if (!values.phone) {
-      nextErrors.phone = "Телефон обязателен";
+      nextErrors.phone = t("forms.phoneRequired");
     } else if (!/^\d{10,15}$/.test(values.phone.replace(/\D/g, ""))) {
-      nextErrors.phone = "Некорректный телефон";
+      nextErrors.phone = t("forms.phoneInvalid");
     }
 
     setErrors(nextErrors);
@@ -52,7 +54,7 @@ export default function FeedbackForm({ onSuccess }) {
     } catch (error) {
       const message =
         error?.message ||
-        "Ошибка отправки. Проверьте данные и попробуйте снова.";
+        t("forms.submitError");
       setServerError(message);
     }
   };
@@ -60,12 +62,12 @@ export default function FeedbackForm({ onSuccess }) {
   return (
     <form onSubmit={handleSubmit} autoComplete="off" style={styles.form}>
       <Box sx={styles.formItem}>
-        <Typography sx={styles.label}>Имя родителя:</Typography>
+        <Typography sx={styles.label}>{t("forms.parentName")}</Typography>
         <TextField
           fullWidth
           size="small"
-          placeholder="Имя и фамилия"
-          label="Имя и фамилия"
+          placeholder={t("forms.fullName")}
+          label={t("forms.fullName")}
           sx={styles.input}
           type="text"
           onChange={(event) =>
@@ -79,7 +81,7 @@ export default function FeedbackForm({ onSuccess }) {
         />
       </Box>
       <Box sx={styles.formItem}>
-        <Typography sx={styles.label}>Номер телефона:</Typography>
+        <Typography sx={styles.label}>{t("forms.phoneNumber")}:</Typography>
         <TextField
           fullWidth
           size="small"
@@ -92,18 +94,18 @@ export default function FeedbackForm({ onSuccess }) {
             }))
           }
           placeholder="8 (777) 123-45-67"
-          label="Номер телефона"
+          label={t("forms.phoneNumber")}
           error={!!errors.phone}
           helperText={errors.phone}
         />
       </Box>
       <Box sx={styles.formItem}>
-        <Typography sx={styles.label}>Доп. вопросы:</Typography>
+        <Typography sx={styles.label}>{t("forms.questions")}</Typography>
         <TextField
           fullWidth
           size="small"
-          placeholder="Доп. вопросы"
-          label="Доп. вопросы"
+          placeholder={t("forms.questionsShort")}
+          label={t("forms.questionsShort")}
           sx={styles.input}
           type="text"
           onChange={(event) =>
@@ -128,23 +130,23 @@ export default function FeedbackForm({ onSuccess }) {
         onClick={handleSubmit}
         disabled={loading}
       >
-        {loading ? "Отправляем..." : "Перезвоните мне"}
+        {loading ? t("forms.sending") : t("forms.callMe")}
         <Image
           src={"/icons/social/phone.svg"}
-          alt="Перезвоните мне"
+          alt={t("forms.callMe")}
           width={20}
           height={20}
         />
       </Button>
       <p style={styles.description}>
-        Нажимая на кнопку, вы соглашаетесь с{" "}
+        {t("forms.agreement")}{" "}
         <a
           href="/privacy-policy"
           target="_blank"
           rel="noopener noreferrer"
           style={styles.link}
         >
-          политикой конфиденциальности
+          {t("forms.privacy")}
         </a>
       </p>
     </form>

@@ -3,6 +3,7 @@ import { Box, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import { useI18n } from "@/shared/config/i18n";
 
 const styles = {
   toggleGroup: {
@@ -32,6 +33,7 @@ const styles = {
 };
 
 export default function AuthForm({ onSuccess }) {
+  const { t } = useI18n();
   const [formType, setFormType] = useState("login");
 
   const handleChange = (event, newValue) => {
@@ -50,11 +52,11 @@ export default function AuthForm({ onSuccess }) {
         sx={styles.toggleGroup}
       >
         <ToggleButton value="login" sx={styles.toggleButton}>
-          Вход
+          {t("auth.login")}
         </ToggleButton>
 
         <ToggleButton value="register" sx={styles.toggleButton}>
-          Регистрация
+          {t("auth.register")}
         </ToggleButton>
       </ToggleButtonGroup>
 

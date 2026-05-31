@@ -3,24 +3,26 @@
 import { useAuth } from "@/hooks/useAuth";
 import AdminCoursesManager from "../AdminCoursesManager/AdminCoursesManager";
 import styles from "../ProfileAdmin/ProfileAdmin.module.css";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function ProfileAdminCourses() {
   const { user, loading } = useAuth() || {};
+  const { t } = useI18n();
 
   if (loading) {
-    return <div className={styles.status}>Загружаем курсы...</div>;
+    return <div className={styles.status}>{t("profile.loadingCourses")}</div>;
   }
 
   if (user?.role !== "admin") {
-    return <div className={styles.status}>Раздел доступен только администратору.</div>;
+    return <div className={styles.status}>{t("profile.adminOnly")}</div>;
   }
 
   return (
     <section className={styles.page}>
       <div className={styles.header}>
-        <span>Администрирование</span>
-        <h1>Курсы</h1>
-        <p>Создание и редактирование программ обучения, цен, навыков и статуса активности.</p>
+        <span>{t("profile.sectionAdmin")}</span>
+        <h1>{t("nav.courses")}</h1>
+        <p>{t("profile.programsDescription")}</p>
       </div>
 
       <AdminCoursesManager enabled />

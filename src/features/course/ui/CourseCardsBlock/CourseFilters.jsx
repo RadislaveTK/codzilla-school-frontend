@@ -3,8 +3,10 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 import styles from "./CourseCardsBlock.module.css";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function CourseFilters({ age, direction, setAge, setDirection }) {
+  const { t } = useI18n();
   const handleChangeAge = (event) => setAge(event.target.value);
   const handleChangeDirection = (event) => setDirection(event.target.value);
 
@@ -19,13 +21,13 @@ export default function CourseFilters({ age, direction, setAge, setDirection }) 
         }}
       >
         <InputLabel id="age-select-label" color="blue">
-          Возраст
+          {t("courses.filters.age")}
         </InputLabel>
         <Select
           labelId="age-select-label"
           id="age-select"
           value={age}
-          label="Возраст"
+          label={t("courses.filters.age")}
           onChange={handleChangeAge}
           color="blue"
           MenuProps={{
@@ -36,19 +38,19 @@ export default function CourseFilters({ age, direction, setAge, setDirection }) 
           }}
         >
           <MenuItem color="blue" value={""}>
-            Не выбран
+            {t("courses.filters.notSelected")}
           </MenuItem>
           <MenuItem color="blue" value={"3-6"}>
-            3-6 лет
+            3-6 {t("courses.filters.years")}
           </MenuItem>
           <MenuItem color="blue" value={"7-10"}>
-            7-10 лет
+            7-10 {t("courses.filters.years")}
           </MenuItem>
           <MenuItem color="blue" value={"11-14"}>
-            11-14 лет
+            11-14 {t("courses.filters.years")}
           </MenuItem>
           <MenuItem color="blue" value={"15-18"}>
-            15-18 лет
+            15-18 {t("courses.filters.years")}
           </MenuItem>
         </Select>
       </FormControl>
@@ -62,13 +64,13 @@ export default function CourseFilters({ age, direction, setAge, setDirection }) 
         }}
       >
         <InputLabel id="direction-select-label" color="blue">
-          Направление
+          {t("courses.filters.direction")}
         </InputLabel>
         <Select
           labelId="direction-select-label"
           id="direction-select"
           value={direction}
-          label="Направление"
+          label={t("courses.filters.direction")}
           onChange={handleChangeDirection}
           color="blue"
           MenuProps={{
@@ -79,19 +81,19 @@ export default function CourseFilters({ age, direction, setAge, setDirection }) 
           }}
         >
           <MenuItem color="blue" value={""}>
-            Не выбран
+            {t("courses.filters.notSelected")}
           </MenuItem>
           <MenuItem color="blue" value={"pacman"}>
-            Игры
+            {t("courses.filters.games")}
           </MenuItem>
           <MenuItem color="blue" value={"robot"}>
-            Робототехника
+            {t("courses.filters.robotics")}
           </MenuItem>
           <MenuItem color="blue" value={"dron"}>
-            Дроны
+            {t("courses.filters.drones")}
           </MenuItem>
           <MenuItem color="blue" value={"programming"}>
-            Программирование
+            {t("courses.filters.programming")}
           </MenuItem>
         </Select>
       </FormControl>

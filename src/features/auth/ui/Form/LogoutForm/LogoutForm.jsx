@@ -1,11 +1,14 @@
 import { Box, Button } from "@mui/material";
 import styles from "./LogoutForm.module.css"
+import { useI18n } from "@/shared/config/i18n";
 
 export default function LogoutForm({ onClose }) {
+  const { t } = useI18n();
+
   return (
     <div className={styles.container}>
-      <h2>Вы уверены, что хотите выйти?</h2>
-      <p>Ваш профиль будет сохранен. Вы сможете войти снова в любое время.</p>
+      <h2>{t("profile.logoutTitle")}</h2>
+      <p>{t("profile.logoutDescription")}</p>
       <Box>
         <Button
           type="submit"
@@ -28,7 +31,7 @@ export default function LogoutForm({ onClose }) {
           }}
           onClick={onClose}
         >
-          Да, выйти
+          {t("profile.logoutConfirm")}
         </Button>
       </Box>
     </div>

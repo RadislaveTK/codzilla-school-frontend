@@ -11,35 +11,36 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo } from "react";
 import ExitButton from "@/features/auth/ui/ExitButton";
+import { useI18n } from "@/shared/config/i18n";
 
 const menuSections = [
   {
-    title: "Профиль",
+    titleKey: "profile.sectionProfile",
     items: [
       {
         href: "/profile/panel",
-        label: "Сводка",
+        labelKey: "profile.summary",
         icon: "/icons/profile/sidebar/dashboard.svg",
         alt: "dashboard",
         roles: ["admin", "parent"],
       },
       {
         href: "/profile/attendance",
-        label: "Посещаемость",
+        labelKey: "profile.attendance",
         icon: "/icons/profile/sidebar/calendar.svg",
         alt: "calendar",
         roles: ["admin", "parent"],
       },
       {
         href: "/profile/courses",
-        label: "Курсы",
+        labelKey: "nav.courses",
         icon: "/icons/profile/sidebar/school.svg",
         alt: "school",
         roles: ["admin", "parent"],
       },
       {
         href: "/profile/students",
-        label: "Ученики",
+        labelKey: "profile.students",
         icon: "/icons/profile/sidebar/students.svg",
         alt: "students",
         roles: ["admin", "parent"],
@@ -47,46 +48,46 @@ const menuSections = [
     ],
   },
   {
-    title: "Администрирование",
+    titleKey: "profile.sectionAdmin",
     items: [
       {
         href: "/profile/admin",
-        label: "Панель управления",
+        labelKey: "profile.adminPanel",
         icon: "/icons/profile/sidebar/dashboard.svg",
         alt: "admin dashboard",
         roles: ["admin"],
       },
       {
         href: "/profile/admin/users",
-        label: "Пользователи",
+        labelKey: "profile.users",
         icon: "/icons/profile/sidebar/students.svg",
         alt: "users",
         roles: ["admin"],
       },
       {
         href: "/profile/admin/students",
-        label: "Ученики и группы",
+        labelKey: "profile.studentsAndGroups",
         icon: "/icons/profile/sidebar/students.svg",
         alt: "admin students",
         roles: ["admin"],
       },
       {
         href: "/profile/admin/courses",
-        label: "Курсы",
+        labelKey: "nav.courses",
         icon: "/icons/profile/sidebar/school.svg",
         alt: "admin courses",
         roles: ["admin"],
       },
       {
         href: "/profile/admin/lessons",
-        label: "Занятия",
+        labelKey: "profile.lessons",
         icon: "/icons/profile/sidebar/calendar.svg",
         alt: "lessons",
         roles: ["admin"],
       },
       {
         href: "/profile/admin/attendance",
-        label: "Отметка занятия",
+        labelKey: "profile.attendanceMarker",
         icon: "/icons/profile/sidebar/calendar.svg",
         alt: "attendance marker",
         roles: ["admin"],
@@ -99,6 +100,7 @@ export default function SelectList() {
   const router = useRouter();
   const path = usePathname();
   const { user, loading } = useAuth() || {};
+  const { t } = useI18n();
 
   const availableSections = useMemo(() => {
     if (loading) {
@@ -124,7 +126,7 @@ export default function SelectList() {
   return (
     <List
       component="nav"
-      aria-label="profile navigation"
+      aria-label={t("profile.navigation")}
       sx={{
         gap: "14px",
         height: "100%",
@@ -159,8 +161,8 @@ export default function SelectList() {
       }}
     >
       {availableSections.map((section) => (
-        <div key={section.title}>
-          <div className="sidebar-section-title">{section.title}</div>
+        <div key={section.titleKey}>
+          <div className="sidebar-section-title">{t(section.titleKey)}</div>
           {section.items.map((item) => (
             <ListItemButton
               key={item.href}
@@ -170,7 +172,7 @@ export default function SelectList() {
               <ListItemIcon>
                 <Image src={item.icon} alt={item.alt} width={18} height={18} />
               </ListItemIcon>
-              <ListItemText primary={item.label} />
+              <ListItemText primary={t(item.labelKey)} />
             </ListItemButton>
           ))}
         </div>

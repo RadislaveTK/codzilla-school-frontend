@@ -4,15 +4,17 @@ import { useAdminGroupsManager } from "../../model/useAdminGroupsManager";
 import { getGroupStatusLabel } from "../../model/normalizers";
 import styles from "./AdminGroupsManager.module.css";
 import ProfileSelect from "../ProfileSelect/ProfileSelect";
+import { useI18n } from "@/shared/config/i18n";
 
 const statuses = [
-  { value: "forming", label: "Формируется" },
-  { value: "active", label: "Активная" },
-  { value: "completed", label: "Завершена" },
-  { value: "cancelled", label: "Отменена" },
+  { value: "forming", labelKey: "profile.forming" },
+  { value: "active", labelKey: "courses.active" },
+  { value: "completed", labelKey: "profile.completed" },
+  { value: "cancelled", labelKey: "profile.cancelled" },
 ];
 
 export default function AdminGroupsManager({ enabled }) {
+  const { t } = useI18n();
   const {
     groups,
     form,
@@ -36,27 +38,27 @@ export default function AdminGroupsManager({ enabled }) {
     <article className={styles.manager}>
       <div className={styles.header}>
         <div>
-          <span>Управление</span>
-          <h2>Группы</h2>
+          <span>{t("profile.management")}</span>
+          <h2>{t("profile.groups")}</h2>
         </div>
         <button type="button" onClick={resetForm}>
-          Новая группа
+          {t("profile.newGroup")}
         </button>
       </div>
 
       <form className={styles.form} onSubmit={saveGroup}>
         <label>
-          Название
+          {t("profile.titleField")}
           <input
             required
             value={form.name}
             onChange={(event) => setField("name", event.target.value)}
-            placeholder="Например: Scratch Junior"
+            placeholder={t("profile.groupPlaceholder")}
           />
         </label>
 
         <label>
-          Курс
+          {t("profile.course")}
           <ProfileSelect
             required
             value={form.course_id}
@@ -72,7 +74,7 @@ export default function AdminGroupsManager({ enabled }) {
         </label>
 
         <label>
-          Мест
+          {t("profile.places")}
           <input
             min="1"
             max="30"
@@ -84,30 +86,30 @@ export default function AdminGroupsManager({ enabled }) {
         </label>
 
         <label>
-          Статус
+          {t("profile.status")}
           <ProfileSelect
             value={form.status}
             onChange={(event) => setField("status", event.target.value)}
           >
             {statuses.map((status) => (
               <option key={status.value} value={status.value}>
-                {status.label}
+                {t(status.labelKey)}
               </option>
             ))}
           </ProfileSelect>
         </label>
 
         <label className={styles.wide}>
-          Описание
+          {t("profile.descriptionField")}
           <textarea
             value={form.description}
             onChange={(event) => setField("description", event.target.value)}
-            placeholder="Коротко о группе"
+            placeholder={t("profile.groupDescriptionPlaceholder")}
           />
         </label>
 
         <button type="submit" disabled={saving || loading}>
-          {form.id ? "Сохранить" : "Создать"}
+          {form.id ? t("profile.save") : t("profile.create")}
         </button>
       </form>
 
@@ -120,21 +122,21 @@ export default function AdminGroupsManager({ enabled }) {
             <div>
               <strong>{group.name}</strong>
               <span>
-                {group.course?.name || "Курс не указан"} ·{" "}
+                {group.course?.name || t("profile.courseNotSpecified")} ·{" "}
                 {group.students_count || group.current_students || 0}/
                 {group.max_students} · {getGroupStatusLabel(group)}
               </span>
             </div>
             <div className={styles.actions}>
               <button type="button" onClick={() => editGroup(group)}>
-                Изменить
+                {t("profile.edit")}
               </button>
               <button
                 type="button"
                 onClick={() => deleteGroup(group.id)}
                 disabled={saving}
               >
-                Удалить
+                {t("profile.delete")}
               </button>
             </div>
           </div>

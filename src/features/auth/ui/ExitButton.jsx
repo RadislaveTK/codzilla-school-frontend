@@ -5,11 +5,13 @@ import LogoutForm from "./Form/LogoutForm/LogoutForm";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function ExitButton() {
   const [open, setOpen] = useState(false);
   const { logout } = useAuth();
   const router = useRouter();
+  const { t } = useI18n();
 
   const handleLogout = async () => {
     try {
@@ -40,10 +42,10 @@ export default function ExitButton() {
               height={18}
             />
           </ListItemIcon>
-          <ListItemText primary="Выход" />
+          <ListItemText primary={t("profile.logout")} />
         </ListItemButton>
       }
-      title={"Выход"}
+      title={t("profile.logout")}
     >
       <LogoutForm onClose={handleLogout} />
     </CustomModal>

@@ -3,20 +3,22 @@
 import { useAdminStudentsManager } from "../../model/useAdminStudentsManager";
 import styles from "../AdminUsersManager/AdminUsersManager.module.css";
 import ProfileSelect from "../ProfileSelect/ProfileSelect";
+import { useI18n } from "@/shared/config/i18n";
 
 const genderOptions = [
-  { value: "", label: "Не указан" },
-  { value: "male", label: "Мальчик" },
-  { value: "female", label: "Девочка" },
+  { value: "", labelKey: "profile.notSpecifiedOption" },
+  { value: "male", labelKey: "profile.boy" },
+  { value: "female", labelKey: "profile.girl" },
 ];
 
 const statusOptions = [
-  { value: "active", label: "Активный" },
-  { value: "graduated", label: "Выпускник" },
-  { value: "left", label: "Выбыл" },
+  { value: "active", labelKey: "profile.activeOne" },
+  { value: "graduated", labelKey: "profile.graduate" },
+  { value: "left", labelKey: "profile.left" },
 ];
 
 export default function AdminStudentsManager({ enabled, onCreated }) {
+  const { t } = useI18n();
   const {
     form,
     loading,
@@ -39,17 +41,17 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
     <article className={styles.manager}>
       <div className={styles.header}>
         <div>
-          <span>Администрирование</span>
-          <h2>Новый ученик</h2>
+          <span>{t("profile.sectionAdmin")}</span>
+          <h2>{t("profile.newStudent")}</h2>
         </div>
         <button type="button" onClick={resetForm}>
-          Очистить
+          {t("profile.clear")}
         </button>
       </div>
 
       <form className={styles.form} onSubmit={saveStudent}>
         <label>
-          ФИО ученика
+          {t("profile.studentFullName")}
           <input
             required
             value={form.full_name}
@@ -58,7 +60,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
         </label>
 
         <label>
-          Родитель
+          {t("profile.parentLabel")}
           <ProfileSelect
             required
             value={form.parent_id}
@@ -73,7 +75,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
         </label>
 
         <label>
-          Группа
+          {t("profile.group")}
           <ProfileSelect
             value={form.group_id}
             onChange={(event) => setField("group_id", event.target.value)}
@@ -87,7 +89,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
         </label>
 
         <label>
-          Курс
+          {t("profile.course")}
           <ProfileSelect
             value={form.current_course_id}
             onChange={(event) =>
@@ -103,7 +105,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
         </label>
 
         <label>
-          Возраст
+          {t("profile.age")}
           <input
             min="3"
             max="18"
@@ -114,28 +116,28 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
         </label>
 
         <label>
-          Пол
+          {t("profile.gender")}
           <ProfileSelect
             value={form.gender}
             onChange={(event) => setField("gender", event.target.value)}
           >
             {genderOptions.map((gender) => (
               <option key={gender.value} value={gender.value}>
-                {gender.label}
+                {t(gender.labelKey)}
               </option>
             ))}
           </ProfileSelect>
         </label>
 
         <label>
-          Статус
+          {t("profile.status")}
           <ProfileSelect
             value={form.status}
             onChange={(event) => setField("status", event.target.value)}
           >
             {statusOptions.map((status) => (
               <option key={status.value} value={status.value}>
-                {status.label}
+                {t(status.labelKey)}
               </option>
             ))}
           </ProfileSelect>
@@ -145,7 +147,7 @@ export default function AdminStudentsManager({ enabled, onCreated }) {
           type="submit"
           disabled={saving || loading || !parentOptions.length}
         >
-          Создать и добавить
+          {t("profile.createAndAdd")}
         </button>
       </form>
 

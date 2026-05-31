@@ -3,8 +3,10 @@
 import { useAdminCoursesManager } from "../../model/useAdminCoursesManager";
 import styles from "./AdminCoursesManager.module.css";
 import ProfileSelect from "../ProfileSelect/ProfileSelect";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function AdminCoursesManager({ enabled }) {
+  const { t } = useI18n();
   const {
     courses,
     icons,
@@ -28,17 +30,17 @@ export default function AdminCoursesManager({ enabled }) {
     <article className={styles.manager}>
       <div className={styles.header}>
         <div>
-          <span>Управление</span>
-          <h2>Курсы</h2>
+          <span>{t("profile.management")}</span>
+          <h2>{t("nav.courses")}</h2>
         </div>
         <button type="button" onClick={resetForm}>
-          Новый курс
+          {t("profile.newCourse")}
         </button>
       </div>
 
       <form className={styles.form} onSubmit={saveCourse}>
         <label>
-          Название
+          {t("profile.titleField")}
           <input
             required
             value={form.name}
@@ -47,14 +49,14 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <label>
-          Направление
+          {t("profile.direction")}
           <ProfileSelect
             value={form.icon}
             onChange={(event) => setField("icon", event.target.value)}
           >
             {(icons.length
               ? icons
-              : [{ value: "programming", label: "Программирование" }]
+              : [{ value: "programming", label: t("courses.filters.programming") }]
             ).map((icon) => (
               <option key={icon.value} value={icon.value}>
                 {icon.label}
@@ -64,7 +66,7 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <label>
-          Возраст от
+          {t("profile.ageFrom")}
           <input
             min="3"
             required
@@ -75,7 +77,7 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <label>
-          Возраст до
+          {t("profile.ageTo")}
           <input
             min={form.age_from}
             required
@@ -86,7 +88,7 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <label>
-          Цена
+          {t("profile.price")}
           <input
             min="0"
             required
@@ -97,7 +99,7 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <label>
-          Недель
+          {t("profile.weeksLabel")}
           <input
             min="1"
             required
@@ -108,18 +110,18 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <label>
-          Активен
+          {t("profile.active")}
           <ProfileSelect
             value={String(form.is_active)}
             onChange={(event) => setField("is_active", event.target.value === "true")}
           >
-            <option value="true">Да</option>
-            <option value="false">Нет</option>
+            <option value="true">{t("profile.yes")}</option>
+            <option value="false">{t("profile.no")}</option>
           </ProfileSelect>
         </label>
 
         <label className={styles.wide}>
-          Описание
+          {t("profile.descriptionField")}
           <textarea
             required
             value={form.description}
@@ -128,7 +130,7 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <label className={styles.wide}>
-          Навыки, каждый с новой строки
+          {t("profile.skillsEachLine")}
           <textarea
             value={form.basic_skills}
             onChange={(event) => setField("basic_skills", event.target.value)}
@@ -136,7 +138,7 @@ export default function AdminCoursesManager({ enabled }) {
         </label>
 
         <button type="submit" disabled={saving || loading}>
-          {form.id ? "Сохранить курс" : "Создать курс"}
+          {form.id ? t("profile.saveCourse") : t("profile.createCourse")}
         </button>
       </form>
 
@@ -150,19 +152,19 @@ export default function AdminCoursesManager({ enabled }) {
               <strong>{course.name}</strong>
               <span>
                 {course.age_range} · {course.formatted_price} ·{" "}
-                {course.groups_count || 0} групп
+                {course.groups_count || 0} {t("profile.groupsCount")}
               </span>
             </div>
             <div className={styles.actions}>
               <button type="button" onClick={() => editCourse(course)}>
-                Изменить
+                {t("profile.edit")}
               </button>
               <button
                 type="button"
                 onClick={() => deleteCourse(course.id)}
                 disabled={saving}
               >
-                Удалить
+                {t("profile.delete")}
               </button>
             </div>
           </div>

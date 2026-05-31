@@ -1,17 +1,21 @@
+ "use client";
+
 import JsonLd from "@/shared/config/seo/JsonLd";
 import { Box, Divider, Typography } from "@mui/material";
 import styles from "./PageContent.module.css";
 import Image from "next/image";
 import FeedbackForm from "@/shared/ui/forms/FeedbackForm";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function PageContent() {
+  const { t } = useI18n();
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Codzilla School",
     url: "https://codzilla-school.com",
     logo: "/logo.svg",
-    description: "Онлайн школа программирования для детей",
+    description: t("about.schemaDescription"),
     sameAs: ["https://instagram.com/codzilla", "https://facebook.com/codzilla"],
     contactPoint: {
       "@type": "ContactPoint",
@@ -30,11 +34,10 @@ export default function PageContent() {
           style={{ maxWidth: 700 }}
         >
           <Typography variant="h1" component="h1">
-            Свяжитесь с нами
+            {t("about.title")}
           </Typography>
           <Typography variant="body2" align="center">
-            Мы всегда рады ответить на ваши вопросы, обсудить детали обучения
-            или помочь с выбором курса для вашего ребенка.
+            {t("about.description")}
           </Typography>
         </Box>
 
@@ -43,12 +46,12 @@ export default function PageContent() {
             <Box className={styles.infoItem}>
               <Image
                 src="/icons/about/shop.svg"
-                alt="Контакты"
+                alt={t("about.altContacts")}
                 width={18}
                 height={18}
               />
               <Box className={styles.infoText}>
-                <h4>Наши контакты</h4>
+                <h4>{t("about.contacts")}</h4>
               </Box>
             </Box>
 
@@ -57,18 +60,19 @@ export default function PageContent() {
             <Box className={styles.infoItem}>
               <Image
                 src="/icons/about/map.svg"
-                alt="Карта"
+                alt={t("about.altMap")}
                 width={18}
                 height={18}
               />
               <Box className={styles.infoText}>
-                <h4>Адрес</h4>
+                <h4>{t("about.addressTitle")}</h4>
                 <p>
-                  ​БЦ “Эдем”
-                  <br />
-                  ​Улица Нурсултана Назарбаева, 246Б​
-                  <br />
-                  305 офис; 3 этаж
+                  {t("about.address").split("\n").map((line, index) => (
+                    <span key={`${line}-${index}`}>
+                      {line}
+                      {index < t("about.address").split("\n").length - 1 ? <br /> : null}
+                    </span>
+                  ))}
                 </p>
               </Box>
             </Box>
@@ -78,16 +82,19 @@ export default function PageContent() {
             <Box className={styles.infoItem}>
               <Image
                 src="/icons/about/time.svg"
-                alt="Время работы"
+                alt={t("about.altTime")}
                 width={18}
                 height={18}
               />
               <Box className={styles.infoText}>
-                <h4>Время работы</h4>
+                <h4>{t("about.workTime")}</h4>
                 <p>
-                  Пн - Пт: 09:00 - 19:00
-                  <br />
-                  Сб - Вс: 10:00 - 16:00
+                  {t("about.workTimeValue").split("\n").map((line, index) => (
+                    <span key={`${line}-${index}`}>
+                      {line}
+                      {index < t("about.workTimeValue").split("\n").length - 1 ? <br /> : null}
+                    </span>
+                  ))}
                 </p>
               </Box>
             </Box>
@@ -97,12 +104,12 @@ export default function PageContent() {
             <Box className={styles.infoItem}>
               <Image
                 src="/icons/about/phone.svg"
-                alt="Телефон"
+                alt={t("about.altPhone")}
                 width={18}
                 height={18}
               />
               <Box className={styles.infoText}>
-                <h4>Номер телефона</h4>
+                <h4>{t("about.phoneTitle")}</h4>
                 <p>
                   +7 (707) 123 45 67
                   <br />
@@ -116,12 +123,12 @@ export default function PageContent() {
             <Box className={styles.infoItem}>
               <Image
                 src="/icons/about/mail.svg"
-                alt="Почта"
+                alt={t("about.altMail")}
                 width={18}
                 height={18}
               />
               <Box className={styles.infoText}>
-                <h4>Электронная почта</h4>
+                <h4>{t("about.emailTitle")}</h4>
                 <p>
                   codzilla@gmail.com
                   <br />
@@ -141,7 +148,7 @@ export default function PageContent() {
                   top: "0px",
                 }}
               >
-                Петропавловск
+                {t("about.city")}
               </a>
               <a
                 href="https://yandex.kz/maps/ru/10298/petropavlovsk/house/nursultan_nazarbaev_koshesi_246b/YkAYdwNkQEMFQFtufXR4cHRlZg==/?ll=69.144963%2C54.891862&utm_medium=mapframe&utm_source=maps&z=17.3"
@@ -152,7 +159,7 @@ export default function PageContent() {
                   top: "14px",
                 }}
               >
-                Яндекс Карты — транспорт, навигация, поиск мест
+                {t("about.mapLabel")}
               </a>
               <iframe
                 src="https://yandex.kz/map-widget/v1/?ll=69.144963%2C54.891862&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgoyMTk5MDc0ODM5EpUB0prQsNC30LDSm9GB0YLQsNC9LCDQodC-0LvRgtKv0YHRgtGW0Log0prQsNC30LDSm9GB0YLQsNC9INC-0LHQu9GL0YHRiywg0J_QtdGC0YDQvtC_0LDQstC7LCDQndKx0YDRgdKx0LvRgtCw0L0g0J3QsNC30LDRgNCx0LDQtdCyINC606nRiNC10YHRliwgMjQ20JEiCg04SopCFUSRW0I%2C&z=17.3"
@@ -173,11 +180,10 @@ export default function PageContent() {
           style={{ maxWidth: 700 }}
         >
           <Typography variant="h1" component="h1">
-            Остались вопросы?
+            {t("about.questionsTitle")}
           </Typography>
           <Typography variant="body2" align="center">
-            Заполните форму, и наш менеджер свяжется с вами в течении <br />
-            15 минут для подробной консультации.
+            {t("about.questionsDescription")}
           </Typography>
         </Box>
 

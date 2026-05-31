@@ -3,8 +3,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function CarouselOne() {
+  const isMobile = useIsMobile();
+
   return (
     <Swiper
       loop={true}
@@ -12,8 +15,8 @@ export default function CarouselOne() {
       slidesPerView={1}
       style={{
         width: "100%",
-        maxWidth: "1180px",
-        aspectRatio: "1180 / 435",
+        maxWidth: isMobile ? "340px" : "1180px",
+        aspectRatio: isMobile ? "340 / 590" : "1180 / 435",
         height: "auto",
         minHeight: "auto",
         borderRadius: "20px",
@@ -24,28 +27,40 @@ export default function CarouselOne() {
     >
       <SwiperSlide>
         <Image
-          src="/slides/home/banner1.svg"
+          src={
+            isMobile
+              ? "/slides/home/banner1MB.svg"
+              : "/slides/home/banner1PC.svg"
+          }
           alt="Slide 1"
-          width={1180}
-          height={435}
+          width={isMobile ? 340 : 1180}
+          height={isMobile ? 590 : 435}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </SwiperSlide>
       <SwiperSlide>
         <Image
-          src="/slides/home/banner2.svg"
+          src={
+            isMobile
+              ? "/slides/home/banner1MB.svg"
+              : "/slides/home/banner2PC.svg"
+          }
           alt="Slide 2"
-          width={1180}
-          height={435}
+          width={isMobile ? 340 : 1180}
+          height={isMobile ? 590 : 435}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </SwiperSlide>
       <SwiperSlide>
         <Image
-          src="/slides/home/banner3.svg"
+          src={
+            isMobile
+              ? "/slides/home/banner1MB.svg"
+              : "/slides/home/banner3PC.svg"
+          }
           alt="Slide 3"
-          width={1180}
-          height={435}
+          width={isMobile ? 340 : 1180}
+          height={isMobile ? 590 : 435}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </SwiperSlide>

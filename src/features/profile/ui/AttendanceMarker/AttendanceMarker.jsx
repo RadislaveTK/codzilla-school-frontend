@@ -4,14 +4,16 @@ import { useAttendanceMarker } from "../../model/useAttendanceMarker";
 import { formatDateTimeRange } from "../../model/normalizers";
 import styles from "./AttendanceMarker.module.css";
 import ProfileSelect from "../ProfileSelect/ProfileSelect";
+import { useI18n } from "@/shared/config/i18n";
 
 const statuses = [
-  { value: "present", label: "Присутствовал" },
-  { value: "absent", label: "Отсутствовал" },
-  { value: "late", label: "Опоздал" },
+  { value: "present", labelKey: "profile.present" },
+  { value: "absent", labelKey: "profile.absent" },
+  { value: "late", labelKey: "profile.late" },
 ];
 
 export default function AttendanceMarker({ enabled }) {
+  const { t } = useI18n();
   const {
     groups,
     schedules,
@@ -38,21 +40,21 @@ export default function AttendanceMarker({ enabled }) {
     <article className={styles.marker}>
       <div className={styles.header}>
         <div>
-          <span>Учитель</span>
-          <h2>Отметка занятия</h2>
+          <span>{t("profile.teacher")}</span>
+          <h2>{t("profile.attendanceMarker")}</h2>
         </div>
         <button
           type="button"
           onClick={saveMarks}
           disabled={saving || !students.length}
         >
-          Сохранить
+          {t("profile.save")}
         </button>
       </div>
 
       <div className={styles.controls}>
         <label>
-          Группа
+          {t("profile.group")}
           <ProfileSelect
             value={selectedGroupId}
             onChange={(event) => setSelectedGroupId(event.target.value)}
@@ -66,7 +68,7 @@ export default function AttendanceMarker({ enabled }) {
         </label>
 
         <label>
-          Занятие
+          {t("profile.lesson")}
           <ProfileSelect
             value={selectedScheduleId}
             onChange={(event) => setSelectedScheduleId(event.target.value)}
@@ -87,11 +89,11 @@ export default function AttendanceMarker({ enabled }) {
             selectedSchedule.start_time,
             selectedSchedule.end_time,
           )} ·{" "}
-          {selectedSchedule.room || "Кабинет не указан"}
+          {selectedSchedule.room || t("profile.roomNotSpecified")}
         </div>
       ) : null}
 
-      {loading ? <div className={styles.note}>Загружаем...</div> : null}
+      {loading ? <div className={styles.note}>{t("profile.loading")}</div> : null}
       {message ? <div className={styles.message}>{message}</div> : null}
       {error ? <div className={styles.error}>{error}</div> : null}
 
@@ -108,7 +110,7 @@ export default function AttendanceMarker({ enabled }) {
               >
                 {statuses.map((status) => (
                   <option key={status.value} value={status.value}>
-                    {status.label}
+                    {t(status.labelKey)}
                   </option>
                 ))}
               </ProfileSelect>
@@ -117,12 +119,12 @@ export default function AttendanceMarker({ enabled }) {
                 onChange={(event) =>
                   setStudentMark(student.id, "reason", event.target.value)
                 }
-                placeholder="Комментарий"
+                placeholder={t("profile.comment")}
               />
             </div>
           ))
         ) : (
-          <div className={styles.note}>Нет учеников для отметки.</div>
+          <div className={styles.note}>{t("profile.studentsForAttendanceEmpty")}</div>
         )}
       </div>
     </article>

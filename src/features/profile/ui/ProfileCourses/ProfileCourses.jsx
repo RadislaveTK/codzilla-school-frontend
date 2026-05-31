@@ -9,22 +9,24 @@ import {
 } from "../../model/normalizers";
 import { useProfileCourses } from "../../model/useProfileCourses";
 import styles from "./ProfileCourses.module.css";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function ProfileCourses() {
   const { authLoading, user, loading, error, items, stats } =
     useProfileCourses();
   const bus = useBus();
+  const { t } = useI18n();
 
   const openCourseApplication = (course) => {
     bus.emit("feedbackModal:open", {
-      title: "Запись на курс",
+      title: t("courses.courseModalTitle"),
       type: "course",
       course: getCourseTitle(course),
     });
   };
 
   if (loading || authLoading) {
-    return <div className={styles.status}>Загружаем курсы...</div>;
+    return <div className={styles.status}>{t("profile.loadingCourses")}</div>;
   }
 
   if (error) {
@@ -34,26 +36,26 @@ export default function ProfileCourses() {
   return (
     <section className={styles.page}>
       <div className={styles.header}>
-        <span>{user?.role === "admin" ? "Администрирование" : "Обучение"}</span>
-        <h1>Курсы</h1>
+        <span>{user?.role === "admin" ? t("profile.sectionAdmin") : t("profile.learning")}</span>
+        <h1>{t("nav.courses")}</h1>
         <p>
           {user?.role === "admin"
-            ? "Список курсов, наполненность групп и основные параметры программ."
-            : "Курсы, на которых сейчас учатся ваши дети."}
+            ? t("profile.coursesAdminDescription")
+            : t("profile.coursesParentDescription")}
         </p>
       </div>
 
       <div className={styles.statsGrid}>
         <article>
-          <span>Всего курсов</span>
+          <span>{t("profile.totalCourses")}</span>
           <strong>{stats.total}</strong>
         </article>
         <article>
-          <span>Активных</span>
+          <span>{t("profile.active")}</span>
           <strong>{stats.active}</strong>
         </article>
         <article>
-          <span>Групп</span>
+          <span>{t("profile.groups")}</span>
           <strong>{stats.groups}</strong>
         </article>
       </div>
@@ -79,24 +81,24 @@ export default function ProfileCourses() {
                   <span>
                     {user?.role === "parent"
                       ? course.student_name
-                        ? `Учится: ${course.student_name}`
-                        : "Доступный курс"
+                        ? `${t("profile.studying")}: ${course.student_name}`
+                        : t("profile.availableCourse")
                       : course.age_range}
                   </span>
                 </div>
               </div>
 
-              <p>{course.description || "Описание курса пока не заполнено."}</p>
+              <p>{course.description || t("profile.courseDescriptionEmpty")}</p>
 
               <div className={styles.meta}>
-                <span>{course.formatted_price || "Цена не указана"}</span>
+                <span>{course.formatted_price || t("profile.priceNotSpecified")}</span>
                 <span>
                   {course.duration_weeks
-                    ? `${course.duration_weeks} недель`
-                    : "Длительность не указана"}
+                    ? `${course.duration_weeks} ${t("profile.weeks")}`
+                    : t("profile.durationNotSpecified")}
                 </span>
                 <span>
-                  {getCourseGroupsCount(course)} групп
+                  {getCourseGroupsCount(course)} {t("profile.groupsCount")}
                 </span>
               </div>
 
@@ -106,13 +108,13 @@ export default function ProfileCourses() {
                   className={styles.action}
                   onClick={() => openCourseApplication(course)}
                 >
-                  Записать на курс
+                  {t("profile.enrollStudent")}
                 </button>
               ) : null}
             </article>
           ))
         ) : (
-          <div className={styles.empty}>Курсы пока не найдены.</div>
+          <div className={styles.empty}>{t("profile.coursesEmpty")}</div>
         )}
       </div>
     </section>

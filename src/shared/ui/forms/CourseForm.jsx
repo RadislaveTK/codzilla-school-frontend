@@ -2,9 +2,11 @@ import useFeedback from "@/hooks/useFeedback";
 import { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import Image from "next/image";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function CourseForm({ course, onSuccess }) {
   const { loading, sendCourseEnrollment } = useFeedback();
+  const { t } = useI18n();
   const [values, setValues] = useState({
     full_name: "",
     phone: "",
@@ -22,13 +24,13 @@ export default function CourseForm({ course, onSuccess }) {
     const nextErrors = { full_name: "", phone: "", message: "" };
 
     if (!values.full_name) {
-      nextErrors.full_name = "Имя и фамилия обязательны";
+      nextErrors.full_name = t("forms.fullNameRequired");
     }
 
     if (!values.phone) {
-      nextErrors.phone = "Телефон обязателен";
+      nextErrors.phone = t("forms.phoneRequired");
     } else if (!/^\d{10,15}$/.test(values.phone.replace(/\D/g, ""))) {
-      nextErrors.phone = "Некорректный телефон";
+      nextErrors.phone = t("forms.phoneInvalid");
     }
 
     setErrors(nextErrors);
@@ -51,7 +53,7 @@ export default function CourseForm({ course, onSuccess }) {
     } catch (error) {
       const message =
         error?.message ||
-        "Ошибка отправки. Проверьте данные и попробуйте снова.";
+        t("forms.submitError");
       setServerError(message);
     }
   };
@@ -59,9 +61,9 @@ export default function CourseForm({ course, onSuccess }) {
   return (
     <form onSubmit={handleSubmit} autoComplete="off" style={styles.form}>
       <Box sx={styles.formItem}>
-        <Typography sx={styles.label}>Имя родителя:</Typography>
+        <Typography sx={styles.label}>{t("forms.parentName")}</Typography>
         <TextField
-          label="Имя и фамилия"
+          label={t("forms.fullName")}
           type="text"
           name="full_name"
           value={values.full_name}
@@ -71,7 +73,7 @@ export default function CourseForm({ course, onSuccess }) {
               full_name: event.target.value,
             }))
           }
-          placeholder="Иван Иванов"
+          placeholder={t("forms.sampleName")}
           error={!!errors.full_name}
           helperText={errors.full_name}
           fullWidth
@@ -80,9 +82,9 @@ export default function CourseForm({ course, onSuccess }) {
         />
       </Box>
       <Box sx={styles.formItem}>
-        <Typography sx={styles.label}>Номер телефона:</Typography>
+        <Typography sx={styles.label}>{t("forms.phoneNumber")}:</Typography>
         <TextField
-          label="Телефон"
+          label={t("forms.phoneLabel")}
           type="tel"
           name="phone"
           value={values.phone}
@@ -101,9 +103,9 @@ export default function CourseForm({ course, onSuccess }) {
         />
       </Box>
       <Box sx={styles.formItem}>
-        <Typography sx={styles.label}>Доп. вопросы:</Typography>
+        <Typography sx={styles.label}>{t("forms.questions")}</Typography>
         <TextField
-          label="Сообщение"
+          label={t("forms.message")}
           type="text"
           name="message"
           value={values.message}
@@ -113,7 +115,7 @@ export default function CourseForm({ course, onSuccess }) {
               message: event.target.value,
             }))
           }
-          placeholder="Дополнительная информация или вопросы по курсу"
+          placeholder={t("forms.messagePlaceholder")}
           error={!!errors.message}
           helperText={errors.message}
           fullWidth
@@ -136,23 +138,23 @@ export default function CourseForm({ course, onSuccess }) {
         fullWidth
         sx={styles.button}
       >
-        {loading ? "Отправляем..." : "Отправить заявку"}
+        {loading ? t("forms.sending") : t("forms.submitApplication")}
          <Image
           src={"/icons/courses/course/send.svg"}
-          alt="Перезвоните мне"
+          alt={t("forms.callMe")}
           width={20}
           height={20}
         />
       </Button>
       <p style={styles.description}>
-        Нажимая на кнопку, вы соглашаетесь с{" "}
+        {t("forms.agreement")}{" "}
         <a
           href="/privacy-policy"
           target="_blank"
           rel="noopener noreferrer"
           style={styles.link}
         >
-          политикой конфиденциальности
+          {t("forms.privacy")}
         </a>
       </p>
     </form>

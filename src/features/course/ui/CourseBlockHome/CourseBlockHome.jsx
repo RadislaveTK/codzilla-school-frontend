@@ -8,24 +8,26 @@ import styles from "./CourseBlockHome.module.css";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function CourseBlockHome() {
   const { courses, loading } = useCourses();
+  const { t } = useI18n();
 
   return (
     <Box className={"flex gap-40 col w-100 ai-center"}>
       <Box className={"flex col gap-20 ai-center"}>
         <Typography variant="h1" component="h1">
-          Почему именно мы?
+          {t("home.whyTitle")}
         </Typography>
         <Typography variant="body2" align="center">
-          Чем наши курсы отличаются от многих других? Какие есть преимущества?
+          {t("home.whyDescription")}
         </Typography>
       </Box>
 
       <Box className={styles.homeCoursesGrid}>
         {loading ? (
-          <Typography variant="body1">Загрузка курсов...</Typography>
+          <Typography variant="body1">{t("courses.loading")}</Typography>
         ) : (
           courses
             ?.slice(0, 4)
@@ -37,10 +39,10 @@ export default function CourseBlockHome() {
 
       <Box className={styles.courseBtn + " flex col gap-20 ai-center"}>
         <Link href={`/courses`} className={styles.courseBtn_btn + " flex row gap-10 ai-center"}>
-          Подробнее о курсах
+          {t("home.moreCourses")}
           <Image src={"/icons/to.svg"} alt={"to"} width={14} height={14} />
         </Link>
-        <p className={styles.courseLabel}>Нажмите на кнопку, чтобы узнать больше об информации о курсах</p>
+        <p className={styles.courseLabel}>{t("home.moreCoursesDescription")}</p>
       </Box>
     </Box>
   );

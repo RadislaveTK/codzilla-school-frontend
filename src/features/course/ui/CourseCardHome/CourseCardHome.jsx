@@ -2,8 +2,11 @@ import Image from "next/image";
 import styles from "./CourseCardHome.module.css";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function CourseCardHome({ course }) {
+  const { t } = useI18n();
+
   return (
     <div className={styles.CourseCard}>
       <Box className={styles.content}>
@@ -15,7 +18,7 @@ export default function CourseCardHome({ course }) {
       </Box>
 
       <Link href={`/courses/${course.slug}`} className={styles.link}>
-        <Typography variant="body1">Узнать больше</Typography>{" "}
+        <Typography variant="body1">{t("courses.learnMore")}</Typography>{" "}
         <Image src={"/icons/to.svg"} alt={"to"} width={14} height={14} />
       </Link>
     </div>

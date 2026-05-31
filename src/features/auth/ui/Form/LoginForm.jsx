@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { useI18n } from "@/shared/config/i18n";
 
 function validateEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,6 +14,7 @@ function validatePassword(password) {
 
 export default function LoginForm({ onSuccess }) {
   const { login } = useAuth();
+  const { t } = useI18n();
   const [values, setValues] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [serverError, setServerError] = useState("");
@@ -22,15 +24,15 @@ export default function LoginForm({ onSuccess }) {
     const nextErrors = { email: "", password: "" };
 
     if (!values.email) {
-      nextErrors.email = "Email обязателен";
+      nextErrors.email = t("auth.emailRequired");
     } else if (!validateEmail(values.email)) {
-      nextErrors.email = "Некорректный email";
+      nextErrors.email = t("auth.emailInvalid");
     }
 
     if (!values.password) {
-      nextErrors.password = "Пароль обязателен";
+      nextErrors.password = t("auth.passwordRequired");
     } else if (!validatePassword(values.password)) {
-      nextErrors.password = "Пароль должен быть не менее 8 символов";
+      nextErrors.password = t("auth.passwordMin");
     }
 
     setErrors(nextErrors);
@@ -56,7 +58,7 @@ export default function LoginForm({ onSuccess }) {
       const message =
         error?.errors?.email?.[0] ||
         error?.message ||
-        "Ошибка входа. Проверьте данные и попробуйте снова.";
+        t("auth.loginError");
       setServerError(message);
     } finally {
       setLoading(false);
@@ -96,7 +98,7 @@ export default function LoginForm({ onSuccess }) {
         }}
       />
       <TextField
-        label="Пароль"
+        label={t("auth.password")}
         type="password"
         name="password"
         value={values.password}
@@ -144,7 +146,7 @@ export default function LoginForm({ onSuccess }) {
           },
         }}
       >
-        {loading ? "Входим..." : "Войти"}
+        {loading ? t("auth.signingIn") : t("auth.signIn")}
       </Button>
     </Box>
   );

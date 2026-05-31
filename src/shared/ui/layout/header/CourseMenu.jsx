@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import SelectIcon from "@/shared/assets/icons/selectIcon.svg";
 import useCourses from "@/hooks/useCourses";
+import { useI18n } from "@/shared/config/i18n";
 
 const styles = {
   wrapper: {
@@ -59,6 +60,7 @@ const styles = {
 
 export default function CourseMenu() {
   const { courses } = useCourses();
+  const { t } = useI18n();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const timerRef = useRef(null);
@@ -106,7 +108,7 @@ export default function CourseMenu() {
       onMouseLeave={scheduleClose}
     >
       <span onClick={handleButtonClick} style={styles.button}>
-        Наши курсы
+        {t("nav.courses")}
         <div
           style={{
             ...styles.iconBox,

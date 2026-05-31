@@ -4,13 +4,15 @@ import { useAdminUsersManager } from "../../model/useAdminUsersManager";
 import { getActivityLabel, getRoleLabel } from "../../model/normalizers";
 import styles from "./AdminUsersManager.module.css";
 import ProfileSelect from "../ProfileSelect/ProfileSelect";
+import { useI18n } from "@/shared/config/i18n";
 
 const roleOptions = [
-  { value: "parent", label: "Родитель" },
-  { value: "admin", label: "Администратор / учитель" },
+  { value: "parent", labelKey: "profile.parent" },
+  { value: "admin", labelKey: "profile.adminTeacher" },
 ];
 
 export default function AdminUsersManager({ enabled }) {
+  const { t } = useI18n();
   const {
     users,
     form,
@@ -33,17 +35,17 @@ export default function AdminUsersManager({ enabled }) {
     <article className={styles.manager}>
       <div className={styles.header}>
         <div>
-          <span>Администрирование</span>
-          <h2>Пользователи</h2>
+          <span>{t("profile.sectionAdmin")}</span>
+          <h2>{t("profile.users")}</h2>
         </div>
         <button type="button" onClick={resetForm}>
-          Новый пользователь
+          {t("profile.newUser")}
         </button>
       </div>
 
       <form className={styles.form} onSubmit={saveUser}>
         <label>
-          Имя
+          {t("profile.name")}
           <input
             required
             value={form.name}
@@ -62,7 +64,7 @@ export default function AdminUsersManager({ enabled }) {
         </label>
 
         <label>
-          Телефон
+          {t("profile.phone")}
           <input
             value={form.phone}
             onChange={(event) => setField("phone", event.target.value)}
@@ -70,46 +72,46 @@ export default function AdminUsersManager({ enabled }) {
         </label>
 
         <label>
-          Роль
+          {t("profile.role")}
           <ProfileSelect
             value={form.role}
             onChange={(event) => setField("role", event.target.value)}
           >
             {roleOptions.map((role) => (
               <option key={role.value} value={role.value}>
-                {role.label}
+                {t(role.labelKey)}
               </option>
             ))}
           </ProfileSelect>
         </label>
 
         <label>
-          Пароль
+          {t("profile.password")}
           <input
             minLength="6"
             required={!form.id}
             type="password"
             value={form.password}
-            placeholder={form.id ? "Оставьте пустым без изменений" : ""}
+            placeholder={form.id ? t("profile.keepPassword") : ""}
             onChange={(event) => setField("password", event.target.value)}
           />
         </label>
 
         <label>
-          Активен
+          {t("profile.active")}
           <ProfileSelect
             value={String(form.is_active)}
             onChange={(event) =>
               setField("is_active", event.target.value === "true")
             }
           >
-            <option value="true">Да</option>
-            <option value="false">Нет</option>
+            <option value="true">{t("profile.yes")}</option>
+            <option value="false">{t("profile.no")}</option>
           </ProfileSelect>
         </label>
 
         <button type="submit" disabled={saving || loading}>
-          {form.id ? "Сохранить" : "Создать"}
+          {form.id ? t("profile.save") : t("profile.create")}
         </button>
       </form>
 
@@ -129,20 +131,20 @@ export default function AdminUsersManager({ enabled }) {
               </div>
               <div className={styles.actions}>
                 <button type="button" onClick={() => editUser(user)}>
-                  Изменить
+                  {t("profile.edit")}
                 </button>
                 <button
                   type="button"
                   onClick={() => deleteUser(user.id)}
                   disabled={saving}
                 >
-                  Удалить
+                  {t("profile.delete")}
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <div className={styles.empty}>Пользователи пока не найдены.</div>
+          <div className={styles.empty}>{t("profile.usersEmpty")}</div>
         )}
       </div>
     </article>

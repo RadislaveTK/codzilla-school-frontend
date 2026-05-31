@@ -6,10 +6,13 @@ import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { API_URL } from "@/shared/config/api";
+import { useI18n } from "@/shared/config/i18n";
 
 import stylesCurrent from "./StatisticBlock.module.css";
 
 export default function StatisticBlock() {
+  const { t } = useI18n();
+  const statDescription = t("home.statDescription");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -42,23 +45,21 @@ export default function StatisticBlock() {
       <Box className={stylesCurrent.staticBlock}>
         <Box className={"flex col gap-20 ai-center"} sx={{ maxWidth: "571px" }}>
           <Typography variant="h1" component="h1">
-            CODZILLA - не просто школа
+            {t("home.statTitle")}
           </Typography>
           <Typography variant="body2" align="center">
-            Наша цель — не просто обучить, а вдохновить. Помочь каждому ученику
-            почувствовать: я могу создавать технологии, а не просто пользоваться
-            ими.
-            <br />
-            <br />
-            Мы развиваем не только технические знания, но и мышление —
-            логическое, креативное, инженерное. Учим работать в команде,
-            находить решения и не бояться ошибок.
+            {statDescription.split("\n").map((line, index) => (
+              <span key={`${line}-${index}`}>
+                {line}
+                {index < statDescription.split("\n").length - 1 ? <br /> : null}
+              </span>
+            ))}
           </Typography>
         </Box>
 
         <Box className={stylesCurrent.cardsBox}>
           {loading ? (
-            <Typography variant="body1">Загрузка статистики...</Typography>
+            <Typography variant="body1">{t("home.loadingStats")}</Typography>
           ) : (
             <>
               <Box className={stylesCurrent.cardStat}>
@@ -71,7 +72,7 @@ export default function StatisticBlock() {
                   />
                   <p className={stylesCurrent.cardTitle}>2</p>
                 </Box>
-                <p className={stylesCurrent.cardText}>года обучения</p>
+                <p className={stylesCurrent.cardText}>{t("home.years")}</p>
               </Box>
 
               <Box className={stylesCurrent.cardStat}>
@@ -86,7 +87,7 @@ export default function StatisticBlock() {
                     {data?.total_students}
                   </p>
                 </Box>
-                <p className={stylesCurrent.cardText}>учеников в CODZILLA</p>
+                <p className={stylesCurrent.cardText}>{t("home.students")}</p>
               </Box>
 
               <Box className={stylesCurrent.cardStat}>
@@ -101,7 +102,7 @@ export default function StatisticBlock() {
                     {data?.total_courses}
                   </p>
                 </Box>
-                <p className={stylesCurrent.cardText}>учебных курсов</p>
+                <p className={stylesCurrent.cardText}>{t("home.courses")}</p>
               </Box>
 
               <Box className={stylesCurrent.cardStat}>
@@ -114,7 +115,7 @@ export default function StatisticBlock() {
                   />
                   <p className={stylesCurrent.cardTitle}>3</p>
                 </Box>
-                <p className={stylesCurrent.cardText}>предподователей</p>
+                <p className={stylesCurrent.cardText}>{t("home.teachers")}</p>
               </Box>
             </>
           )}
@@ -126,11 +127,11 @@ export default function StatisticBlock() {
           href={`/about`}
           className={styles.courseBtn_btn + " flex row gap-10 ai-center"}
         >
-          Заказать звонок
+          {t("courses.callButton")}
           <Image src={"/icons/to.svg"} alt={"to"} width={14} height={14} />
         </Link>
         <p className={styles.courseLabel}>
-          Оставьте свои контактные данные и мы перезвоним вам
+          {t("courses.questionsDescription")}
         </p>
       </Box>
     </Box>

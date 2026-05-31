@@ -17,12 +17,16 @@ import {
 } from "@mui/material";
 import { useBus } from "react-bus";
 import SectionCTA from "@/shared/ui/components/home/SectionCTA/SectionCTA";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function PageContent({ course }) {
+  const bus = useBus();
+  const { t } = useI18n();
+
   const courseJsonLd = {
     "@context": "https://schema.org",
     "@type": "Course",
-    name: course?.name || "Курс",
+    name: course?.name || t("profile.course"),
     description: course?.description || "",
     url: `https://codzilla-school.com/courses/${course?.slug || ""}`,
     provider: {
@@ -40,11 +44,9 @@ export default function PageContent({ course }) {
     duration: `P${course?.duration_weeks || 0}W`,
   };
 
-  const bus = useBus();
-
   const handleEnrollClick = () => {
     bus.emit("feedbackModal:open", {
-      title: "Запись на курс",
+      title: t("courses.courseModalTitle"),
       type: "course",
       course: course?.name,
     });
@@ -52,7 +54,7 @@ export default function PageContent({ course }) {
 
   const handleFeedbackClick = () => {
     bus.emit("feedbackModal:open", {
-      title: "Обратная связь",
+      title: t("courses.feedbackModalTitle"),
       type: "feedback"
     });
   };
@@ -84,7 +86,7 @@ export default function PageContent({ course }) {
                   height={16}
                 />
               </motion.span>
-              Назад к курсам
+              {t("courses.back")}
             </motion.p>
           </Link>
         </div>
@@ -112,8 +114,8 @@ export default function PageContent({ course }) {
 
             <Box className={styles.detailsWrapper}>
               <Box className={styles.detailsHeader}>
-                <h3>О курсе</h3>
-                <p>Ключевая информация о программе обучения</p>
+                <h3>{t("courses.aboutCourse")}</h3>
+                <p>{t("courses.aboutCourseDescription")}</p>
               </Box>
 
               <Box className={styles.detailsContent}>
@@ -125,7 +127,7 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <p>Возраст</p>
+                    <p>{t("courses.age")}</p>
                     <h4>{course.age_range}</h4>
                   </Box>
                 </div>
@@ -138,8 +140,8 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <p>Длительность</p>
-                    <h4>{course.duration_weeks} недель</h4>
+                    <p>{t("courses.duration")}</p>
+                    <h4>{course.duration_weeks} {t("courses.weeks")}</h4>
                   </Box>
                 </div>
 
@@ -151,7 +153,7 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <p>Стоимость</p>
+                    <p>{t("courses.price")}</p>
                     <h4>{course.formatted_price}</h4>
                   </Box>
                 </div>
@@ -164,7 +166,7 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <p>Активных групп</p>
+                    <p>{t("courses.activeGroups")}</p>
                     <h4>{course.active_groups_count}</h4>
                   </Box>
                 </div>
@@ -173,8 +175,8 @@ export default function PageContent({ course }) {
 
             <Box className={styles.detailsWrapper}>
               <Box className={styles.detailsHeader}>
-                <h3>Что вы изучите</h3>
-                <p>Основные навыки и знания</p>
+                <h3>{t("courses.whatLearn")}</h3>
+                <p>{t("courses.skillsDescription")}</p>
               </Box>
 
               <List
@@ -212,8 +214,8 @@ export default function PageContent({ course }) {
 
             <Box className={styles.detailsWrapper}>
               <Box className={styles.detailsHeader}>
-                <h3>Преимущества</h3>
-                <p>Почему стоит выбрать этот курс</p>
+                <h3>{t("courses.benefits")}</h3>
+                <p>{t("courses.benefitsDescription")}</p>
               </Box>
 
               <Box className={styles.detailsContent}>
@@ -225,8 +227,8 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <h4>Практический подход</h4>
-                    <p>Каждое занятие включает практические задания</p>
+                    <h4>{t("courses.practicalTitle")}</h4>
+                    <p>{t("courses.practicalDescription")}</p>
                   </Box>
                 </div>
 
@@ -238,8 +240,8 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <h4>Сертификат</h4>
-                    <p>По окончании курса вы получите сертификат</p>
+                    <h4>{t("courses.certificateTitle")}</h4>
+                    <p>{t("courses.certificateDescription")}</p>
                   </Box>
                 </div>
 
@@ -251,8 +253,8 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <h4>Материалы</h4>
-                    <p>Доступ к учебным материалам и ресурсам</p>
+                    <h4>{t("courses.materialsTitle")}</h4>
+                    <p>{t("courses.materialsDescription")}</p>
                   </Box>
                 </div>
 
@@ -264,8 +266,8 @@ export default function PageContent({ course }) {
                     height={56}
                   />
                   <Box className={styles.detailText}>
-                    <h4>Проекты</h4>
-                    <p>Создание реальных проектов в портфолио</p>
+                    <h4>{t("courses.projectsTitle")}</h4>
+                    <p>{t("courses.projectsDescription")}</p>
                   </Box>
                 </div>
               </Box>
@@ -274,14 +276,14 @@ export default function PageContent({ course }) {
           <Box className={styles.sidebarBox}>
             <Box className={styles.sideWrapper}>
               <Box className={styles.sideHeader}>
-                <h3>Записаться на курс</h3>
-                <p>Начните обучение уже сегодня</p>
+                <h3>{t("courses.enrollTitle")}</h3>
+                <p>{t("courses.enrollDescription")}</p>
               </Box>
               <Box className={styles.sideContent}>
                 <Box className={styles.sidePrice}>
-                  <p>Стоимость курса</p>
+                  <p>{t("courses.coursePrice")}</p>
                   <h1>{course.formatted_price}</h1>
-                  <p>за полный курс</p>
+                  <p>{t("courses.fullCourse")}</p>
                 </Box>
                 <Button
                   variant="contained"
@@ -289,21 +291,21 @@ export default function PageContent({ course }) {
                   onClick={handleEnrollClick}
                   sx={stylesMUI.button("blue")}
                 >
-                  Записаться на курс
+                  {t("courses.enrollButton")}
                 </Button>
                 <p className={styles.sideDescription}>
-                  После записи с вами свяжется наш менеджер
+                  {t("courses.managerContact")}
                 </p>
               </Box>
             </Box>
 
             <Box className={styles.sideWrapper}>
               <Box className={styles.sideHeader}>
-                <h3>Доступные группы</h3>
+                <h3>{t("courses.availableGroups")}</h3>
                 <p>
                   {course?.active_groups_count > 0
-                    ? "Есть доступные группы"
-                    : "Нет активных групп"}
+                    ? t("courses.groupsAvailable")
+                    : t("courses.noGroups")}
                 </p>
               </Box>
               {/* <Box className={styles.sideContent}></Box> */}
@@ -311,8 +313,8 @@ export default function PageContent({ course }) {
 
             <Box className={styles.sideWrapper}>
               <Box className={styles.sideHeader}>
-                <h3>Остались вопросы?</h3>
-                <p>Оставьте свои контактные данные и мы перезвоним вам</p>
+                <h3>{t("courses.questionsTitle")}</h3>
+                <p>{t("courses.questionsDescription")}</p>
               </Box>
               <Box className={styles.sideContent}>
                 <Button
@@ -321,7 +323,7 @@ export default function PageContent({ course }) {
                   onClick={handleFeedbackClick}
                   sx={stylesMUI.button("primary")}
                 >
-                  Заказать звонок
+                  {t("courses.callButton")}
                   <Image
                     src={"/icons/social/phone.svg"}
                     alt="Иконка телефона"
@@ -334,13 +336,13 @@ export default function PageContent({ course }) {
 
             <Box className={styles.sideWrapper}>
               <Box className={styles.sideHeader}>
-                <h3>Информация</h3>
+                <h3>{t("courses.info")}</h3>
               </Box>
               <Box className={styles.sideContent}>
                 <Box className={styles.flexInfo}>
                   <Box className={styles.infoItem}>
-                    <p>Статус</p>
-                    <span>Активен</span>
+                    <p>{t("courses.status")}</p>
+                    <span>{t("courses.active")}</span>
                   </Box>
                   <Divider
                     orientation="horizontal"
@@ -348,7 +350,7 @@ export default function PageContent({ course }) {
                     flexItem
                   />
                   <Box className={styles.infoItem}>
-                    <p>Всего уроков</p>
+                    <p>{t("courses.lessonsTotal")}</p>
                     <h4>{course?.lessons?.length}</h4>
                   </Box>
                   <Divider
@@ -357,8 +359,8 @@ export default function PageContent({ course }) {
                     flexItem
                   />
                   <Box className={styles.infoItem}>
-                    <p>Формат</p>
-                    <h4>Офлайн</h4>
+                    <p>{t("courses.format")}</p>
+                    <h4>{t("courses.offline")}</h4>
                   </Box>
                 </Box>
               </Box>
@@ -369,10 +371,8 @@ export default function PageContent({ course }) {
 
       <SectionCTA
         color={"var(--blue)"}
-        title={"Готовы начать обучение?"}
-        description={
-          "Запишитесь на курс прямо сейчас и получите доступ к материалам и поддержке преподавателей"
-        }
+        title={t("courses.readyTitle")}
+        description={t("courses.readyDescription")}
         button={
           <Button
             variant="contained"
@@ -380,7 +380,7 @@ export default function PageContent({ course }) {
             onClick={handleEnrollClick}
             sx={stylesMUI.button("white")}
           >
-            Записаться на курс
+            {t("courses.enrollButton")}
           </Button>
         }
       />

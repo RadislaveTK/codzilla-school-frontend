@@ -3,24 +3,26 @@
 import { useAuth } from "@/hooks/useAuth";
 import AdminUsersManager from "../AdminUsersManager/AdminUsersManager";
 import styles from "../ProfileStudents/ProfileStudents.module.css";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function ProfileUsers() {
   const { user, loading } = useAuth() || {};
+  const { t } = useI18n();
 
   if (loading) {
-    return <div className={styles.status}>Загружаем пользователей...</div>;
+    return <div className={styles.status}>{t("profile.loadingUsers")}</div>;
   }
 
   if (user?.role !== "admin") {
-    return <div className={styles.status}>Раздел доступен только администратору.</div>;
+    return <div className={styles.status}>{t("profile.adminOnly")}</div>;
   }
 
   return (
     <section className={styles.page}>
       <div className={styles.header}>
-        <span>Администрирование</span>
-        <h1>Пользователи</h1>
-        <p>Родители, администраторы и учителя, которые имеют доступ к системе.</p>
+        <span>{t("profile.sectionAdmin")}</span>
+        <h1>{t("profile.users")}</h1>
+        <p>{t("profile.usersDescription")}</p>
       </div>
 
       <AdminUsersManager enabled />

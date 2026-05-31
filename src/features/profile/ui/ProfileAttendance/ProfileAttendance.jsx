@@ -3,6 +3,7 @@
 import { useProfileAttendance } from "../../model/useProfileAttendance";
 import styles from "./ProfileAttendance.module.css";
 import ProfileSelect from "../ProfileSelect/ProfileSelect";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function ProfileAttendance() {
   const {
@@ -20,17 +21,18 @@ export default function ProfileAttendance() {
     records,
     stats,
   } = useProfileAttendance();
+  const { t } = useI18n();
 
   if (loading || authLoading) {
-    return <div className={styles.status}>Загружаем посещаемость...</div>;
+    return <div className={styles.status}>{t("profile.loadingAttendance")}</div>;
   }
 
   return (
     <section className={styles.page}>
       <div className={styles.header}>
-        <span>{user?.role === "admin" ? "Группы и ученики" : "Мои дети"}</span>
-        <h1>Посещаемость</h1>
-        <p>История занятий, пропусков и опозданий по доступным ученикам.</p>
+        <span>{user?.role === "admin" ? t("profile.groupAndStudents") : t("profile.myChildren")}</span>
+        <h1>{t("profile.attendance")}</h1>
+        <p>{t("profile.attendanceDescription")}</p>
       </div>
 
       {error ? <div className={styles.status}>{error}</div> : null}
@@ -38,14 +40,14 @@ export default function ProfileAttendance() {
       <div className={styles.controls}>
         {user?.role === "admin" ? (
           <label>
-            Группа
+            {t("profile.group")}
             <ProfileSelect
               value={selectedGroupId}
               onChange={(event) => setSelectedGroupId(event.target.value)}
             >
               {groups.map((group) => (
                 <option key={group.id} value={group.id}>
-                  {group.name} - {group.course?.name || "курс"}
+                  {group.name} - {group.course?.name || t("profile.course")}
                 </option>
               ))}
             </ProfileSelect>
@@ -53,7 +55,7 @@ export default function ProfileAttendance() {
         ) : null}
 
         <label>
-          Ученик
+          {t("profile.student")}
           <ProfileSelect
             value={selectedStudentId}
             onChange={(event) => setSelectedStudentId(event.target.value)}
@@ -69,42 +71,42 @@ export default function ProfileAttendance() {
 
       <div className={styles.statsGrid}>
         <article>
-          <span>Всего</span>
+          <span>{t("profile.total")}</span>
           <strong>{stats.total || records.length || 0}</strong>
         </article>
         <article>
-          <span>Присутствий</span>
+          <span>{t("profile.present")}</span>
           <strong>{stats.present || 0}</strong>
         </article>
         <article>
-          <span>Пропусков</span>
+          <span>{t("profile.absent")}</span>
           <strong>{stats.absent || 0}</strong>
         </article>
         <article>
-          <span>Опозданий</span>
+          <span>{t("profile.late")}</span>
           <strong>{stats.late || 0}</strong>
         </article>
       </div>
 
       <div className={styles.table}>
         <div className={styles.tableHead}>
-          <span>Дата</span>
-          <span>Занятие</span>
-          <span>Группа</span>
-          <span>Статус</span>
+          <span>{t("profile.date")}</span>
+          <span>{t("profile.lesson")}</span>
+          <span>{t("profile.group")}</span>
+          <span>{t("profile.status")}</span>
         </div>
 
         {records.length ? (
           records.map((record, index) => (
             <div className={styles.tableRow} key={`${record.date}-${index}`}>
-              <span>{record.date || "Дата не указана"}</span>
-              <strong>{record.lesson || "Занятие"}</strong>
-              <span>{record.group || "Без группы"}</span>
-              <mark>{record.status || "Не отмечено"}</mark>
+              <span>{record.date || t("profile.noDate")}</span>
+              <strong>{record.lesson || t("profile.lesson")}</strong>
+              <span>{record.group || t("profile.noGroup")}</span>
+              <mark>{record.status || t("profile.notMarked")}</mark>
             </div>
           ))
         ) : (
-          <div className={styles.empty}>Записей о посещаемости пока нет.</div>
+          <div className={styles.empty}>{t("profile.noAttendance")}</div>
         )}
       </div>
     </section>

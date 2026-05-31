@@ -4,9 +4,11 @@ import {useAuth} from "@/hooks/useAuth";
 import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {useBus} from "react-bus";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function ProfileButton() {
   const { user } = useAuth();
+  const { t } = useI18n();
   const bus = useBus();
   const router = useRouter();
 
@@ -27,7 +29,7 @@ export default function ProfileButton() {
       padding: "16px 20px",
     }} onClick={handleClick}>
       {/*{user ? `Личный кабинет` : "Войти"}*/}
-      Личный кабинет
+      {t("profile.button")}
     </Button>
   );
 }

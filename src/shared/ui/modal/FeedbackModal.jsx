@@ -5,8 +5,10 @@ import { useState } from "react";
 import CustomModal from "@/shared/ui/modal/CustomModal";
 import CourseForm from "../forms/CourseForm";
 import FeedbackForm from "../forms/FeedbackForm";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function FeedbackModal() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -26,7 +28,7 @@ export default function FeedbackModal() {
       case "feedback":
         return <FeedbackForm onSuccess={() => setOpen(false)} />;
       default:
-        return <p>Тип модального окна не указан</p>;
+        return <p>{t("forms.unknownModal")}</p>;
     }
   };
 

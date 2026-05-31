@@ -3,57 +3,59 @@
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import styles from "./ProfileAdmin.module.css";
+import { useI18n } from "@/shared/config/i18n";
 
 const adminSections = [
   {
     href: "/profile/admin/users",
-    title: "Пользователи",
-    description: "Родители, администраторы и доступ к системе.",
-    meta: "Аккаунты",
+    titleKey: "profile.users",
+    descriptionKey: "profile.usersDescription",
+    metaKey: "profile.accounts",
   },
   {
     href: "/profile/admin/students",
-    title: "Ученики и группы",
-    description: "Создание ученика, привязка к родителю, курсу и группе.",
-    meta: "Состав групп",
+    titleKey: "profile.studentsAndGroups",
+    descriptionKey: "profile.studentsGroupsDescription",
+    metaKey: "profile.groupRoster",
   },
   {
     href: "/profile/admin/courses",
-    title: "Курсы",
-    description: "Программы обучения, возраст, цена, навыки и активность.",
-    meta: "Программы",
+    titleKey: "nav.courses",
+    descriptionKey: "profile.programsDescription",
+    metaKey: "profile.programs",
   },
   {
     href: "/profile/admin/groups",
-    title: "Группы",
-    description: "Набор, вместимость и статус учебных групп.",
-    meta: "Потоки",
+    titleKey: "profile.groups",
+    descriptionKey: "profile.streamsDescription",
+    metaKey: "profile.streams",
   },
   {
     href: "/profile/admin/lessons",
-    title: "Занятия",
-    description: "Расписание, материалы, домашние задания и кабинеты.",
-    meta: "Уроки",
+    titleKey: "profile.lessons",
+    descriptionKey: "profile.lessonsDescription",
+    metaKey: "profile.lesson",
   },
   {
     href: "/profile/admin/attendance",
-    title: "Отметка занятия",
-    description: "Фиксация присутствия учеников после урока.",
-    meta: "Посещаемость",
+    titleKey: "profile.attendanceMarker",
+    descriptionKey: "profile.attendanceMarkerDescription",
+    metaKey: "profile.attendance",
   },
 ];
 
 export default function ProfileAdmin() {
   const { user, loading } = useAuth() || {};
+  const { t } = useI18n();
 
   if (loading) {
-    return <div className={styles.status}>Загружаем администрирование...</div>;
+    return <div className={styles.status}>{t("profile.loadingAdmin")}</div>;
   }
 
   if (user?.role !== "admin") {
     return (
       <div className={styles.status}>
-        Раздел администрирования доступен только администратору.
+        {t("profile.adminOnlyLong")}
       </div>
     );
   }
@@ -61,20 +63,17 @@ export default function ProfileAdmin() {
   return (
     <section className={styles.page}>
       <div className={styles.header}>
-        <span>Администрирование</span>
-        <h1>Панель управления</h1>
-        <p>
-          Отдельное место для действий администратора и учителя: пользователи,
-          курсы, группы, занятия и отметка посещаемости.
-        </p>
+        <span>{t("profile.sectionAdmin")}</span>
+        <h1>{t("profile.adminPanel")}</h1>
+        <p>{t("profile.adminDescription")}</p>
       </div>
 
       <div className={styles.grid}>
         {adminSections.map((section) => (
           <Link className={styles.card} href={section.href} key={section.href}>
-            <span>{section.meta}</span>
-            <strong>{section.title}</strong>
-            <p>{section.description}</p>
+            <span>{t(section.metaKey)}</span>
+            <strong>{t(section.titleKey)}</strong>
+            <p>{t(section.descriptionKey)}</p>
           </Link>
         ))}
       </div>

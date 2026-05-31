@@ -6,6 +6,7 @@ import { Box, Button, Typography } from "@mui/material";
 import CourseCardsBlock from "../../features/course/ui/CourseCardsBlock/CourseCardsBlock";
 import SectionCTA from "@/shared/ui/components/home/SectionCTA/SectionCTA";
 import { useBus } from "react-bus";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function PageContent() {
   const { courses, loading, filter, setFilter } = useCourses();
@@ -19,12 +20,13 @@ export default function PageContent() {
   };
 
   const bus = useBus();
+  const { t } = useI18n();
 
   const handleEnrollClick = () => {
     bus.emit("feedbackModal:open", {
-      title: "Запись на пробный урок",
+      title: t("courses.trialModalTitle"),
       type: "course",
-      course: "Пробный урок",
+      course: t("courses.trialCourse"),
     });
   };
 
@@ -37,17 +39,15 @@ export default function PageContent() {
           style={{ maxWidth: 700 }}
         >
           <Typography variant="h1" component="h1">
-            Наши курсы
+            {t("courses.title")}
           </Typography>
           <Typography variant="body2" align="center">
-            Выберите подходящую программу обучения для вашего ребенка. Мы
-            предлагаем курсы по программированию, робототехнике и созданию игр
-            для детей разных возрастов.
+            {t("courses.description")}
           </Typography>
         </Box>
 		
         {loading ? (
-          <p>Загрузка курсов...</p>
+          <p>{t("courses.loading")}</p>
         ) : (
           <CourseCardsBlock
             courses={courses}
@@ -58,10 +58,8 @@ export default function PageContent() {
       </div>
        <SectionCTA
         color={"var(--primary)"}
-        title={"Не знаете, что выбрать?"}
-        description={
-          "Запишитесь на бесплатный пробный урок. Мы поможем определить интересы ребенка и подберем идеальный курс."
-        }
+        title={t("courses.trialTitle")}
+        description={t("courses.trialDescription")}
         button={
           <Button
             variant="contained"
@@ -78,7 +76,7 @@ export default function PageContent() {
               whiteSpace: { xs: "normal", sm: "nowrap" },
             }}
           >
-            Записаться на пробный урок
+            {t("courses.trialButton")}
           </Button>
         }
       />

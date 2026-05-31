@@ -1,6 +1,7 @@
 import { TextField, Box, Button } from "@mui/material";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { useI18n } from "@/shared/config/i18n";
 
 function validateEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,6 +14,7 @@ function validatePassword(password) {
 
 export default function RegisterForm({ onSuccess }) {
   const { register } = useAuth();
+  const { t } = useI18n();
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -28,29 +30,29 @@ export default function RegisterForm({ onSuccess }) {
     const nextErrors = {};
 
     if (!values.name) {
-      nextErrors.name = "Имя обязательно";
+      nextErrors.name = t("auth.nameRequired");
     }
 
     if (!values.email) {
-      nextErrors.email = "Email обязателен";
+      nextErrors.email = t("auth.emailRequired");
     } else if (!validateEmail(values.email)) {
-      nextErrors.email = "Некорректный email";
+      nextErrors.email = t("auth.emailInvalid");
     }
 
     if (values.phone && values.phone.length > 20) {
-      nextErrors.phone = "Телефон слишком длинный";
+      nextErrors.phone = t("auth.phoneTooLong");
     }
 
     if (!values.password) {
-      nextErrors.password = "Пароль обязателен";
+      nextErrors.password = t("auth.passwordRequired");
     } else if (!validatePassword(values.password)) {
-      nextErrors.password = "Пароль должен быть не менее 8 символов";
+      nextErrors.password = t("auth.passwordMin");
     }
 
     if (!values.password_confirmation) {
-      nextErrors.password_confirmation = "Подтвердите пароль";
+      nextErrors.password_confirmation = t("auth.confirmPassword");
     } else if (values.password !== values.password_confirmation) {
-      nextErrors.password_confirmation = "Пароли не совпадают";
+      nextErrors.password_confirmation = t("auth.passwordsMismatch");
     }
 
     setErrors(nextErrors);
@@ -86,7 +88,7 @@ export default function RegisterForm({ onSuccess }) {
         error?.errors?.password?.[0] ||
         error?.errors?.password_confirmation?.[0] ||
         error?.message ||
-        "Ошибка регистрации. Проверьте данные и попробуйте снова.";
+        t("auth.registerError");
       setServerError(serverMessage);
     } finally {
       setLoading(false);
@@ -101,7 +103,7 @@ export default function RegisterForm({ onSuccess }) {
       sx={{ display: "grid", gap: 2 }}
     >
       <TextField
-        label="Имя"
+        label={t("auth.name")}
         name="name"
         value={values.name}
         onChange={(event) =>
@@ -142,14 +144,14 @@ export default function RegisterForm({ onSuccess }) {
         }}
       />
       <TextField
-        label="Телефон"
+        label={t("auth.phone")}
         name="phone"
         value={values.phone}
         onChange={(event) =>
           setValues((prev) => ({ ...prev, phone: event.target.value }))
         }
         error={!!errors.phone}
-        helperText={errors.phone || "Необязательно"}
+        helperText={errors.phone || t("auth.phoneOptional")}
         fullWidth
          sx={{
           transition: "all 0.3s ease",
@@ -162,7 +164,7 @@ export default function RegisterForm({ onSuccess }) {
         }}
       />
       <TextField
-        label="Пароль"
+        label={t("auth.password")}
         type="password"
         name="password"
         value={values.password}
@@ -183,7 +185,7 @@ export default function RegisterForm({ onSuccess }) {
         }}
       />
       <TextField
-        label="Подтвердите пароль"
+        label={t("auth.confirmPassword")}
         type="password"
         name="password_confirmation"
         value={values.password_confirmation}
@@ -230,7 +232,7 @@ export default function RegisterForm({ onSuccess }) {
           },
         }}
       >
-        {loading ? "Регистрируем..." : "Зарегистрироваться"}
+        {loading ? t("auth.signingUp") : t("auth.signUp")}
       </Button>
     </Box>
   );

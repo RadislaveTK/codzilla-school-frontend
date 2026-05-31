@@ -3,12 +3,14 @@
 import { useProfileSummary } from "../../model/useProfileSummary";
 import { getGroupStatusLabel } from "../../model/normalizers";
 import styles from "./ProfileSummary.module.css";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function ProfileSummary() {
   const { authLoading, user, state, stats } = useProfileSummary();
+  const { t } = useI18n();
 
   if (state.loading || authLoading) {
-    return <div className={styles.status}>Загружаем сводку...</div>;
+    return <div className={styles.status}>{t("profile.loadingSummary")}</div>;
   }
 
   if (state.error) {
@@ -18,12 +20,9 @@ export default function ProfileSummary() {
   return (
     <section className={styles.page}>
       <div className={styles.header}>
-        <span>{user?.role === "admin" ? "Администратор" : "Родитель"}</span>
-        <h1>Сводка</h1>
-        <p>
-          Быстрый обзор данных личного кабинета: курсы, группы, ученики и
-          посещаемость.
-        </p>
+        <span>{user?.role === "admin" ? t("profile.admin") : t("profile.parent")}</span>
+        <h1>{t("profile.summary")}</h1>
+        <p>{t("profile.summaryDescription")}</p>
       </div>
 
       <div className={styles.statsGrid}>
@@ -39,14 +38,14 @@ export default function ProfileSummary() {
         <>
           <div className={styles.contentGrid}>
             <article className={styles.panel}>
-              <h2>Группы</h2>
+              <h2>{t("profile.groups")}</h2>
               <div className={styles.list}>
                 {state.groups.slice(0, 6).map((group) => (
                   <div className={styles.row} key={group.id}>
                     <div>
                       <strong>{group.name}</strong>
                       <span>
-                        {group.course?.name || "Курс не указан"} ·{" "}
+                        {group.course?.name || t("profile.courseNotSpecified")} ·{" "}
                         {getGroupStatusLabel(group)}
                       </span>
                     </div>
@@ -59,7 +58,7 @@ export default function ProfileSummary() {
             </article>
 
             <article className={styles.panel}>
-              <h2>Курсы</h2>
+              <h2>{t("nav.courses")}</h2>
               <div className={styles.list}>
                 {state.courses.slice(0, 6).map((course) => (
                   <div className={styles.row} key={course.id}>
@@ -81,11 +80,11 @@ export default function ProfileSummary() {
             <article className={styles.panel} key={child.id}>
               <h2>{child.full_name}</h2>
               <div className={styles.details}>
-                <span>Возраст: {child.age || "не указан"}</span>
+                <span>{t("profile.age")}: {child.age || t("profile.notSpecified")}</span>
                 <span>
-                  Курс: {child.current_course?.name || "курс не назначен"}
+                  {t("profile.course")}: {child.current_course?.name || t("profile.courseNotAssigned")}
                 </span>
-                <span>Прогресс: {child.current_progress_percent || 0}%</span>
+                <span>{t("profile.progress")}: {child.current_progress_percent || 0}%</span>
               </div>
             </article>
           ))}

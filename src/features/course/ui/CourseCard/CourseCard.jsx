@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import styles from "./CourseCard.module.css";
 import Link from "next/link";
+import { useI18n } from "@/shared/config/i18n";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 18 },
@@ -14,6 +15,8 @@ const footerVariants = {
 };
 
 function CourseCard({ course }) {
+  const { t } = useI18n();
+
   return (
     <motion.div
       className={styles.card}
@@ -49,7 +52,7 @@ function CourseCard({ course }) {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
-            {course.formatted_price}/мес
+            {course.formatted_price}/{t("courses.perMonth")}
           </motion.span>
           <Link href={`/courses/${course.slug}`}>
             <motion.p
@@ -60,7 +63,7 @@ function CourseCard({ course }) {
                 hover: { x: 4 },
               }}
             >
-              Подробнее
+              {t("courses.details")}
               <motion.span
                 className={styles.arrow}
                 whileHover={{ x: 6 }}

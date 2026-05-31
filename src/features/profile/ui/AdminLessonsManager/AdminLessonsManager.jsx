@@ -4,8 +4,10 @@ import { useAdminLessonsManager } from "../../model/useAdminLessonsManager";
 import { formatDateTimeRange } from "../../model/normalizers";
 import styles from "./AdminLessonsManager.module.css";
 import ProfileSelect from "../ProfileSelect/ProfileSelect";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function AdminLessonsManager({ enabled }) {
+  const { t } = useI18n();
   const {
     lessons,
     form,
@@ -29,17 +31,17 @@ export default function AdminLessonsManager({ enabled }) {
     <article className={styles.manager}>
       <div className={styles.header}>
         <div>
-          <span>Учитель</span>
-          <h2>Занятия и материалы</h2>
+          <span>{t("profile.teacher")}</span>
+          <h2>{t("profile.lessonsAndMaterials")}</h2>
         </div>
         <button type="button" onClick={resetForm}>
-          Новое занятие
+          {t("profile.newLesson")}
         </button>
       </div>
 
       <form className={styles.form} onSubmit={saveLesson}>
         <label>
-          Группа
+          {t("profile.group")}
           <ProfileSelect
             required
             value={form.group_id}
@@ -54,7 +56,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <label>
-          Тема
+          {t("profile.topic")}
           <input
             required
             value={form.title}
@@ -63,7 +65,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <label>
-          Начало
+          {t("profile.start")}
           <input
             required
             type="datetime-local"
@@ -73,7 +75,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <label>
-          Конец
+          {t("profile.end")}
           <input
             type="datetime-local"
             value={form.ends_at}
@@ -82,7 +84,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <label>
-          Кабинет
+          {t("profile.room")}
           <input
             value={form.room}
             onChange={(event) => setField("room", event.target.value)}
@@ -90,7 +92,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <label className={styles.wide}>
-          Описание
+          {t("profile.descriptionField")}
           <textarea
             value={form.description}
             onChange={(event) => setField("description", event.target.value)}
@@ -98,7 +100,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <label className={styles.wide}>
-          Материалы, каждый с новой строки
+          {t("profile.materialsEachLine")}
           <textarea
             value={form.materials}
             onChange={(event) => setField("materials", event.target.value)}
@@ -106,7 +108,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <label className={styles.wide}>
-          Домашнее задание
+          {t("profile.homework")}
           <textarea
             value={form.homework}
             onChange={(event) => setField("homework", event.target.value)}
@@ -114,7 +116,7 @@ export default function AdminLessonsManager({ enabled }) {
         </label>
 
         <button type="submit" disabled={saving || loading || !groupOptions.length}>
-          {form.id ? "Сохранить" : "Создать"}
+          {form.id ? t("profile.save") : t("profile.create")}
         </button>
       </form>
 
@@ -128,26 +130,26 @@ export default function AdminLessonsManager({ enabled }) {
               <div>
                 <strong>{lesson.title || lesson.lesson_title}</strong>
                 <span>
-                  {lesson.group?.name || "Группа не указана"} ·{" "}
+                  {lesson.group?.name || t("profile.noGroup")} ·{" "}
                   {formatDateTimeRange(lesson.starts_at, lesson.ends_at)}
                 </span>
               </div>
               <div className={styles.actions}>
                 <button type="button" onClick={() => editLesson(lesson)}>
-                  Изменить
+                  {t("profile.edit")}
                 </button>
                 <button
                   type="button"
                   onClick={() => deleteLesson(lesson.id)}
                   disabled={saving}
                 >
-                  Удалить
+                  {t("profile.delete")}
                 </button>
               </div>
             </div>
           ))
         ) : (
-          <div className={styles.empty}>Занятия пока не созданы.</div>
+          <div className={styles.empty}>{t("profile.lessonsEmpty")}</div>
         )}
       </div>
     </article>

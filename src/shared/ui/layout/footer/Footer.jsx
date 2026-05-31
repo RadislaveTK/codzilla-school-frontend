@@ -1,15 +1,20 @@
+"use client";
+
 import style from "./Footer.module.css";
 import { Box } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useI18n } from "@/shared/config/i18n";
 
 export default function Footer() {
+  const { t } = useI18n();
+
   return (
     <footer className={style.Footer}>
       <Box className={style.mainBox}>
         <div className={style.mainName}>
           <h1>CODZILLA</h1>
-          <p>Школа дронов и программирования</p>
+          <p>{t("footer.description")}</p>
         </div>
         <div className={style.linksBox}>
           <Box className={style.links + " flex row ai-center gap-10"}>
@@ -38,7 +43,7 @@ export default function Footer() {
               />
             </a>
           </Box>
-          <p>Посетите наши соц. сети, будьте в курсе новостей и курсов!</p>
+          <p>{t("footer.socials")}</p>
         </div>
       </Box>
       <Box className={style.mapBox}>
@@ -60,23 +65,24 @@ export default function Footer() {
         </div>
 
         <p className={style.mapDescription}>
-          БЦ Эдем
-          <br />
-          Улица Нурсултана Назарбаева, 246Б
-          <br />
-          305 офис; 3 этаж
+          {t("footer.address").split("\n").map((line) => (
+            <span key={line}>
+              {line}
+              <br />
+            </span>
+          ))}
         </p>
       </Box>
 
       <Box className={style.navBox}>
         <Link href={"/"} className={style.navLink}>
-          Главная
+          {t("nav.home")}
         </Link>
         <Link href={"/courses"} className={style.navLink}>
-          Курсы
+          {t("nav.courses")}
         </Link>
         <Link href={"/about"} className={style.navLink}>
-          О нас
+          {t("nav.about")}
         </Link>
       </Box>
     </footer>
